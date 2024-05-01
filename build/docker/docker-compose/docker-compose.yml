@@ -1,0 +1,40 @@
+version: '3'
+services:
+  discovery-eureka:
+    image: utopiandrmer/compi-discovery-eureka
+    environment:
+      - active_profile=dev
+    ports:
+      - 8761:8761
+    networks:
+      - comp-net
+
+  api-gateway:
+    image: utopiandrmer/compi-api-gateway
+    environment:
+      - active_profile=dev
+    ports:
+      - 8000:8000
+    networks:
+      - comp-net
+
+  auth-service:
+    image: utopiandrmer/compi-auth-service
+    environment:
+      - active_profile=dev
+    ports:
+      - 8081:8080
+    networks:
+      - comp-net
+
+  board-service:
+    image: utopiandrmer/compi-board-service
+    environment:
+      - active_profile=dev
+    ports:
+      - 8082:8080
+    networks:
+      - comp-net
+
+networks:
+  comp-net:
