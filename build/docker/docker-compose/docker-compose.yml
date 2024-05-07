@@ -5,6 +5,7 @@ services:
     image: utopiandrmer/compi-discovery-eureka
     environment:
       - active_profile=dev
+      - TZ=Asia/Seoul
     ports:
       - 8761:8761
     networks:
@@ -14,6 +15,7 @@ services:
     image: utopiandrmer/compi-api-gateway
     environment:
       - active_profile=dev
+      - TZ=Asia/Seoul
     ports:
       - 8000:8000
     networks:
@@ -26,6 +28,7 @@ services:
     image: utopiandrmer/compi-auth-service
     environment:
       - active_profile=dev
+      - TZ=Asia/Seoul
     ports:
       - 8081:8080
     networks:
@@ -38,6 +41,7 @@ services:
     image: utopiandrmer/compi-board-service
     environment:
       - active_profile=dev
+      - TZ=Asia/Seoul
     ports:
       - 8082:8080
     networks:
@@ -62,6 +66,15 @@ services:
       - 6379:6379
     environment:
       - REDIS_PASSWORD=1234
+    networks:
+      - comp-net
+
+  nginx:
+    image: utopiandrmer/comp-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: unless-stopped
     networks:
       - comp-net
 
