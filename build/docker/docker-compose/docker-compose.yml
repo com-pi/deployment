@@ -1,7 +1,8 @@
-version: '3'
+version: '3.8'
 
 services:
   discovery-eureka:
+    container_name: discovery-eureka
     image: utopiandrmer/compi-discovery-eureka
     environment:
       - active_profile=dev
@@ -12,6 +13,7 @@ services:
       - comp-net
 
   api-gateway:
+    container_name: api-gateway
     image: utopiandrmer/compi-api-gateway
     environment:
       - active_profile=dev
@@ -25,6 +27,7 @@ services:
       - redis
 
   auth-service:
+    container_name: auth-service
     image: utopiandrmer/compi-auth-service
     environment:
       - active_profile=dev
@@ -38,6 +41,7 @@ services:
       - redis
 
   board-service:
+    container_name: board-service
     image: utopiandrmer/compi-board-service
     environment:
       - active_profile=dev
@@ -51,6 +55,7 @@ services:
       - redis
 
   mysql:
+    container_name: mysql
     image: mysql
     environment:
       - MYSQL_ROOT_PASSWORD=1234
@@ -61,6 +66,7 @@ services:
       - comp-net
 
   redis:
+    container_name: redis
     image: redis
     ports:
       - 6379:6379
@@ -70,6 +76,7 @@ services:
       - comp-net
 
   nginx:
+    container_name: nginx
     image: utopiandrmer/comp-nginx
     ports:
       - "80:80"
@@ -77,6 +84,20 @@ services:
     restart: unless-stopped
     networks:
       - comp-net
+
+  minio:
+    container_name: minio
+    image: quay.io/minio/minio
+    ports:
+      - "9000:9000"  # MinIO 서버 포트 매핑
+      - "9001:9001"  # MinIO 콘솔 포트 매핑
+    volumes:
+      - "~/minio/data:/data"  # 호스트와 컨테이너 간의 볼륨 매핑
+    environment:
+      MINIO_ROOT_USER: ADMIN
+      MINIO_ROOT_PASSWORD: 1234
+    command: server /data --console-address ":9001"
+
 
 networks:
   comp-net:
