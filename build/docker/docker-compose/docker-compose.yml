@@ -1,4 +1,7 @@
 version: '3.8'
+networks:
+  comp-net:
+    driver: bridge
 
 services:
   discovery-eureka:
@@ -9,8 +12,6 @@ services:
       - TZ=Asia/Seoul
     ports:
       - 8761:8761
-    networks:
-      - comp-net
     depends_on:
       - nginx
       - mysql
@@ -25,8 +26,6 @@ services:
       - TZ=Asia/Seoul
     ports:
       - 8000:8000
-    networks:
-      - comp-net
     depends_on:
       - mysql
       - redis
@@ -42,8 +41,6 @@ services:
       - TZ=Asia/Seoul
     ports:
       - 8081:8080
-    networks:
-      - comp-net
     depends_on:
       - mysql
       - redis
@@ -59,8 +56,6 @@ services:
       - TZ=Asia/Seoul
     ports:
       - 8082:8080
-    networks:
-      - comp-net
     depends_on:
       - mysql
       - redis
@@ -76,8 +71,6 @@ services:
       - MYSQL_DATABASE=comp
     ports:
       - 3306:3306
-    networks:
-      - comp-net
 
   redis:
     container_name: redis
@@ -86,8 +79,6 @@ services:
       - 6379:6379
     environment:
       - REDIS_PASSWORD=1234
-    networks:
-      - comp-net
 
   nginx:
     container_name: nginx
@@ -96,8 +87,6 @@ services:
       - "80:80"
       - "443:443"
     restart: unless-stopped
-    networks:
-      - comp-net
 
   minio:
     container_name: minio
@@ -112,5 +101,4 @@ services:
       MINIO_ROOT_PASSWORD: compcomp!!
     command: server /data --console-address ":9001"
 
-networks:
-  comp-net:
+
