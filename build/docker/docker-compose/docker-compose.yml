@@ -95,7 +95,7 @@ services:
       - "~/minio/data:/data"  # 호스트와 컨테이너 간의 볼륨 매핑
     environment:
       MINIO_ROOT_USER: ADMIN
-      MINIO_ROOT_PASSWORD: 1234
+      MINIO_ROOT_PASSWORD: compcomp!!
     command: server /data --console-address ":9001"
 
 
