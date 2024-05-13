@@ -21,12 +21,3 @@ services:
       - MINIO_ROOT_USER=ADMIN
       - MINIO_ROOT_PASSWORD=compcomp!!
     command: server /data --console-address ":9001"
-
-  mysql:
-    container_name: mysql
-    image: mysql
-    environment:
-      - MYSQL_ROOT_PASSWORD=1234
-      - MYSQL_DATABASE=comp
-    ports:
-      - 3306:3306
