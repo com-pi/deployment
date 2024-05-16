@@ -16,7 +16,7 @@ CREATE TABLE article (
                          primary key (id));
 
 CREATE TABLE member (
-                        id bigint not null,
+                        id bigint auto_increment not null,
                         member_id bigint,
                         image_url varchar(255),
                         nickname varchar(255),
