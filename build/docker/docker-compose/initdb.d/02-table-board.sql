@@ -1,11 +1,6 @@
-USE board;
-
-create sequence article_seq start with 1 increment by 1
-create sequence member_seq start with 1 increment by 1
-
-CREATE TABLE ARTICLE (
+CREATE TABLE BOARD.ARTICLE (
                          price integer,
-                         id bigint not null,
+                         id bigint auto_increment not null,
                          member_id bigint,
                          article_type varchar(255) check (article_type in ('BUY_AND_SELL','PLANT_SITTER','SHOW_OFF','QNA')),
                          content varchar(255),
@@ -18,11 +13,11 @@ CREATE TABLE ARTICLE (
                          title varchar(255),
                          primary key (id))
 
-CREATE TABLE MEMBER (
+CREATE TABLE BOARD.MEMBER (
                         id bigint not null,
                         member_id bigint,
                         image_url varchar(255),
                         nickname varchar(255),
-                        primary key (id))
+                        primary key (id));
 
-insert into member(1, 1, null, '관리자');
+INSERT INTO BOARD.MEMBER (member_id, image_url, nickname) VALUES (1, null, '관리자');

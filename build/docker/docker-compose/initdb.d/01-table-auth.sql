@@ -1,11 +1,9 @@
 USE auth;
 
-CREATE SEQUENCE MEMBER_SEQ START WITH 2 INCREMENT BY 1;
-
-CREATE TABLE MEMBER (
+CREATE TABLE AUTH.MEMBER (
                         created_at timestamp(6) not null DEFAULT CURRENT_TIMESTAMP(6),
                         deleted_at timestamp(6),
-                        id bigint not null,
+                        id bigint auto_increment not null,
                         last_login timestamp(6),
                         updated_at timestamp(6),
                         deletion_yn varchar(255) not null default 'N',
@@ -25,4 +23,4 @@ CREATE TABLE MEMBER (
                         location geometry,
                         primary key (id));
 
-INSERT INTO MEMBER (id, nickname, role) VALUES (1, '관리자', 'ADMIN')
+INSERT INTO AUTH.MEMBER (nickname, role) VALUES ('관리자', 'ADMIN')
