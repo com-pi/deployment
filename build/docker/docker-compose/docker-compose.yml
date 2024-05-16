@@ -80,6 +80,11 @@ services:
       - 6379:6379
     environment:
       - REDIS_PASSWORD=1234
+    depends_on:
+      - api-gateway
+      - discovery-eureka
+      - auth-service
+      - board-service
 
   nginx:
     container_name: nginx
@@ -88,6 +93,7 @@ services:
       - "80:80"
       - "443:443"
     restart: unless-stopped
+
 
   minio:
     container_name: minio
