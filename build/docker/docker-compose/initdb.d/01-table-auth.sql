@@ -15,7 +15,7 @@ CREATE TABLE member (
                         naver_id varchar(255) unique,
                         nickname varchar(255) not null unique,
                         password varchar(255),
-                        phone_number varchar(255),
+                        phone_number varchar(255) unique,
                         role varchar(255) check (role in ('ANONYMOUS','MEMBER','ADMIN')),
                         sido varchar(255),
                         sigungu varchar(255),
