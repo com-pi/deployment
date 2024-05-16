@@ -1,4 +1,6 @@
-CREATE TABLE BOARD.ARTICLE (
+USE BOARD;
+
+CREATE TABLE ARTICLE (
                          price integer,
                          id bigint auto_increment not null,
                          member_id bigint,
@@ -11,13 +13,13 @@ CREATE TABLE BOARD.ARTICLE (
                          sido varchar(255),
                          sigungu varchar(255),
                          title varchar(255),
-                         primary key (id))
+                         primary key (id));
 
-CREATE TABLE BOARD.MEMBER (
+CREATE TABLE MEMBER (
                         id bigint not null,
                         member_id bigint,
                         image_url varchar(255),
                         nickname varchar(255),
                         primary key (id));
 
-INSERT INTO BOARD.MEMBER (member_id, image_url, nickname) VALUES (1, null, '관리자');
+INSERT INTO MEMBER (member_id, image_url, nickname) VALUES (1, null, '관리자');
