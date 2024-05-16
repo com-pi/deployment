@@ -66,7 +66,7 @@ services:
       - ./initdb.d:/docker-entrypoint-initdb.d
     environment:
       - MYSQL_ROOT_PASSWORD=1234
-    command: --lower_case_table_names=1 --initialize-insecure # 대소문자구분 끄기 (임시)
+    command: "--lower_case_table_names=1"
     ports:
       - 3306:3306
 
