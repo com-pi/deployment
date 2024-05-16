@@ -13,7 +13,6 @@ services:
     ports:
       - 8761:8761
     depends_on:
-      - nginx
       - mysql
       - redis
       - minio
@@ -45,7 +44,6 @@ services:
       - redis
       - minio
       - discovery-eureka
-      - nginx
 
   board-service:
     container_name: board-service
@@ -60,7 +58,6 @@ services:
       - redis
       - minio
       - discovery-eureka
-      - nginx
 
   mysql:
     container_name: mysql
