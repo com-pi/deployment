@@ -1,4 +1,4 @@
-USE BOARD;
+USE board;
 
 CREATE TABLE ARTICLE (
                          price integer,
@@ -9,7 +9,7 @@ CREATE TABLE ARTICLE (
                          eupmyundong varchar(255),
                          hashtags varchar(255),
                          image_urls varchar(255),
-                         location Geometry(Point, 4326),
+                         location Geometry,
                          sido varchar(255),
                          sigungu varchar(255),
                          title varchar(255),

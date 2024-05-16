@@ -1,4 +1,4 @@
-USE AUTH;
+USE auth;
 
 CREATE TABLE MEMBER (
                         created_at timestamp(6) not null DEFAULT CURRENT_TIMESTAMP(6),
