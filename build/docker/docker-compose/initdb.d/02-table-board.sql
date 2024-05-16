@@ -1,6 +1,6 @@
 USE board;
 
-CREATE TABLE ARTICLE (
+CREATE TABLE article (
                          price integer,
                          id bigint auto_increment not null,
                          member_id bigint,
@@ -15,11 +15,11 @@ CREATE TABLE ARTICLE (
                          title varchar(255),
                          primary key (id));
 
-CREATE TABLE MEMBER (
+CREATE TABLE member (
                         id bigint not null,
                         member_id bigint,
                         image_url varchar(255),
                         nickname varchar(255),
                         primary key (id));
 
-INSERT INTO MEMBER (member_id, image_url, nickname) VALUES (1, null, '관리자');
+INSERT INTO member (member_id, image_url, nickname) VALUES (1, null, '관리자');

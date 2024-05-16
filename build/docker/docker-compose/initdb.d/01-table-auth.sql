@@ -1,6 +1,6 @@
 USE auth;
 
-CREATE TABLE MEMBER (
+CREATE TABLE member (
                         created_at timestamp(6) not null DEFAULT CURRENT_TIMESTAMP(6),
                         deleted_at timestamp(6),
                         id bigint auto_increment not null,
@@ -23,4 +23,4 @@ CREATE TABLE MEMBER (
                         location geometry,
                         primary key (id));
 
-INSERT INTO MEMBER (nickname, role) VALUES ('관리자', 'ADMIN');
+INSERT INTO member (nickname, role) VALUES ('관리자', 'ADMIN');
