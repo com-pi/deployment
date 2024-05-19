@@ -59,6 +59,20 @@ services:
       - minio
       - discovery-eureka
 
+  my-plant:
+    container_name: my-plant
+    image: utopiandrmer/compi-my-plant
+    environment:
+      - active_profile=dev
+      - TZ=Asia/Seoul
+    ports:
+      - 8083:8080
+    depends_on:
+      - mysql
+      - redis
+      - minio
+      - discovery-eureka
+
   mysql:
     container_name: mysql
     image: mysql
@@ -97,10 +111,10 @@ services:
     container_name: minio
     image: quay.io/minio/minio
     ports:
-      - "9000:9000"  # MinIO 서버 포트 매핑
-      - "9001:9001"  # MinIO 콘솔 포트 매핑
+      - "9000:9000"  # 서버 포트
+      - "9001:9001"  # 콘솔 포트
     volumes:
-      - "~/minio/data:/data"  # 호스트와 컨테이너 간의 볼륨 매핑
+      - "~/minio/data:/data"
     environment:
       MINIO_ROOT_USER: ADMIN
       MINIO_ROOT_PASSWORD: compcomp!!
