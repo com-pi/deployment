@@ -3,7 +3,7 @@ USE board;
 CREATE TABLE article (
                          price integer,
                          id bigint auto_increment not null,
-                         member_id bigint,
+                         member_id bigint unique,
                          article_type varchar(255) check (article_type in ('BUY_AND_SELL','PLANT_SITTER','SHOW_OFF','QNA')),
                          content varchar(255),
                          eupmyundong varchar(255),
@@ -17,7 +17,7 @@ CREATE TABLE article (
 
 CREATE TABLE member (
                         id bigint auto_increment not null,
-                        member_id bigint,
+                        member_id bigint unique,
                         image_url varchar(255),
                         nickname varchar(255),
                         primary key (id));
