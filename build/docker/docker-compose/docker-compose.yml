@@ -73,6 +73,20 @@ services:
       - minio
       - discovery-eureka
 
+  encyclo-service:
+    container_name: encyclo-service
+    image: utopiandrmer/compi-encyclo-service
+    environment:
+      - active_profile=dev
+      - TZ=Asia/Seoul
+    ports:
+      - 8084:8080
+    depends_on:
+      - mysql
+      - redis
+      - minio
+      - discovery-eureka
+
   scraper:
     container_name: scraper
     image: utopiandrmer/compi-scraper
