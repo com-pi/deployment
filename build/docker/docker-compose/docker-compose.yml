@@ -73,6 +73,12 @@ services:
       - minio
       - discovery-eureka
 
+  scraper:
+    container_name: scraper
+    image: utopiandrmer/compi-scraper
+    ports:
+      - 8084:8080
+
   mysql:
     container_name: mysql
     image: mysql
@@ -105,7 +111,6 @@ services:
       - discovery-eureka
       - auth-service
       - board-service
-
 
   minio:
     container_name: minio
