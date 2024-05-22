@@ -91,7 +91,7 @@ services:
     container_name: scraper
     image: utopiandrmer/compi-scraper
     ports:
-      - 8084:8080
+      - 8085:8080
 
   mysql:
     container_name: mysql
