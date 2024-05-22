@@ -23,4 +23,4 @@ CREATE TABLE member (
                         deletion_yn varchar(255) not null default 'N',
                         primary key (id));
 
-INSERT INTO member (nickname, role) VALUES ('관리자', 'ADMIN');
+INSERT INTO member (nickname, role, email, phone_number) VALUES ('관리자', 'ADMIN', 'comppi.comppi@gmail.com', '01012345678');
