@@ -10,6 +10,11 @@ spec:
       app: nginx-pod
 
   template:
+    metadata:
+      name: nginx
+      labels:
+        app: nginx-pod
+
     spec:
       containers:
         - name: nginx
