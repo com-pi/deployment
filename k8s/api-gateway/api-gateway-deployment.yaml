@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: api-gateway-deployment
+
+spec:
+  selector:
+    matchLabels:
+      app: api-gateway-pod
+
+  template:
+    metadata:
+      name: api-gateway
+      labels:
+        app: api-gateway-pod
+
+    spec:
+      containers:
+        - name: api-gateway
+          image: utopiandrmer/compi-api-gateway

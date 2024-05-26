@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: discovery-eureka-deployment
+
+spec:
+  selector:
+    matchLabels:
+      app: discovery-eureka-pod
+
+  template:
+    metadata:
+      name: discovery-eureka
+      labels:
+        app: discovery-eureka-pod
+
+    spec:
+      containers:
+        - name: discovery-eureka
+          image: utopiandrmer/compi-discovery-eureka
