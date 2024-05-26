@@ -17,6 +17,8 @@ pipeline {
 
                     sh 'kubectl apply -f k8s/api-gateway/api-gateway-deployment.yaml'
                     sh 'kubectl apply -f k8s/api-gateway/api-gateway-service.yaml'
+
+                    sh 'kubectl apply -f k8s/minio/minio-deployment.yaml'
                 }
             }
         }
