@@ -19,3 +19,6 @@ spec:
       containers:
         - name: api-gateway
           image: utopiandrmer/compi-api-gateway
+          env:
+            - name: active_profile
+              value: dev
