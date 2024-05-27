@@ -1,3 +1,5 @@
+--- #deployment
+
 apiVersion: apps/v1
 kind: Deployment
 
@@ -18,4 +20,22 @@ spec:
     spec:
       containers:
         - name: discovery-eureka
-          image: utopiandrmer/compi-discovery-eureka
+          image: utopiandrmer/compi-discovery-eureke
+
+
+--- #service
+
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: discovery-eureka-svc
+
+spec:
+  ports:
+    - port: 8080
+
+  selector:
+    app: discovery-eureka-pod
+
+  type: ClusterIP

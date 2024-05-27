@@ -13,7 +13,7 @@ pipeline {
     }
 
     stages {
-        stage('Checkout'){
+        stage('깃허브 리포지토리 체크 아웃'){
             parallel {
                 stage('Checkout - application') {
                     steps {
@@ -33,7 +33,7 @@ pipeline {
             }
         }
 
-        stage('Source Build') {
+        stage('소스 파일 빌드') {
             steps {
                 dir('application') {
                     sh "chmod +x ./gradlew"
@@ -42,7 +42,7 @@ pipeline {
             }
         }
 
-        stage('Container Build') {
+        stage('이미지 빌드에 필요한 파일 복사') {
             steps {
                 dir('deployment') {
                     git branch: 'main', changelog: false, credentialsId: 'deployment-key', poll: false, url: 'git@github.com:com-pi/deployment.git'
@@ -55,7 +55,11 @@ pipeline {
                 sh "cp application/board-service/build/libs/board-service.jar ${DOCKER_FILE_PATH}/board-service/board-service.jar"
                 sh "cp application/encyclo-service/build/libs/encyclo-service.jar ${DOCKER_FILE_PATH}/encyclo-service/encyclo-service.jar"
                 sh "cp -r plant-scraper/app ${DOCKER_FILE_PATH}/scraper"
+            }
+        }
 
+        stage('도커 이미지 빌드') {
+            steps {
                 // 컨테이너 빌드 및 업로드
                 sh "docker build --no-cache -t ${DOCKERHUB_USERNAME}/compi-discovery-eureka ${DOCKER_FILE_PATH}/discovery-eureka"
                 sh "docker push ${DOCKERHUB_USERNAME}/compi-discovery-eureka"
@@ -77,10 +81,13 @@ pipeline {
 
                 sh "docker build --no-cache -t ${DOCKERHUB_USERNAME}/compi-scraper ${DOCKER_FILE_PATH}/scraper"
                 sh "docker push ${DOCKERHUB_USERNAME}/compi-scraper"
+
+                sh "docker build --no-cache -t ${DOCKERHUB_USERNAME}/compi-mysql ${DOCKER_FILE_PATH}/mysql"
+                sh "docker push ${DOCKERHUB_USERNAME}/compi-mysql"
             }
         }
 
-        stage('Deploy') {
+        stage('도커 컴포즈를 이용하여 배포') {
             steps {
                 sh "docker compose -f ${DOCKER_COMPOSE_SCRIPT}/docker-compose.yml up -d"
             }

@@ -95,12 +95,9 @@ services:
 
   mysql:
     container_name: mysql
-    image: mysql
-    volumes:
-      - ./initdb.d:/docker-entrypoint-initdb.d
+    image: utopiandrmer/compi-mysql
     environment:
       - MYSQL_ROOT_PASSWORD=1234
-    command: "--lower_case_table_names=1"
     ports:
       - 3306:3306
 

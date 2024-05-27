@@ -1,0 +1,46 @@
+--- # deployment
+
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: auth-service-deployment
+
+spec:
+  selector:
+    matchLabels:
+      app: auth-service-pod
+
+  template:
+    metadata:
+      name: auth-service
+      labels:
+        app: auth-service-pod
+
+    spec:
+      containers:
+        - name: auth-service
+          image: utopiandrmer/compi-auth-service
+          env:
+            - name: active_profile
+              value: "dev"
+            - name: TZ
+              value: "Asia/Seoul"
+
+
+---   # service
+
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: auth-service
+
+spec:
+  ports:
+    - port: 8000
+
+  selector:
+    app: auth-service-pod
+
+  type: ClusterIP

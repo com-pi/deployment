@@ -1,0 +1,53 @@
+--- #deployment
+
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: nginx-deployment
+
+spec:
+  selector:
+    matchLabels:
+      app: nginx-pod
+
+  template:
+    metadata:
+      name: nginx
+      labels:
+        app: nginx-pod
+
+    spec:
+      containers:
+        - name: nginx
+          image: utopiandrmer/compi-nginx
+          ports:
+            - containerPort: 80
+            - containerPort: 443
+
+
+--- # service
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: nginx-service
+
+spec:
+  selector:
+    app: nginx-pod
+
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80
+
+    - name: https
+      protocol: TCP
+      port: 443
+      targetPort: 443
+
+  type: LoadBalancer
+  externalIPs:
+    - 192.168.56.40
