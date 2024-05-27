@@ -15,7 +15,7 @@ pipeline {
     stages {
         stage('깃허브 리포지토리 체크 아웃'){
             parallel {
-                stage('Checkout - application') {
+                stage('백엔드 어플리케이션 모듈') {
                     steps {
                         dir('application') {
                             git branch: 'develop', changelog: false, credentialsId: 'jenkins-github', poll: false, url: 'git@github.com:com-pi/backend.git'
@@ -23,7 +23,7 @@ pipeline {
                     }
 
                 }
-                stage('Checkout - scraper') {
+                stage('스크랩퍼 모듈') {
                     steps {
                         dir('plant-scraper') {
                             git branch: 'main', changelog: false, credentialsId: 'scraper', poll: false, url: 'git@github.com:com-pi/plant-scraper.git'
@@ -62,28 +62,26 @@ pipeline {
             steps {
                 // 컨테이너 빌드 및 업로드
                 sh "docker build --no-cache -t ${DOCKERHUB_USERNAME}/compi-discovery-eureka ${DOCKER_FILE_PATH}/discovery-eureka"
-                sh "docker push ${DOCKERHUB_USERNAME}/compi-discovery-eureka"
-
                 sh "docker build --no-cache -t ${DOCKERHUB_USERNAME}/compi-api-gateway ${DOCKER_FILE_PATH}/api-gateway"
-                sh "docker push ${DOCKERHUB_USERNAME}/compi-api-gateway"
-
                 sh "docker build --no-cache -t ${DOCKERHUB_USERNAME}/compi-auth-service ${DOCKER_FILE_PATH}/auth-service"
-                sh "docker push ${DOCKERHUB_USERNAME}/compi-auth-service"
-
                 sh "docker build --no-cache -t ${DOCKERHUB_USERNAME}/compi-board-service ${DOCKER_FILE_PATH}/board-service"
-                sh "docker push ${DOCKERHUB_USERNAME}/compi-board-service"
-
                 sh "docker build --no-cache -t ${DOCKERHUB_USERNAME}/compi-encyclo-service ${DOCKER_FILE_PATH}/encyclo-service"
-                sh "docker push ${DOCKERHUB_USERNAME}/compi-encyclo-service"
-
                 sh "docker build --no-cache -t ${DOCKERHUB_USERNAME}/compi-nginx ${DOCKER_FILE_PATH}/nginx"
-                sh "docker push ${DOCKERHUB_USERNAME}/compi-nginx"
-
                 sh "docker build --no-cache -t ${DOCKERHUB_USERNAME}/compi-scraper ${DOCKER_FILE_PATH}/scraper"
-                sh "docker push ${DOCKERHUB_USERNAME}/compi-scraper"
-
                 sh "docker build --no-cache -t ${DOCKERHUB_USERNAME}/compi-mysql ${DOCKER_FILE_PATH}/mysql"
+            }
+        }
+
+        stage('도커 허브에 이미지 푸시') {
+            steps {
                 sh "docker push ${DOCKERHUB_USERNAME}/compi-mysql"
+                sh "docker push ${DOCKERHUB_USERNAME}/compi-scraper"
+                sh "docker push ${DOCKERHUB_USERNAME}/compi-nginx"
+                sh "docker push ${DOCKERHUB_USERNAME}/compi-encyclo-service"
+                sh "docker push ${DOCKERHUB_USERNAME}/compi-board-service"
+                sh "docker push ${DOCKERHUB_USERNAME}/compi-auth-service"
+                sh "docker push ${DOCKERHUB_USERNAME}/compi-api-gateway"
+                sh "docker push ${DOCKERHUB_USERNAME}/compi-discovery-eureka"
             }
         }
 
