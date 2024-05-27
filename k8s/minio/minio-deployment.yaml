@@ -70,6 +70,7 @@ metadata:
   name: minio-pvc
   labels:
     app: minio
+
 spec:
   accessModes:
     - ReadWriteOnce
@@ -85,9 +86,9 @@ metadata:
   name: minio
 
 spec:
-  type: ClusterIP
   selector:
     app: minio
+
   ports:
     - name: api
       port: 9000
@@ -95,3 +96,5 @@ spec:
     - name: console
       port: 9001
       targetPort: 9001
+
+  type: ClusterIP
