@@ -54,7 +54,7 @@ pipeline {
                 sh "cp application/auth-service/build/libs/auth-service.jar ${DOCKER_FILE_PATH}/auth-service/auth-service.jar"
                 sh "cp application/board-service/build/libs/board-service.jar ${DOCKER_FILE_PATH}/board-service/board-service.jar"
                 sh "cp application/encyclo-service/build/libs/encyclo-service.jar ${DOCKER_FILE_PATH}/encyclo-service/encyclo-service.jar"
-                sh "cp application/encyclo-service/build/libs/my-plant.jar ${DOCKER_FILE_PATH}/my-plant/my-plant.jar"
+                sh "cp application/my-plant/build/libs/my-plant.jar ${DOCKER_FILE_PATH}/my-plant/my-plant.jar"
                 sh "cp -r plant-scraper/app ${DOCKER_FILE_PATH}/scraper"
             }
         }
