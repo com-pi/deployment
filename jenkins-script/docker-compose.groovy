@@ -54,6 +54,7 @@ pipeline {
                 sh "cp application/auth-service/build/libs/auth-service.jar ${DOCKER_FILE_PATH}/auth-service/auth-service.jar"
                 sh "cp application/board-service/build/libs/board-service.jar ${DOCKER_FILE_PATH}/board-service/board-service.jar"
                 sh "cp application/encyclo-service/build/libs/encyclo-service.jar ${DOCKER_FILE_PATH}/encyclo-service/encyclo-service.jar"
+                sh "cp application/encyclo-service/build/libs/my-plant.jar ${DOCKER_FILE_PATH}/my-plant/my-plant.jar"
                 sh "cp -r plant-scraper/app ${DOCKER_FILE_PATH}/scraper"
             }
         }
@@ -66,6 +67,7 @@ pipeline {
                 sh "docker build --no-cache -t ${DOCKERHUB_USERNAME}/compi-auth-service ${DOCKER_FILE_PATH}/auth-service"
                 sh "docker build --no-cache -t ${DOCKERHUB_USERNAME}/compi-board-service ${DOCKER_FILE_PATH}/board-service"
                 sh "docker build --no-cache -t ${DOCKERHUB_USERNAME}/compi-encyclo-service ${DOCKER_FILE_PATH}/encyclo-service"
+                sh "docker build --no-cache -t ${DOCKERHUB_USERNAME}/compi-my-plant ${DOCKER_FILE_PATH}/my-plant"
                 sh "docker build --no-cache -t ${DOCKERHUB_USERNAME}/compi-nginx ${DOCKER_FILE_PATH}/nginx"
                 sh "docker build --no-cache -t ${DOCKERHUB_USERNAME}/compi-scraper ${DOCKER_FILE_PATH}/scraper"
                 sh "docker build --no-cache -t ${DOCKERHUB_USERNAME}/compi-mysql ${DOCKER_FILE_PATH}/mysql"
@@ -78,6 +80,7 @@ pipeline {
                 sh "docker push ${DOCKERHUB_USERNAME}/compi-scraper"
                 sh "docker push ${DOCKERHUB_USERNAME}/compi-nginx"
                 sh "docker push ${DOCKERHUB_USERNAME}/compi-encyclo-service"
+                sh "docker push ${DOCKERHUB_USERNAME}/compi-my-plant"
                 sh "docker push ${DOCKERHUB_USERNAME}/compi-board-service"
                 sh "docker push ${DOCKERHUB_USERNAME}/compi-auth-service"
                 sh "docker push ${DOCKERHUB_USERNAME}/compi-api-gateway"
