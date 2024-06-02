@@ -4,6 +4,74 @@ networks:
     driver: bridge
 
 services:
+  nginx:
+    container_name: nginx
+    image: utopiandrmer/compi-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: unless-stopped
+    depends_on:
+      - api-gateway
+      - discovery-eureka
+      - auth-service
+      - board-service
+
+  api-gateway:
+    container_name: api-gateway
+    image: utopiandrmer/compi-api-gateway
+    environment:
+      - active_profile=dev
+      - TZ=Asia/Seoul
+    ports:
+      - 8000:8000
+    depends_on:
+      - discovery-eureka
+
+  auth-service:
+    container_name: auth-service
+    image: utopiandrmer/compi-auth-service
+    environment:
+      - active_profile=dev
+      - TZ=Asia/Seoul
+    ports:
+      - 8081:8080
+    depends_on:
+      - discovery-eureka
+
+  board-service:
+    container_name: board-service
+    image: utopiandrmer/compi-board-service
+    environment:
+      - active_profile=dev
+      - TZ=Asia/Seoul
+    ports:
+      - 8082:8080
+    depends_on:
+      - discovery-eureka
+
+  my-plant:
+    container_name: my-plant
+    image: utopiandrmer/compi-my-plant
+    environment:
+      - active_profile=dev
+      - TZ=Asia/Seoul
+    ports:
+      - 8083:8080
+    depends_on:
+      - discovery-eureka
+
+  encyclo-service:
+    container_name: encyclo-service
+    image: utopiandrmer/compi-encyclo-service
+    environment:
+      - active_profile=dev
+      - TZ=Asia/Seoul
+    ports:
+      - 8084:8080
+    depends_on:
+      - discovery-eureka
+
   discovery-eureka:
     container_name: discovery-eureka
     image: utopiandrmer/compi-discovery-eureka
@@ -16,76 +84,31 @@ services:
       - mysql
       - redis
       - minio
+      - kafka
 
-  api-gateway:
-    container_name: api-gateway
-    image: utopiandrmer/compi-api-gateway
-    environment:
-      - active_profile=dev
-      - TZ=Asia/Seoul
-    ports:
-      - 8000:8000
+  kafka:
+    container_name: kafka
+    image: confluentinc/cp-kafka:7.0.1
     depends_on:
-      - mysql
-      - redis
-      - minio
-      - discovery-eureka
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
 
-  auth-service:
-    container_name: auth-service
-    image: utopiandrmer/compi-auth-service
+  zookeeper:
+    container_name: zookeeper
+    image: confluentinc/cp-zookeeper:7.0.1
     environment:
-      - active_profile=dev
-      - TZ=Asia/Seoul
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
     ports:
-      - 8081:8080
-    depends_on:
-      - mysql
-      - redis
-      - minio
-      - discovery-eureka
-
-  board-service:
-    container_name: board-service
-    image: utopiandrmer/compi-board-service
-    environment:
-      - active_profile=dev
-      - TZ=Asia/Seoul
-    ports:
-      - 8082:8080
-    depends_on:
-      - mysql
-      - redis
-      - minio
-      - discovery-eureka
-
-  my-plant:
-    container_name: my-plant
-    image: utopiandrmer/compi-my-plant
-    environment:
-      - active_profile=dev
-      - TZ=Asia/Seoul
-    ports:
-      - 8083:8080
-    depends_on:
-      - mysql
-      - redis
-      - minio
-      - discovery-eureka
-
-  encyclo-service:
-    container_name: encyclo-service
-    image: utopiandrmer/compi-encyclo-service
-    environment:
-      - active_profile=dev
-      - TZ=Asia/Seoul
-    ports:
-      - 8084:8080
-    depends_on:
-      - mysql
-      - redis
-      - minio
-      - discovery-eureka
+      - "2181:2181"
 
   scraper:
     container_name: scraper
@@ -101,7 +124,6 @@ services:
     ports:
       - 3306:3306
 
-
   redis:
     container_name: redis
     image: redis
@@ -109,19 +131,6 @@ services:
       - 6379:6379
     environment:
       - REDIS_PASSWORD=1234
-
-  nginx:
-    container_name: nginx
-    image: utopiandrmer/compi-nginx
-    ports:
-      - "80:80"
-      - "443:443"
-    restart: unless-stopped
-    depends_on:
-      - api-gateway
-      - discovery-eureka
-      - auth-service
-      - board-service
 
   minio:
     container_name: minio
@@ -135,5 +144,6 @@ services:
       MINIO_ROOT_USER: ADMIN
       MINIO_ROOT_PASSWORD: compcomp!!
     command: server /data --console-address ":9001"
+
 
 
