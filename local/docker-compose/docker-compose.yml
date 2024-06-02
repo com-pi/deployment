@@ -47,6 +47,7 @@ services:
       - "2181:2181"
 
   kafdrop:
+    container_name: kafka-monitor
     image: obsidiandynamics/kafdrop
     restart: "no"
     ports:
