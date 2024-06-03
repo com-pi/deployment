@@ -15,6 +15,10 @@ pipeline {
     stages {
         stage('도커 이미지 빌드') {
             steps {
+                dir('deployment') {
+                    git branch: 'main', changelog: false, credentialsId: 'deployment-key', poll: false, url: 'git@github.com:com-pi/deployment.git'
+                }
+
                 // 컨테이너 빌드 및 업로드
                 sh "docker build --no-cache -t ${DOCKERHUB_USERNAME}/compi-nginx ${DOCKER_FILE_PATH}/nginx"
             }
