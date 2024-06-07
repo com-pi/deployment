@@ -155,5 +155,13 @@ services:
       MINIO_ROOT_PASSWORD: compcomp!!
     command: server /data --console-address ":9001"
 
+  mongodb:
+    container_name: read-db
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=1234
 
 
