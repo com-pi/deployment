@@ -25,6 +25,12 @@ pipeline {
             }
         }
 
+        stage('도커 허브에 이미지 푸시') {
+            steps {
+                sh "docker push ${DOCKERHUB_USERNAME}/compi-mysql"
+            }
+        }
+
         stage('도커 컴포즈를 이용하여 배포') {
             steps {
                 sh "docker compose -f ${DOCKER_COMPOSE_SCRIPT}/docker-compose.yml up -d"
