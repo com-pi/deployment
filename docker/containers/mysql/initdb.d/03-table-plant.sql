@@ -1,5 +1,11 @@
 USE plant;
 
+CREATE TABLE character (
+                           id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                           character_no BIGINT NOT NULL,
+                           character_name VARCHAR(255) NOT NULL
+);
+
 CREATE TABLE plant (
                        id BIGINT AUTO_INCREMENT PRIMARY KEY,
                        member_id BIGINT NOT NULL,
@@ -21,12 +27,6 @@ CREATE TABLE plant (
                        pruning_date DATE,
                        character_id BIGINT,
                        FOREIGN KEY (character_id) REFERENCES character(id)
-);
-
-CREATE TABLE character (
-                           id BIGINT AUTO_INCREMENT PRIMARY KEY,
-                           character_no BIGINT NOT NULL,
-                           character_name VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE character_illustration (
