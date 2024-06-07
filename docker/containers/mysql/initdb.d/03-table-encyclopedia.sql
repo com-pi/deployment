@@ -2,7 +2,8 @@ USE ENCYCLOPEDIA;
 
 CREATE TABLE PLANT_SPECIES (
                                     id BIGINT NOT NULL AUTO_INCREMENT,
-                                    plant_taxonomy_summary VARCHAR(255),
+                                    plant_taxonomy_ VARCHAR(255),
+                                    plant_taxonomy_description VARCHAR(255),
                                     plant_taxonomy_description VARCHAR(255),
                                     common_name VARCHAR(255) UNIQUE,
                                     description TEXT,
