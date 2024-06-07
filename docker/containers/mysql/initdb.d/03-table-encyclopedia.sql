@@ -15,5 +15,7 @@ CREATE TABLE PLANT_SPECIES (
                                     humid_min INT,
                                     humid_max INT,
                                     imageUrls TEXT,
+                                    created_at timestamp(6) not null DEFAULT CURRENT_TIMESTAMP(6),
+                                    updated_at timestamp(6),
                                     PRIMARY KEY (id)
 );
