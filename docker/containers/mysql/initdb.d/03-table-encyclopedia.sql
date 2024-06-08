@@ -11,6 +11,8 @@ CREATE TABLE PLANT_SPECIES (
                                     watering_description VARCHAR(255),
                                     environment_summary VARCHAR(255),
                                     environment_description VARCHAR(255),
+                                    humidity_summary VARCHAR(255),
+                                    humidity_description VARCHAR(255),
                                     temperature_min INT,
                                     temperature_max INT,
                                     humid_min INT,
