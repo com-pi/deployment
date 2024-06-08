@@ -2,9 +2,9 @@ USE ENCYCLOPEDIA;
 
 CREATE TABLE PLANT_SPECIES (
                                     id BIGINT NOT NULL AUTO_INCREMENT,
-                                    plant_taxonomy_species VARCHAR(255),
-                                    plant_taxonomy_genus VARCHAR(255),
-                                    plant_taxonomy_family VARCHAR(255),
+                                    taxonomy_species VARCHAR(255),
+                                    taxonomy_genus VARCHAR(255),
+                                    taxonomy_family VARCHAR(255),
                                     common_name VARCHAR(255) UNIQUE,
                                     description TEXT,
                                     watering_summary VARCHAR(255),
