@@ -309,8 +309,17 @@ spec:
               value: "1"
             - name: KAFKA_TRANSACTION_STATE_LOG_MIN_ISR
               value: "1"
+            - name: KAFKA_LOG4J_LOGGERS
+              value: "kafka.controller=DEBUG,kafka.producer.async.DefaultEventHandler=DEBUG,state.change.logger=DEBUG"
           ports:
             - containerPort: 9092
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "500m"
+            limits:
+              memory: "1Gi"
+              cpu: "1"
 
 --- #zookeeper
 apiVersion: apps/v1
