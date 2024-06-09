@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-service
+  name: nginx
 
 spec:
   selector:
@@ -25,7 +25,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: discovery-eureka-svc
+  name: discovery-eureka
 
 spec:
   selector:
@@ -57,7 +57,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: auth-service-svc
+  name: auth-service
 spec:
   selector:
     app: auth-service-pod
@@ -73,7 +73,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: board-service-svc
+  name: board-service
 spec:
   selector:
     app: board-service-pod
@@ -88,7 +88,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: encyclo-service-svc
+  name: encyclo-service
 spec:
   selector:
     app: encyclo-service-pod
@@ -103,7 +103,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: my-plant-svc
+  name: my-plant
 spec:
   selector:
     app: my-plant-pod
@@ -118,7 +118,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: scraper-svc
+  name: scraper
 spec:
   selector:
     app: scraper-pod
@@ -164,7 +164,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: minio-svc
+  name: minio
 
 spec:
   selector:
@@ -185,7 +185,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: mysql-svc
+  name: mysql
 
 spec:
   selector:
@@ -201,7 +201,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: redis-svc
+  name: redis
 
 spec:
   selector:
@@ -217,7 +217,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: mongodb-svc
+  name: mongodb
 spec:
   selector:
     app: mongodb-pod

@@ -17,6 +17,25 @@ spec:
         app: nginx-pod
 
     spec:
+      initContainers:
+        - name: init-wait-for-services
+          image: busybox
+          command:
+            - sh
+            - -c
+            - |
+              while ! nc -z auth-service 8080; do
+                echo "Waiting for auth-service..."
+                sleep 5
+              done
+              while ! nc -z board-service 8081; do
+                echo "Waiting for board-service..."
+                sleep 5
+              done
+              while ! nc -z encyclo-service 8082; do
+                echo "Waiting for encyclo-service..."
+                sleep 5
+              done
       containers:
         - name: nginx
           image: utopiandrmer/compi-nginx
@@ -24,28 +43,6 @@ spec:
             - containerPort: 80
             - containerPort: 443
 
---- # discovery-eureka
-apiVersion: apps/v1
-kind: Deployment
-
-metadata:
-  name: discovery-eureka-deployment
-
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: discovery-eureka-pod
-
-  template:
-    metadata:
-      labels:
-        app: discovery-eureka-pod
-
-    spec:
-      containers:
-        - name: discovery-eureka
-          image: utopiandrmer/compi-discovery-eureka
 
 
 --- # api-gateway
@@ -67,6 +64,10 @@ spec:
         app: api-gateway-pod
 
     spec:
+      initContainers:
+        - name: init-wait-for-discovery
+          image: busybox
+          command: [ 'sh', '-c', 'until nc -z -v -w30 discovery-eureka 8761; do echo "Waiting for Discovery..."; sleep 5; done' ]
       containers:
         - name: api-gateway
           image: utopiandrmer/compi-api-gateway
@@ -98,6 +99,10 @@ spec:
         app: auth-service-pod
 
     spec:
+      initContainers:
+        - name: init-wait-for-discovery
+          image: busybox
+          command: [ 'sh', '-c', 'until nc -z -v -w30 discovery-eureka 8761; do echo "Waiting for Discovery..."; sleep 5; done' ]
       containers:
         - name: auth-service
           image: utopiandrmer/compi-auth-service
@@ -126,6 +131,10 @@ spec:
         app: board-service-pod
 
     spec:
+      initContainers:
+        - name: init-wait-for-discovery
+          image: busybox
+          command: [ 'sh', '-c', 'until nc -z -v -w30 discovery-eureka 8761; do echo "Waiting for Discovery..."; sleep 5; done' ]
       containers:
         - name: board-service
           image: utopiandrmer/compi-board-service
@@ -154,6 +163,10 @@ spec:
         app: encyclo-service-pod
 
     spec:
+      initContainers:
+        - name: init-wait-for-discovery
+          image: busybox
+          command: [ 'sh', '-c', 'until nc -z -v -w30 discovery-eureka 8761; do echo "Waiting for Discovery..."; sleep 5; done' ]
       containers:
         - name: encyclo-service
           image: utopiandrmer/compi-encyclo-service
@@ -180,6 +193,10 @@ spec:
       labels:
         app: my-plant-pod
     spec:
+      initContainers:
+        - name: init-wait-for-discovery
+          image: busybox
+          command: [ 'sh', '-c', 'until nc -z -v -w30 discovery-eureka 8761; do echo "Waiting for Discovery..."; sleep 5; done' ]
       containers:
         - name: my-plant
           image: utopiandrmer/compi-my-plant
@@ -190,6 +207,49 @@ spec:
               value: "Asia/Seoul"
           ports:
             - containerPort: 8080
+
+--- # discovery-eureka
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: discovery-eureka-deployment
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: discovery-eureka-pod
+
+  template:
+    metadata:
+      labels:
+        app: discovery-eureka-pod
+
+    spec:
+      initContainers:
+        - name: init-wait-for-mysql
+          image: busybox
+          command: [ 'sh', '-c', 'until nc -z -v -w30 mysql 3306; do echo "Waiting for MySQL..."; sleep 5; done' ]
+        - name: init-wait-for-redis
+          image: busybox
+          command: [ 'sh', '-c', 'until nc -z -v -w30 redis 6379; do echo "Waiting for Redis..."; sleep 5; done' ]
+        - name: init-wait-for-mongodb
+          image: busybox
+          command: [ 'sh', '-c', 'until nc -z -v -w30 mongodb 27017; do echo "Waiting for MongoDB..."; sleep 5; done' ]
+        - name: init-wait-for-kafka
+          image: busybox
+          command: [ 'sh', '-c', 'until nc -z -v -w30 kafka 9092; do echo "Waiting for Kafka..."; sleep 5; done' ]
+        - name: init-wait-for-minio
+          image: busybox
+          command: [ 'sh', '-c', 'until nc -z -v -w30 minio 9000; do echo "Waiting for Minio..."; sleep 5; done' ]
+        - name: init-wait-for-scraper
+          image: busybox
+          command: [ 'sh', '-c', 'until nc -z -v -w30 scraper 8080; do echo "Waiting for Scraper..."; sleep 5; done' ]
+
+      containers:
+        - name: discovery-eureka
+          image: utopiandrmer/compi-discovery-eureka
 
 --- #scraper
 apiVersion: apps/v1
