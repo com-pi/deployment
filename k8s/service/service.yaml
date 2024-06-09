@@ -1,0 +1,228 @@
+--- #nginx
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+
+spec:
+  selector:
+    app: nginx-pod
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80
+    - name: https
+      protocol: TCP
+      port: 443
+      targetPort: 443
+
+  type: LoadBalancer
+  externalIPs:
+    - 192.168.56.40
+
+--- #discovery-eureka
+apiVersion: v1
+kind: Service
+metadata:
+  name: discovery-eureka-svc
+
+spec:
+  selector:
+    app: discovery-eureka-pod
+  ports:
+    - protocol: TCP
+      port: 8761
+      targetPort: 8761
+
+  type: ClusterIP
+
+--- #api-gateway
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-gateway-svc
+
+spec:
+  selector:
+    app: api-gateway-pod
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
+
+  type: ClusterIP
+
+--- #auth-service
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-service-svc
+spec:
+  selector:
+    app: auth-service-pod
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+
+  type: ClusterIP
+
+
+--- #board-service
+apiVersion: v1
+kind: Service
+metadata:
+  name: board-service-svc
+spec:
+  selector:
+    app: board-service-pod
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+
+  type: ClusterIP
+
+--- #encyclo-service
+apiVersion: v1
+kind: Service
+metadata:
+  name: encyclo-service-svc
+spec:
+  selector:
+    app: encyclo-service-pod
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+
+  type: ClusterIP
+
+--- #my-plant
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-plant-svc
+spec:
+  selector:
+    app: my-plant-pod
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+
+  type: ClusterIP
+
+--- #scraper
+apiVersion: v1
+kind: Service
+metadata:
+  name: scraper-svc
+spec:
+  selector:
+    app: scraper-pod
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+
+  type: ClusterIP
+
+--- #kafka
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafka
+
+spec:
+  selector:
+    app: kafka-pod
+  ports:
+    - protocol: TCP
+      port: 9092
+      targetPort: 9092
+
+  type: ClusterIP
+
+--- #zookeeper
+apiVersion: v1
+kind: Service
+metadata:
+  name: zookeeper
+
+spec:
+  selector:
+    app: zookeeper-pod
+  ports:
+    - protocol: TCP
+      port: 2181
+      targetPort: 2181
+  type: ClusterIP
+
+--- #minio
+apiVersion: v1
+kind: Service
+metadata:
+  name: minio-svc
+
+spec:
+  selector:
+    app: minio-pod
+  ports:
+    - protocol: TCP
+      port: 9000
+      targetPort: 9000
+    - protocol: TCP
+      port: 9001
+      targetPort: 9001
+
+  type: ClusterIP
+
+--- #mysql
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-svc
+
+spec:
+  selector:
+    app: mysql-pod
+  ports:
+    - protocol: TCP
+      port: 3306
+      targetPort: 3306
+
+  type: ClusterIP
+
+--- #redis
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-svc
+
+spec:
+  selector:
+    app: redis-pod
+  ports:
+    - protocol: TCP
+      port: 6379
+      targetPort: 6379
+
+  type: ClusterIP
+
+--- #mongodb
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-svc
+spec:
+  selector:
+    app: mongodb-pod
+  ports:
+    - protocol: TCP
+      port: 27017
+      targetPort: 27017
+
+  type: ClusterIP
+

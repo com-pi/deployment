@@ -1,0 +1,386 @@
+--- #Nginx
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: nginx-deployment
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-pod
+
+  template:
+    metadata:
+      labels:
+        app: nginx-pod
+
+    spec:
+      containers:
+        - name: nginx
+          image: utopiandrmer/compi-nginx
+          ports:
+            - containerPort: 80
+            - containerPort: 443
+
+--- # discovery-eureka
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: discovery-eureka-deployment
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: discovery-eureka-pod
+
+  template:
+    metadata:
+      labels:
+        app: discovery-eureka-pod
+
+    spec:
+      containers:
+        - name: discovery-eureka
+          image: utopiandrmer/compi-discovery-eureke
+
+
+--- # api-gateway
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: api-gateway-deployment
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-gateway-pod
+
+  template:
+    metadata:
+      labels:
+        app: api-gateway-pod
+
+    spec:
+      containers:
+        - name: api-gateway
+          image: utopiandrmer/compi-api-gateway
+          env:
+            - name: active_profile
+              value: "dev"
+            - name: TZ
+              value: "Asia/Seoul"
+          ports:
+            - containerPort: 8000
+
+
+--- #auth-service
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: auth-service-deployment
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth-service-pod
+
+  template:
+    metadata:
+      labels:
+        app: auth-service-pod
+
+    spec:
+      containers:
+        - name: auth-service
+          image: utopiandrmer/compi-auth-service
+          env:
+            - name: active_profile
+              value: "dev"
+            - name: TZ
+              value: "Asia/Seoul"
+          ports:
+            - containerPort: 8080
+
+--- #board-service
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: board-service-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: board-service-pod
+
+  template:
+    metadata:
+      labels:
+        app: board-service-pod
+
+    spec:
+      containers:
+        - name: board-service
+          image: utopiandrmer/compi-board-service
+          env:
+            - name: active_profile
+              value: "dev"
+            - name: TZ
+              value: "Asia/Seoul"
+          ports:
+            - containerPort: 8080
+
+--- #encyclo-service
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: encyclo-service-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: encyclo-service-pod
+
+  template:
+    metadata:
+      labels:
+        app: encyclo-service-pod
+
+    spec:
+      containers:
+        - name: encyclo-service
+          image: utopiandrmer/compi-encyclo-service
+          env:
+            - name: active_profile
+              value: "dev"
+            - name: TZ
+              value: "Asia/Seoul"
+          ports:
+            - containerPort: 8080
+
+--- #my-plant
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-plant-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-plant-pod
+  template:
+    metadata:
+      labels:
+        app: my-plant-pod
+    spec:
+      containers:
+        - name: my-plant
+          image: utopiandrmer/compi-my-plant
+          env:
+            - name: active_profile
+              value: "dev"
+            - name: TZ
+              value: "Asia/Seoul"
+          ports:
+            - containerPort: 8080
+
+--- #scraper
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: scraper-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: scraper-pod
+  template:
+    metadata:
+      labels:
+        app: scraper-pod
+    spec:
+      containers:
+        - name: scraper
+          image: utopiandrmer/compi-scraper
+          ports:
+            - containerPort: 8080
+
+--- #kafka
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kafka-pod
+  template:
+    metadata:
+      labels:
+        app: kafka-pod
+    spec:
+      containers:
+        - name: kafka
+          image: confluentinc/cp-kafka:7.0.1
+          env:
+            - name: KAFKA_BROKER_ID
+              value: "1"
+            - name: KAFKA_ZOOKEEPER_CONNECT
+              value: "zookeeper:2181"
+            - name: KAFKA_ADVERTISED_LISTENERS
+              value: "PLAINTEXT://kafka:9092"
+            - name: KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR
+              value: "1"
+            - name: KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR
+              value: "1"
+            - name: KAFKA_TRANSACTION_STATE_LOG_MIN_ISR
+              value: "1"
+            - name: KAFKA_LISTENERS
+              value: "PLAINTEXT://0.0.0.0:9092"
+          ports:
+            - containerPort: 9092
+
+--- #zookeeper
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zookeeper-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zookeeper-pod
+  template:
+    metadata:
+      labels:
+        app: zookeeper-pod
+    spec:
+      containers:
+        - name: zookeeper
+          image: confluentinc/cp-zookeeper:7.0.1
+          env:
+            - name: ZOOKEEPER_CLIENT_PORT
+              value: "2181"
+            - name: ZOOKEEPER_TICK_TIME
+              value: "2000"
+          ports:
+            - containerPort: 2181
+
+
+--- #minio
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minio-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: minio-pod
+  template:
+    metadata:
+      labels:
+        app: minio-pod
+    spec:
+      containers:
+        - name: minio
+          image: quay.io/minio/minio
+          env:
+            - name: MINIO_ROOT_USER
+              value: "ADMIN"
+            - name: MINIO_ROOT_PASSWORD
+              value: "compcomp!!"
+          ports:
+            - containerPort: 9000
+            - containerPort: 9001
+          volumeMounts:
+            - name: minio-data
+              mountPath: /data
+          command: ["server", "/data", "--console-address", ":9001"]
+      volumes:
+        - name: minio-data
+          hostPath:
+            path: /root/minio/data
+
+
+--- #mysql
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql-pod
+  template:
+    metadata:
+      labels:
+        app: mysql-pod
+    spec:
+      containers:
+        - name: mysql
+          image: utopiandrmer/compi-mysql
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: "1234"
+          ports:
+            - containerPort: 3306
+
+--- #mongodb
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongodb-pod
+  template:
+    metadata:
+      labels:
+        app: mongodb-pod
+    spec:
+      containers:
+        - name: mongodb
+          image: mongo:latest
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              value: "root"
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              value: "1234"
+          ports:
+            - containerPort: 27017
+
+--- #redis
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis-pod
+  template:
+    metadata:
+      labels:
+        app: redis-pod
+    spec:
+      containers:
+        - name: redis
+          image: redis
+          env:
+            - name: REDIS_PASSWORD
+              value: "1234"
+          ports:
+            - containerPort: 6379
