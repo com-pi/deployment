@@ -220,12 +220,10 @@ spec:
   selector:
     matchLabels:
       app: discovery-eureka-pod
-
   template:
     metadata:
       labels:
         app: discovery-eureka-pod
-
     spec:
       initContainers:
         - name: init-wait-for-mysql
@@ -243,10 +241,16 @@ spec:
         - name: init-wait-for-scraper
           image: busybox
           command: [ 'sh', '-c', 'until nc -z -v -w30 scraper 8080; do echo "Waiting for Scraper..."; sleep 5; done' ]
-
       containers:
         - name: discovery-eureka
           image: utopiandrmer/compi-discovery-eureka
+          env:
+            - name: active_profile
+              value: "dev"
+            - name: TZ
+              value: "Asia/Seoul"
+          ports:
+            - containerPort: 8761
 
 --- #scraper
 apiVersion: apps/v1
