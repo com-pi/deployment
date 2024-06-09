@@ -280,15 +280,18 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: minio-deployment
+
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: minio-pod
+      
   template:
     metadata:
       labels:
         app: minio-pod
+
     spec:
       containers:
         - name: minio
