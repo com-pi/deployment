@@ -293,7 +293,7 @@ spec:
           command: [ 'sh', '-c', 'until nc -z -v -w30 zookeeper 2181; do echo "Waiting for Zookeeper..."; sleep 5; done' ]
       containers:
         - name: kafka
-          image: confluentinc/cp-kafka:7.0.1
+          image: confluentinc/cp-kafka:7.5.4
           env:
             - name: KAFKA_BROKER_ID
               value: "1"
