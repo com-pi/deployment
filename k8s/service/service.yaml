@@ -197,3 +197,13 @@ spec:
 
   type: ClusterIP
 
+--- #kafka
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: kafka
+subsets:
+  - addresses:
+      - ip: 192.168.56.42
+    ports:
+      - port: 9092
