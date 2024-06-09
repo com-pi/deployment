@@ -12,11 +12,11 @@ pipeline {
     }
 
     stages {
-        stage('도커 컴포즈를 이용하여 배포') {
-            dir('deployment') {
-                git branch: 'main', changelog: false, credentialsId: 'deployment-key', poll: false, url: 'git@github.com:com-pi/deployment.git'
-            }
+        stage('쿠버네티스 스크립트 적용') {
             steps {
+                dir('deployment') {
+                    git branch: 'main', changelog: false, credentialsId: 'deployment-key', poll: false, url: 'git@github.com:com-pi/deployment.git'
+                }
                 sh "kubectl apply -f ${K8S_SCRIPT_PATH}/deployment/deployment.yaml"
                 sh "kubectl apply -f ${K8S_SCRIPT_PATH}/service/service.yaml"
             }
