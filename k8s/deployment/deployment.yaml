@@ -18,32 +18,24 @@ spec:
 
     spec:
       initContainers:
-        - name: init-wait-for-services
+        - name: init-wait-for-discovery
           image: busybox
-          command:
-            - sh
-            - -c
-            - |
-              while ! nc -z auth-service 8080; do
-                echo "Waiting for auth-service..."
-                sleep 5
-              done
-              while ! nc -z board-service 8081; do
-                echo "Waiting for board-service..."
-                sleep 5
-              done
-              while ! nc -z encyclo-service 8082; do
-                echo "Waiting for encyclo-service..."
-                sleep 5
-              done
+          command: [ 'sh', '-c', 'until nc -z -v -w30 discovery-eureka 8761; do echo "Waiting for Discovery..."; sleep 5; done' ]
+        - name: init-wait-for-auth-service
+          image: busybox
+          command: [ 'sh', '-c', 'until nc -z -v -w30 auth-service 8080; do echo "Waiting for auth service..."; sleep 5; done' ]
+        - name: init-wait-for-board-service
+          image: busybox
+          command: [ 'sh', '-c', 'until nc -z -v -w30 board-service 8080; do echo "Waiting for board service..."; sleep 5; done' ]
+        - name: init-wait-for-encyclo-service
+          image: busybox
+          command: [ 'sh', '-c', 'until nc -z -v -w30 encyclo-service 8080; do echo "Waiting for board service..."; sleep 5; done' ]
       containers:
         - name: nginx
           image: utopiandrmer/compi-nginx
           ports:
             - containerPort: 80
             - containerPort: 443
-
-
 
 --- # api-gateway
 apiVersion: apps/v1
