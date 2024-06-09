@@ -287,6 +287,10 @@ spec:
       labels:
         app: kafka-pod
     spec:
+      initContainers:
+        - name: init-wait-for-zookeeper
+          image: busybox
+          command: [ 'sh', '-c', 'until nc -z -v -w30 zookeeper 2181; do echo "Waiting for Zookeeper..."; sleep 5; done' ]
       containers:
         - name: kafka
           image: confluentinc/cp-kafka:7.0.1
@@ -305,6 +309,8 @@ spec:
               value: "1"
             - name: KAFKA_TRANSACTION_STATE_LOG_MIN_ISR
               value: "1"
+          ports:
+            - containerPort: 9092
 
 --- #zookeeper
 apiVersion: apps/v1
