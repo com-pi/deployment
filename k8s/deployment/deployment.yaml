@@ -367,7 +367,7 @@ spec:
           volumeMounts:
             - name: minio-data
               mountPath: /data
-          command: ["server", "/data", "--console-address", ":9001"]
+          command: ["minio", "server", "/data", "--console-address", ":9001"]
       volumes:
         - name: minio-data
           hostPath:
