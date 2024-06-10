@@ -16,6 +16,10 @@ spec:
       protocol: TCP
       port: 443
       targetPort: 443
+    - name: minio-console
+      protocol: TCP
+      port: 9001
+      targetPort: 9001
 
   type: LoadBalancer
   externalIPs:
