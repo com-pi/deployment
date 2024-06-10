@@ -36,6 +36,7 @@ spec:
           ports:
             - containerPort: 80
             - containerPort: 443
+            - containerPort: 9001
 
 --- # api-gateway
 apiVersion: apps/v1
