@@ -150,6 +150,30 @@ spec:
 
   type: ClusterIP
 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: minio-console-local
+
+spec:
+  selector:
+    app: minio-pod
+  ports:
+    - name: api
+      protocol: TCP
+      port: 9000
+      targetPort: 9000
+    - name: console
+      protocol: TCP
+      port: 9001
+      targetPort: 9001
+
+  type: LoadBalancer
+  externalIPs:
+    - 192.168.56.40
+
+
 --- #mysql
 apiVersion: v1
 kind: Service
