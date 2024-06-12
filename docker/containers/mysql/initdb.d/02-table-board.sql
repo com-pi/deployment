@@ -1,4 +1,11 @@
 USE board;
+create table member
+(
+    member_id bigint auto_increment primary key,
+    image_url varchar(255) null,
+    nickname  varchar(255) null
+) ENGINE = InnoDB;
+
 
 create table article
 (
@@ -48,11 +55,5 @@ create table likes
 ) ENGINE = InnoDB;
 
 
-create table member
-(
-    member_id bigint auto_increment primary key,
-    image_url varchar(255) null,
-    nickname  varchar(255) null
-) ENGINE = InnoDB;
 
 
