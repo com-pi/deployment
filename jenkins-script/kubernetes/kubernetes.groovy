@@ -88,10 +88,16 @@ pipeline {
             }
         }
 
-        stage('도커 컴포즈를 이용하여 배포') {
+        stage('쿠버네티스를 이용하여 배포') {
             steps {
                 sh "kubectl apply -f ${K8S_SCRIPT_PATH}/deployment/deployment.yaml"
                 sh "kubectl apply -f ${K8S_SCRIPT_PATH}/service/service.yaml"
+                sh '''
+                    NAMESPACE=default
+                    for deployment in $(kubectl get deployments -n $NAMESPACE -o jsonpath='{.items[*].metadata.name}'); do
+                        kubectl rollout restart deployment $deployment -n $NAMESPACE
+                    done
+                    '''
             }
         }
 
