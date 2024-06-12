@@ -193,6 +193,23 @@ spec:
       targetPort: 3306
 
   type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-external
+
+spec:
+  selector:
+    app: mysql-pod
+  ports:
+    - protocol: TCP
+      port: 3306
+      targetPort: 3306
+
+  type: LoadBalancer
+  externalIPs:
+    - 192.168.56.40
 
 --- #redis
 apiVersion: v1
@@ -215,6 +232,23 @@ apiVersion: v1
 kind: Service
 metadata:
   name: mongodb
+spec:
+  selector:
+    app: mongodb-pod
+  ports:
+    - protocol: TCP
+      port: 27017
+      targetPort: 27017
+
+  type: LoadBalancer
+  externalIPs:
+    - 192.168.56.40
+
+--- #mongodb
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-external
 spec:
   selector:
     app: mongodb-pod
