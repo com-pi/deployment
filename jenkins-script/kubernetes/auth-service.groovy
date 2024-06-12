@@ -61,7 +61,7 @@ pipeline {
 
         stage('도커 컴포즈를 이용하여 배포') {
             steps {
-                sh "kubectl rollout restart auth-service-deployment"
+                sh "kubectl rollout restart deployment auth-service-deployment"
             }
         }
 
