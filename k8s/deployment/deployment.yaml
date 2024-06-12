@@ -346,7 +346,7 @@ spec:
     spec:
       containers:
         - name: mongodb
-          image: mongo:latest
+          image: utopiandrmer/compi-mongodb
           env:
             - name: MONGO_INITDB_ROOT_USERNAME
               value: "root"

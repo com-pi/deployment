@@ -71,12 +71,14 @@ pipeline {
                 sh "docker build --no-cache -t ${DOCKERHUB_USERNAME}/compi-nginx ${DOCKER_FILE_PATH}/nginx"
                 sh "docker build --no-cache -t ${DOCKERHUB_USERNAME}/compi-scraper ${DOCKER_FILE_PATH}/scraper"
                 sh "docker build --no-cache -t ${DOCKERHUB_USERNAME}/compi-mysql ${DOCKER_FILE_PATH}/mysql"
+                sh "docker build --no-cache -t ${DOCKERHUB_USERNAME}/compi-mongodb ${DOCKER_FILE_PATH}/mongodb"
             }
         }
 
         stage('도커 허브에 이미지 푸시') {
             steps {
                 sh "docker push ${DOCKERHUB_USERNAME}/compi-mysql"
+                sh "docker push ${DOCKERHUB_USERNAME}/compi-mongodb"
                 sh "docker push ${DOCKERHUB_USERNAME}/compi-scraper"
                 sh "docker push ${DOCKERHUB_USERNAME}/compi-nginx"
                 sh "docker push ${DOCKERHUB_USERNAME}/compi-encyclo-service"
