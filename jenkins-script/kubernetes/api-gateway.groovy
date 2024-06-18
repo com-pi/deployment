@@ -42,7 +42,7 @@ pipeline {
             }
         }
 
-        stage('도커 컴포즈를 이용하여 배포') {
+        stage('쿠버네티스 배포') {
             steps {
                 dir('deployment') {
                     git branch: 'main', changelog: false, credentialsId: 'deployment-key', poll: false, url: 'git@github.com:com-pi/deployment.git'
