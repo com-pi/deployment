@@ -44,6 +44,9 @@ pipeline {
 
         stage('도커 컴포즈를 이용하여 배포') {
             steps {
+                dir('deployment') {
+                    git branch: 'main', changelog: false, credentialsId: 'deployment-key', poll: false, url: 'git@github.com:com-pi/deployment.git'
+                }
                 sh "kubectl apply -f ${K8S_SCRIPT_PATH}/deployment/deployment.yaml"
                 sh "kubectl apply -f ${K8S_SCRIPT_PATH}/service/service.yaml"
                 sh "kubectl rollout restart deployment api-gateway-deployment"
