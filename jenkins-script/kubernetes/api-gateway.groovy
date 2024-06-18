@@ -31,7 +31,7 @@ pipeline {
             steps {
                 dir('application') {
                     sh "chmod +x ./gradlew"
-                    sh "./gradlew bootBuildImage"
+                    sh "./gradlew :api-gateway:bootBuildImage"
                 }
             }
         }
