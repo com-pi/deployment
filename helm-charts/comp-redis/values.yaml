@@ -1,0 +1,18 @@
+replicaCount: 1
+
+image:
+  repository: utopiandrmer/comp-redis
+  tag: latest
+
+env:
+  activeProfile: dev
+
+service:
+  type: ClusterIP
+  port: 6379
+  targetPort: 6379
+  protocol: TCP
+
+secret:
+  rootPasswordSecretName: comp-secret
+  rootPasswordSecretKey: REDIS_PASSWORD

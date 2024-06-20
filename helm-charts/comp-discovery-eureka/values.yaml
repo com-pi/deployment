@@ -1,0 +1,15 @@
+replicaCount: 1
+
+image:
+  repository: utopiandrmer/comp-discovery-eureka
+  tag: latest
+
+service:
+  type: ClusterIP
+  port: 8761
+  targetPort: 8761
+  protocol: TCP
+
+env:
+  activeProfile: dev
+  timezone: Asia/Seoul

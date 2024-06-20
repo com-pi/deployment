@@ -1,0 +1,24 @@
+replicaCount: 1
+
+image:
+  repository: utopiandrmer/comp-mongodb
+  tag: latest
+
+service:
+  type: ClusterIP
+  port: 27017
+  targetPort: 27017
+  protocol: TCP
+
+env:
+  activeProfile: dev
+  timezone: Asia/Seoul
+
+pv:
+  capacity: 5Gi
+  node:
+    - "node1.comp"
+
+secret:
+  rootPasswordSecretName: comp-secret
+  rootPasswordSecretKey: MONGO_INITDB_ROOT_PASSWORD

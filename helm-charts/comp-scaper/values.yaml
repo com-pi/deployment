@@ -1,0 +1,14 @@
+replicaCount: 1
+
+image:
+  repository: utopiandrmer/comp-scraper
+  tag: latest
+
+env:
+  activeProfile: dev
+
+service:
+  type: ClusterIP
+  port: 8080
+  targetPort: 8080
+  protocol: TCP

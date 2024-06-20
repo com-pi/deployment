@@ -1,0 +1,15 @@
+replicaCount: 1
+
+image:
+  repository: utopiandrmer/comp-api-gateway
+  tag: latest
+
+service:
+  type: ClusterIP
+  port: 8000
+  targetPort: 8000
+  protocol: TCP
+
+env:
+  activeProfile: dev
+  timezone: Asia/Seoul

@@ -1,0 +1,15 @@
+replicaCount: 1
+
+image:
+  repository: utopiandrmer/comp-auth-service
+  tag: latest
+
+service:
+  type: ClusterIP
+  port: 8080
+  targetPort: 8080
+  protocol: TCP
+
+env:
+  activeProfile: dev
+  timezone: Asia/Seoul
