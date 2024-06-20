@@ -39,8 +39,8 @@ spec:
           ports:
             - containerPort: {{ .Values.service.targetPort}}
           volumeMounts:
-            - mountPath: {{ .Release.Name }}-storage
-              name: /var/lib/mysql
+            - name: {{ .Release.Name }}-storage
+              mountPath: /var/lib/mysql
       volumes:
         - name: {{ .Release.Name }}-storage
           persistentVolumeClaim:

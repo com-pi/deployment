@@ -41,8 +41,8 @@ spec:
           ports:
             - containerPort: {{ .Values.service.targetPort}}
           volumeMounts:
-            - mountPath: {{ .Release.Name }}-storage
-              name: /data/db
+            - name: {{ .Release.Name }}-storage
+              mountPath: /data/db
       volumes:
         - name: {{ .Release.Name }}-storage
           persistentVolumeClaim:
