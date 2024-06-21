@@ -32,7 +32,7 @@ pipeline {
                 sh "docker build --no-cache -t ${DOCKERHUB_USERNAME}/comp-nginx ${DOCKER_FILE_PATH}/nginx"
                 sh "docker build --no-cache -t ${DOCKERHUB_USERNAME}/comp-scraper ${DOCKER_FILE_PATH}/scraper"
                 sh "docker build --no-cache -t ${DOCKERHUB_USERNAME}/comp-mysql ${DOCKER_FILE_PATH}/mysql"
-                sh "docker build --no-cache -t ${DOCKERHUB_USERNAME}/comp-mysql ${DOCKER_FILE_PATH}/mongodb"
+                sh "docker build --no-cache -t ${DOCKERHUB_USERNAME}/comp-mongodb ${DOCKER_FILE_PATH}/mongodb"
             }
         }
 
