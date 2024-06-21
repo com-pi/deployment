@@ -19,7 +19,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Release.Name }}-console-local
+  name: {{ .Release.Name }}-console
 spec:
   type: {{ .Values.service.loadBalancer.type }}
   selector:
