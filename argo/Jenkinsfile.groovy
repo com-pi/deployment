@@ -38,7 +38,7 @@ pipeline {
                         // image-updater일 경우 도커허브 credentials 주입
                         if (params.TARGET_ARGO == "argocd-image-updater") {
                             withCredentials([usernamePassword(credentialsId: 'dockerhub_account', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
-                                HELM_DEPLOY_COMMAND += " --set config.registries[0].credentials=env:DOCKER_HUB_CREDS=" + '${USERNAME}' + ":" + '${PASSWORD}'
+                                HELM_DEPLOY_COMMAND += " --set config.registries[0].credentials=" + '${USERNAME}' + ":" + '${PASSWORD}'
                             }
                         }
 
