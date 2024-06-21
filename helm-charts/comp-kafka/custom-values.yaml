@@ -1,22 +1,21 @@
-# ClusterIP 서비스 유형으로 설정
-service:
-  type: ClusterIP
-
-# KRaft 모드 비활성화
-kraft:
-  enabled: false
+replicaCount: 3
 
 # Zookeeper 모드 활성화
 zookeeper:
   enabled: true
   replicaCount: 3
 
-# Kafka 설정
-kafka:
-  replicaCount: 3
-  configurationOverrides:
-    "auto.create.topics.enable": "true"
-    "zookeeper.connect": "{{ include "kafka.fullname" . }}-zookeeper:2181"
+# 서비스 설정
+service:
+  type: ClusterIP
+  headless:
+    enabled: true
+  ports:
+    client: 9092
+
+# 외부 접근 비활성화
+externalAccess:
+  enabled: false
 
 # 저장소 설정
 persistence:
@@ -32,11 +31,9 @@ resources:
     memory: 1Gi
     cpu: 1
 
-# 외부 접근 비활성화
-externalAccess:
-  enabled: false
-
-# 헤드리스 서비스 설정
-service:
-  headless:
-    enabled: true
+# Kafka 환경 변수 설정
+extraEnvVars:
+  - name: KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE
+    value: "true"
+  - name: KAFKA_CFG_ZOOKEEPER_CONNECT
+    value: "my-kafka-zookeeper:2181"
