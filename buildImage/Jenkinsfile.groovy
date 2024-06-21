@@ -18,7 +18,7 @@ pipeline {
         stage('체크 아웃 및 이미지 빌드') {
             steps {
                 dir('backend-source-code') {
-                    git branch: '*/deveolop', changelog: false, credentialsId: 'backend', poll: false, url: 'git@github.com:com-pi/backend.git'
+                    git branch: '*/develop', changelog: false, credentialsId: 'backend', poll: false, url: 'git@github.com:com-pi/backend.git'
                     sh './gradlew buildImageAll'
                 }
             }
