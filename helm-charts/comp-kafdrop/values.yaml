@@ -31,7 +31,7 @@ ingress:
 ## Kafka Cluster Configuration
 kafka:
   ## If true, kafka was installed under the same umbrella
-  enabled: true
+  enabled: false
   replicaCount: 3
   ## If outside or custom kafka a bootstrap server is required
   bootstrapServers: kafka:9092
