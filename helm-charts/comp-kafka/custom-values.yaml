@@ -1,39 +1,5 @@
-replicaCount: 3
-
-# Zookeeper 모드 활성화
-zookeeper:
-  enabled: true
-  replicaCount: 3
-
-# 서비스 설정
-service:
-  type: ClusterIP
-  headless:
-    enabled: true
-  ports:
-    client: 9092
-
-# 외부 접근 비활성화
-externalAccess:
+kraft:
   enabled: false
 
-# 저장소 설정
-persistence:
+zookeeper:
   enabled: true
-  size: 10Gi
-
-# 리소스 요청 및 제한
-resources:
-  requests:
-    memory: 512Mi
-    cpu: 500m
-  limits:
-    memory: 1Gi
-    cpu: 1
-
-# Kafka 환경 변수 설정
-extraEnvVars:
-  - name: KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE
-    value: "true"
-  - name: KAFKA_CFG_ZOOKEEPER_CONNECT
-    value: "my-kafka-zookeeper:2181"
