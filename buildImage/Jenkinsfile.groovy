@@ -28,12 +28,12 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: env.DOCKERHUB_CREDENTIALS, passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
                     sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
-                    sh "sudo docker push ${DOCKERHUB_USERNAME}/${PROJECT_NAME}-auth-service"
-                    sh "sudo docker push ${DOCKERHUB_USERNAME}/${PROJECT_NAME}-api-gateway"
-                    sh "sudo docker push ${DOCKERHUB_USERNAME}/${PROJECT_NAME}-discovery-eureka"
-                    sh "sudo docker push ${DOCKERHUB_USERNAME}/${PROJECT_NAME}-board-service"
-                    sh "sudo docker push ${DOCKERHUB_USERNAME}/${PROJECT_NAME}-my-plant"
-                    sh "sudo docker push ${DOCKERHUB_USERNAME}/${PROJECT_NAME}-encyclo-service"
+                    sh "docker push ${DOCKERHUB_USERNAME}/${PROJECT_NAME}-auth-service"
+                    sh "docker push ${DOCKERHUB_USERNAME}/${PROJECT_NAME}-api-gateway"
+                    sh "docker push ${DOCKERHUB_USERNAME}/${PROJECT_NAME}-discovery-eureka"
+                    sh "docker push ${DOCKERHUB_USERNAME}/${PROJECT_NAME}-board-service"
+                    sh "docker push ${DOCKERHUB_USERNAME}/${PROJECT_NAME}-my-plant"
+                    sh "docker push ${DOCKERHUB_USERNAME}/${PROJECT_NAME}-encyclo-service"
                 }
             }
         }
