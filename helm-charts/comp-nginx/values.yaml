@@ -25,5 +25,4 @@ service:
       protocol: TCP
       port: 9001
       targetPort: 9001
-  type: LoadBalancer
-  externalIps: 192.168.56.40
+  type: NodePort

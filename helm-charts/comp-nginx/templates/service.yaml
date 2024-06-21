@@ -13,5 +13,3 @@ spec:
       targetPort: {{ .targetPort }}
   {{ end }}
   type: {{ .Values.service.type }}
-  externalIPs:
-    - {{ .Values.service.externalIps }}
