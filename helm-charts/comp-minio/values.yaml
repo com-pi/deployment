@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: utopiandrmer/comp-minio
+  repository: quay.io/minio/minio
   tag: latest
 
 service:
