@@ -25,13 +25,13 @@ spec:
           command: [ 'sh', '-c', 'until nc -z -v -w30 board-service 8080; do echo "Waiting for board service..."; sleep 5; done' ]
         - name: init-wait-for-encyclo-service
           image: busybox
-          command: [ 'sh', '-c', 'until nc -z -v -w30 encyclo-service 8080; do echo "Waiting for board service..."; sleep 5; done' ]
+          command: [ 'sh', '-c', 'until nc -z -v -w30 encyclo-service 8080; do echo "Waiting for encyclo service..."; sleep 5; done' ]
 
       containers:
         - name: {{ .Release.Name }}
           image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
-          imagePullPolicy: {{ .Values.container.ports }}
+          imagePullPolicy: {{ .Values.container.pullPolicy }}
           ports:
-          {{ range .Values.container.ports }}
+          {{- range .Values.container.ports }}
             - containerPort: {{ .containerPort }}
-          {{ end }}
+          {{- end }}
