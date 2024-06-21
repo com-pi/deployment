@@ -21,17 +21,14 @@ kind: Service
 metadata:
   name: {{ .Release.Name }}-console
 spec:
-  type: {{ .Values.service.loadBalancer.type }}
+  type: {{ .Values.service.nodePort.type }}
   selector:
     app: {{ .Release.Name }}-pod
   ports:
-    {{ range .Values.service.loadBalancer.ports }}
+    {{ range .Values.service.nodePort.ports }}
     - name: {{ .name }}
       protocol: {{ .protocol }}
       port: {{ .port }}
       targetPort: {{ .targetPort }}
+      nodePort: 30901
     {{ end }}
-  externalIPs:
-    {{- range .Values.service.loadBalancer.externalIPs }}
-    - {{ . | quote }}
-    {{- end }}

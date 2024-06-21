@@ -17,22 +17,20 @@ service:
         port: 9001
         targetPort: 9001
 
-  loadBalancer:
-    type: LoadBalancer
+  nodePort:
+    type: NodePort
     ports:
       - name: console
         protocol: TCP
         port: 9001
         targetPort: 9001
-    externalIPs:
-      - "192.168.56.40"
 
 env:
   activeProfile: dev
   timezone: Asia/Seoul
 
 pv:
-  capacity: 5Gi
+  capacity: 10Gi
   node:
     - "node2.comp"
 
