@@ -17,16 +17,15 @@ service:
         port: 9001
         targetPort: 9001
 
-  loadBalance:
-    type: LoadBalance
+  loadBalancer:
+    type: LoadBalancer
     ports:
       - name: console
         protocol: TCP
         port: 9001
         targetPort: 9001
-    externalIps:
+    externalIPs:
       - "192.168.56.40"
-
 
 env:
   activeProfile: dev
