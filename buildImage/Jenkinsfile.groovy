@@ -19,7 +19,7 @@ pipeline {
             steps {
                 dir('backend-source-code') {
                     git branch: 'develop', changelog: false, credentialsId: 'backend', poll: false, url: 'git@github.com:com-pi/backend.git'
-                    sh './gradlew buildImageAll'
+                    sh './gradlew buildAllImages'
                 }
             }
         }
