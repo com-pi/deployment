@@ -1,5 +1,0 @@
-kraft:
-  enabled: false
-
-zookeeper:
-  enabled: true
