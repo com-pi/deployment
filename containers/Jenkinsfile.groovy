@@ -12,12 +12,10 @@ pipeline {
     }
 
     stages {
-        stage('깃허브 리포지토리 체크 아웃'){
-            stage('scraper 모듈') {
-                steps {
-                    dir('scraper') {
-                        git branch: 'main', changelog: false, credentialsId: 'repository-scraper', poll: false, url: 'git@github.com:com-pi/plant-scraper.git'
-                    }
+        stage('scraper 리포지토리 체크 아웃'){
+            steps {
+                dir('scraper') {
+                    git branch: 'main', changelog: false, credentialsId: 'repository-scraper', poll: false, url: 'git@github.com:com-pi/plant-scraper.git'
                 }
             }
         }
