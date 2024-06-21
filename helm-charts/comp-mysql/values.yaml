@@ -18,7 +18,6 @@ pv:
   capacity: 5Gi
   node:
     - "node1.comp"
-    -
 
 secret:
   rootPasswordSecretName: comp-secret
