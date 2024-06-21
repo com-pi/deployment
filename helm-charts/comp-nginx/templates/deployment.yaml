@@ -30,7 +30,7 @@ spec:
       containers:
         - name: {{ .Release.Name }}
           image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
-          imagePullPolicy: {{ eq .Values.container.ports }}
+          imagePullPolicy: {{ .Values.container.ports }}
           ports:
           {{ range .Values.container.ports }}
             - containerPort: {{ .containerPort }}
