@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: utopiandrmer/comp-redis
+  repository: redis
   tag: latest
 
 env:
