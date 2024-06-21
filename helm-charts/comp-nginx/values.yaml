@@ -5,7 +5,7 @@ image:
   tag: latest
 
 container:
-  pullPolicy: always
+  pullPolicy: Always
   ports:
     - containerPort: 80
     - containerPort: 443
