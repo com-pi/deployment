@@ -23,9 +23,4 @@ service:
       port: 443
       targetPort: 443
       nodePort: 30443
-    - name: minio-console
-      protocol: TCP
-      port: 9001
-      targetPort: 9001
-      nodePort: 30901
   type: NodePort
