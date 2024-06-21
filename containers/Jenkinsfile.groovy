@@ -29,13 +29,6 @@ pipeline {
                         }
                     }
                 }
-                stage('스크랩퍼 모듈') {
-                    steps {
-                        dir('containers') {
-                            git branch: 'main', changelog: false, credentialsId: 'deployment-repository', poll: false, url: 'git@github.com:com-pi/deployment.git'
-                        }
-                    }
-                }
             }
         }
 
