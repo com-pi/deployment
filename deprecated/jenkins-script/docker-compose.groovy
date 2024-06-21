@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     tools {
-        gradle 'gradle-8.7'
+        gradle 'gradle-8.8'
         jdk 'jdk-17'
     }
 
