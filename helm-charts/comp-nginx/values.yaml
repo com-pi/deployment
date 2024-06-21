@@ -1,0 +1,29 @@
+replicaCount: 1
+
+image:
+  repository: utopiandrmer/comp-nginx
+  tag: latest
+
+container:
+  pullPolicy: always
+  ports:
+    - containerPort: 80
+    - containerPort: 443
+    - containerPort: 9001
+
+service:
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80
+    - name: https
+      protocol: TCP
+      port: 443
+      targetPort: 443
+    - name: minio-console
+      protocol: TCP
+      port: 9001
+      targetPort: 9001
+  type: LoadBalancer
+  externalIps: 192.168.56.40
