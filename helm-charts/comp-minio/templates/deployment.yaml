@@ -33,10 +33,7 @@ spec:
             - name: MINIO_ROOT_USER
               value: "admin"
             - name: MINIO_ROOT_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.secret.rootPasswordSecretName }}
-                  key: {{ .Values.secret.rootPasswordSecretKey }}
+              value: "compcomp!!"
           # Todo : 이거 변수로 지정하기
           command: [ "minio", "server", "/data", "--console-address", ":9001" ]
           ports:
