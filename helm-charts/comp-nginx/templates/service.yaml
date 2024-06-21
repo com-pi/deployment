@@ -11,5 +11,6 @@ spec:
       protocol: {{ .protocol }}
       port: {{ .port }}
       targetPort: {{ .targetPort }}
+      nodePort: {{ .nodePort }}
   {{ end }}
   type: {{ .Values.service.type }}

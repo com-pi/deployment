@@ -21,9 +21,11 @@ service:
     - name: https
       protocol: TCP
       port: 443
-      targetPort: 12443
+      targetPort: 443
+      nodePort: 12443
     - name: minio-console
       protocol: TCP
       port: 9001
-      targetPort: 21001
+      targetPort: 9001
+      nodePort: 21001
   type: NodePort
