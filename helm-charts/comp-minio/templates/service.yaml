@@ -20,15 +20,19 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Release.Name }}-console-local
+  name: {{ .Release.Name }}-console
 spec:
   selector:
     app: {{ .Release.Name }}-pod
   ports:
-    - name: console
-      protocol: TCP
-      port: 9001
-      targetPort: 9001
+    {{- range .Values.service.ports }}
+      {{- if eq .name "console" }}
+        name: {{ .name }}
+        protocol: {{ .protocol }}
+        port: {{ .port }}
+        targetPort: {{ .targetPort }}
+      {{- end }}
+    {{- end }}
 
   type: LoadBalancer
   externalIPs:
