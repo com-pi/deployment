@@ -8,7 +8,7 @@ pipeline {
 
     environment {
         DOCKERHUB_USERNAME = 'utopiandrmer'
-        DOCKER_FILE_PATH = 'deployment/containers'
+        DOCKER_FILE_PATH = 'containers'
     }
 
     stages {
@@ -29,10 +29,10 @@ pipeline {
         stage('도커 이미지 빌드') {
             steps {
                 // 컨테이너 빌드 및 업로드
-                sh "docker build --no-cache -t ${DOCKERHUB_USERNAME}/compi-nginx ${DOCKER_FILE_PATH}/nginx"
-                sh "docker build --no-cache -t ${DOCKERHUB_USERNAME}/compi-scraper ${DOCKER_FILE_PATH}/scraper"
-                sh "docker build --no-cache -t ${DOCKERHUB_USERNAME}/compi-mysql ${DOCKER_FILE_PATH}/mysql"
-                sh "docker build --no-cache -t ${DOCKERHUB_USERNAME}/compi-mysql ${DOCKER_FILE_PATH}/mongodb"
+                sh "docker build --no-cache -t ${DOCKERHUB_USERNAME}/comp-nginx ${DOCKER_FILE_PATH}/nginx"
+                sh "docker build --no-cache -t ${DOCKERHUB_USERNAME}/comp-scraper ${DOCKER_FILE_PATH}/scraper"
+                sh "docker build --no-cache -t ${DOCKERHUB_USERNAME}/comp-mysql ${DOCKER_FILE_PATH}/mysql"
+                sh "docker build --no-cache -t ${DOCKERHUB_USERNAME}/comp-mysql ${DOCKER_FILE_PATH}/mongodb"
             }
         }
 
