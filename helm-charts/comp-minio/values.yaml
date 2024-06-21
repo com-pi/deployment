@@ -27,5 +27,5 @@ pv:
     - "node2.comp"
 
 secret:
-  rootPasswordSecretName: comp_secret
+  rootPasswordSecretName: comp-secret
   rootPasswordSecretKey: MINIO_ROOT_PASSWORD
