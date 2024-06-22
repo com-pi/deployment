@@ -1,12 +1,6 @@
 pipeline {
     agent any
 
-    tools {
-        gradle 'gradle-8.7'
-        jdk 'jdk-17'
-    }
-
-
     parameters {
         string(name: 'VERSION', defaultValue: 'dev', trim: true)
     }

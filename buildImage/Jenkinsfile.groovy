@@ -6,12 +6,20 @@ pipeline {
         jdk 'jdk-17'
     }
 
+    parameters {
+        string(name: 'VERSION', defaultValue: 'dev', trim: true)
+    }
+
     environment {
         DOCKERHUB_CREDENTIALS = 'dockerhub_account'
         DOCKERHUB_USERNAME = 'utopiandrmer'
         PROJECT_NAME = 'comp'
         DOCKER_FILE_PATH = 'deployment/docker/containers'
         DOCKER_COMPOSE_SCRIPT = 'deployment/docker/docker-compose'
+
+        DATE = sh(script: 'date +%Y%m%d', returnStdout: true).trim()
+        TIME = sh(script: 'date +%H%M%S', returnStdout: true).trim()
+        TAG = "${params.VERSION}-${env.DATE}-${env.TIME}"
     }
 
     stages {
@@ -19,7 +27,7 @@ pipeline {
             steps {
                 dir('backend-source-code') {
                     git branch: 'develop', changelog: false, credentialsId: 'backend', poll: false, url: 'git@github.com:com-pi/backend.git'
-                    sh './gradlew buildAllImages'
+                    sh "./gradlew buildAllImages -Dtag=${env.TAG}"
                 }
             }
         }
@@ -28,12 +36,12 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: env.DOCKERHUB_CREDENTIALS, passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
                     sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
-                    sh "docker push ${DOCKERHUB_USERNAME}/${PROJECT_NAME}-auth-service"
-                    sh "docker push ${DOCKERHUB_USERNAME}/${PROJECT_NAME}-api-gateway"
-                    sh "docker push ${DOCKERHUB_USERNAME}/${PROJECT_NAME}-discovery-eureka"
-                    sh "docker push ${DOCKERHUB_USERNAME}/${PROJECT_NAME}-board-service"
-                    sh "docker push ${DOCKERHUB_USERNAME}/${PROJECT_NAME}-my-plant"
-                    sh "docker push ${DOCKERHUB_USERNAME}/${PROJECT_NAME}-encyclo-service"
+                    sh "docker push ${DOCKERHUB_USERNAME}/${PROJECT_NAME}-auth-service:${env.TAG}"
+                    sh "docker push ${DOCKERHUB_USERNAME}/${PROJECT_NAME}-api-gateway:${env.TAG}"
+                    sh "docker push ${DOCKERHUB_USERNAME}/${PROJECT_NAME}-discovery-eureka:${env.TAG}"
+                    sh "docker push ${DOCKERHUB_USERNAME}/${PROJECT_NAME}-board-service:${env.TAG}"
+                    sh "docker push ${DOCKERHUB_USERNAME}/${PROJECT_NAME}-my-plant:${env.TAG}"
+                    sh "docker push ${DOCKERHUB_USERNAME}/${PROJECT_NAME}-encyclo-service:${env.TAG}"
                 }
             }
         }
