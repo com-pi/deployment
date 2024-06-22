@@ -7,11 +7,11 @@ pipeline {
     }
 
 
-    options([
-            parameters([
-                    string(name: 'VERSION', defaultValue: 'dev', trim: true)
-            ])
-    ])
+    options {
+        parameters([
+                string(name: 'VERSION', defaultValue: 'dev', trim: true)
+        ])
+    }
 
 
     environment {
