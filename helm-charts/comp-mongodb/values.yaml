@@ -5,10 +5,10 @@ image:
   tag: latest
 
 service:
-  type: ClusterIP
   port: 27017
   targetPort: 27017
   protocol: TCP
+  nodePort: 30017
 
 env:
   activeProfile: dev
