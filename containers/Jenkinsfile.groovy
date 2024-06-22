@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     parameters {
+        choice choices: ['모듈 선택', 'nginx', 'mysql', 'scraper', 'mongodb'], description: '빌드할 모듈 선택', name: 'Module'
         string(name: 'VERSION', defaultValue: 'dev', trim: true)
     }
 
@@ -9,6 +10,7 @@ pipeline {
     environment {
         DOCKERHUB_USERNAME = 'utopiandrmer'
         DOCKER_FILE_PATH = 'containers'
+        PROJECT_NAME = 'comp'
 
         DATE = sh(script: 'date +%Y%m%d', returnStdout: true).trim()
         TIME = sh(script: 'date +%H%M%S', returnStdout: true).trim()
@@ -17,6 +19,9 @@ pipeline {
 
     stages {
         stage('scraper 리포지토리 체크 아웃'){
+            when {
+                expression { params.Module != '모듈 선택' && params.Module == 'scraper'}
+            }
             steps {
                 dir('scraper') {
                     git branch: 'main', changelog: false, credentialsId: 'repository-scraper', poll: false, url: 'git@github.com:com-pi/plant-scraper.git'
@@ -24,19 +29,13 @@ pipeline {
             }
         }
 
-        stage('이미지 빌드에 필요한 파일 복사') {
-            steps {
-                sh "cp -r scraper/app ${DOCKER_FILE_PATH}/scraper"
-            }
-        }
-
         stage('도커 이미지 빌드') {
             steps {
                 script {
-                    sh "docker build --no-cache -t ${DOCKERHUB_USERNAME}/comp-nginx:${env.TAG} ${DOCKER_FILE_PATH}/nginx"
-                    sh "docker build --no-cache -t ${DOCKERHUB_USERNAME}/comp-scraper:${env.TAG} ${DOCKER_FILE_PATH}/scraper"
-                    sh "docker build --no-cache -t ${DOCKERHUB_USERNAME}/comp-mysql:${env.TAG} ${DOCKER_FILE_PATH}/mysql"
-                    sh "docker build --no-cache -t ${DOCKERHUB_USERNAME}/comp-mongodb:${env.TAG} ${DOCKER_FILE_PATH}/mongodb"
+                    if (${params.Module} == "scraper") {
+                        sh "cp -r scraper/app ${DOCKER_FILE_PATH}/scraper"
+                    }
+                    sh "docker build --no-cache -t ${DOCKERHUB_USERNAME}/${env.PROJECT_NAME}-${params.Module}:${env.TAG} ${DOCKER_FILE_PATH}/${params.Module}"
                 }
             }
         }
@@ -44,10 +43,7 @@ pipeline {
         stage('도커 허브에 이미지 푸시') {
             steps {
                 script {
-                    sh "docker push ${DOCKERHUB_USERNAME}/comp-mysql:${env.TAG}"
-                    sh "docker push ${DOCKERHUB_USERNAME}/comp-scraper:${env.TAG}"
-                    sh "docker push ${DOCKERHUB_USERNAME}/comp-nginx:${env.TAG}"
-                    sh "docker push ${DOCKERHUB_USERNAME}/comp-mongodb:${env.TAG}"
+                    sh "docker push ${DOCKERHUB_USERNAME}/${env.PROJECT_NAME}-${params.Module}:${env.TAG}"
                 }
             }
         }
