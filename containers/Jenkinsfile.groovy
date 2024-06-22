@@ -7,7 +7,7 @@ pipeline {
     }
 
 
-    properties([
+    options([
             parameters([
                     string(name: 'VERSION', defaultValue: 'dev', trim: true),
             ])
