@@ -7,8 +7,10 @@ pipeline {
     }
 
 
-    parameters([
-            string(name: 'VERSION', defaultValue: '0.1.0', description: 'Docker 이미지 버전')
+    properties([
+            parameters([
+                    string(name: 'VERSION', defaultValue: 'dev', trim: true),
+            ])
     ])
 
 
