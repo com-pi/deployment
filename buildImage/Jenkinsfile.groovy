@@ -31,7 +31,7 @@ pipeline {
             steps {
                 dir('backend-source-code') {
                     git branch: 'develop', changelog: false, credentialsId: 'backend', poll: false, url: 'git@github.com:com-pi/backend.git'
-                    sh "./gradlew :${params.Module}:bootBuildImage -Dtag=${env.TAG}"
+                    sh "./gradlew :${params.Module}:bootBuildImage -Ptag=${env.TAG}"
                 }
             }
         }
