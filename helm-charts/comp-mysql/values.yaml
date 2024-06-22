@@ -5,10 +5,17 @@ image:
   tag: latest
 
 service:
-  type: ClusterIP
-  port: 3306
-  targetPort: 3306
-  protocol: TCP
+  clusterIP:
+    type: ClusterIP
+    protocol: TCP
+    port: 3306
+    targetPort: 3306
+  nodePort:
+    type: NodePort
+    protocol: TCP
+    port: 3306
+    targetPort: 3306
+    nodePort: 33066
 
 env:
   activeProfile: dev
