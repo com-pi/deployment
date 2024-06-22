@@ -7,10 +7,8 @@ pipeline {
     }
 
 
-    options {
-        parameters([
-                string(name: 'VERSION', defaultValue: 'dev', trim: true)
-        ])
+    parameters {
+        string(name: 'VERSION', defaultValue: 'dev', trim: true)
     }
 
 
