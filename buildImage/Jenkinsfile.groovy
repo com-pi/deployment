@@ -7,8 +7,8 @@ pipeline {
     }
 
     parameters {
-        choice(choices: ['모듈 선택', 'auth-service', 'api-gateway', 'discovery-eureka', 'board-service', 'my-plant', 'encyclo-service'], name: 'Module', description: '빌드할 모듈 선택')
-        string(name: 'VERSION', defaultValue: 'dev', trim: true)
+        string defaultValue: 'dev', description: '버전 선택', name: 'VERSION', trim: true
+        choice choices: ['모듈 선택', 'auth-service', 'api-gateway', 'discovery-eureka', 'board-service', 'my-plant', 'encyclo-service'], description: '빌드할 모듈 선택', name: 'Module'
     }
 
     environment {
