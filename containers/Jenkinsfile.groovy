@@ -32,7 +32,7 @@ pipeline {
         stage('도커 이미지 빌드') {
             steps {
                 script {
-                    if (${params.Module} == "scraper") {
+                    if (params.Module == "scraper") {
                         sh "cp -r scraper/app ${DOCKER_FILE_PATH}/scraper"
                     }
                     sh "docker build --no-cache -t ${DOCKERHUB_USERNAME}/${env.PROJECT_NAME}-${params.Module}:${env.TAG} ${DOCKER_FILE_PATH}/${params.Module}"
