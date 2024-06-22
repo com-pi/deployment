@@ -7,7 +7,7 @@ pipeline {
     }
 
     parameters {
-        choice(choices: ['option', 'auth-service', 'api-gateway', 'discovery-eureka', 'board-service', 'my-plant', 'encyclo-service'], name: 'Module', description: '빌드할 모듈 선택')
+        choice(choices: ['모듈 선택', 'auth-service', 'api-gateway', 'discovery-eureka', 'board-service', 'my-plant', 'encyclo-service'], name: 'Module', description: '빌드할 모듈 선택')
         string(name: 'VERSION', defaultValue: 'dev', trim: true)
     }
 
@@ -25,6 +25,9 @@ pipeline {
 
     stages {
         stage('체크 아웃 및 이미지 빌드') {
+            when {
+                expression { params.Module != '모듈 선택'}
+            }
             steps {
                 dir('backend-source-code') {
                     git branch: 'develop', changelog: false, credentialsId: 'backend', poll: false, url: 'git@github.com:com-pi/backend.git'
@@ -34,6 +37,9 @@ pipeline {
         }
 
         stage('도커 허브로 이미지 푸시') {
+            when {
+                expression { params.Module != '모듈 선택'}
+            }
             steps {
                 withCredentials([usernamePassword(credentialsId: env.DOCKERHUB_CREDENTIALS, passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
                     sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
