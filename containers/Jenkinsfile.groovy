@@ -6,9 +6,19 @@ pipeline {
         jdk 'jdk-17'
     }
 
+
+    parameters([
+            string(name: 'VERSION', defaultValue: '0.1.0', description: 'Docker 이미지 버전')
+    ])
+
+
     environment {
         DOCKERHUB_USERNAME = 'utopiandrmer'
         DOCKER_FILE_PATH = 'containers'
+
+        DATE = sh(script: 'date +%Y%m%d', returnStdout: true).trim()
+        TIME = sh(script: 'date +%H%M%S', returnStdout: true).trim()
+        TAG = "${params.VERSION}-${env.DATE}-${env.TIME}"
     }
 
     stages {
