@@ -7,6 +7,7 @@ pipeline {
     }
 
     parameters {
+        choice(choices: ['option', 'auth-service', 'api-gateway', 'discovery-eureka', 'board-service', 'my-plant', 'encyclo-service'], name: 'Module', description: '빌드할 모듈 선택')
         string(name: 'VERSION', defaultValue: 'dev', trim: true)
     }
 
@@ -27,7 +28,7 @@ pipeline {
             steps {
                 dir('backend-source-code') {
                     git branch: 'develop', changelog: false, credentialsId: 'backend', poll: false, url: 'git@github.com:com-pi/backend.git'
-                    sh "./gradlew buildAllImages -Dtag=${env.TAG}"
+                    sh "./gradlew :${params.Module}:bootBuildImage -Dtag=${env.TAG}"
                 }
             }
         }
@@ -36,12 +37,7 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: env.DOCKERHUB_CREDENTIALS, passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
                     sh "echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin"
-                    sh "docker push ${DOCKERHUB_USERNAME}/${PROJECT_NAME}-auth-service:${env.TAG}"
-                    sh "docker push ${DOCKERHUB_USERNAME}/${PROJECT_NAME}-api-gateway:${env.TAG}"
-                    sh "docker push ${DOCKERHUB_USERNAME}/${PROJECT_NAME}-discovery-eureka:${env.TAG}"
-                    sh "docker push ${DOCKERHUB_USERNAME}/${PROJECT_NAME}-board-service:${env.TAG}"
-                    sh "docker push ${DOCKERHUB_USERNAME}/${PROJECT_NAME}-my-plant:${env.TAG}"
-                    sh "docker push ${DOCKERHUB_USERNAME}/${PROJECT_NAME}-encyclo-service:${env.TAG}"
+                    sh "docker push ${DOCKERHUB_USERNAME}/${PROJECT_NAME}-${params.Module}:${env.TAG}"
                 }
             }
         }
