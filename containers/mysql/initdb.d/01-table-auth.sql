@@ -9,7 +9,7 @@ CREATE TABLE member (
                         password varchar(255),
                         role varchar(255) check (role in ('ANONYMOUS','MEMBER','ADMIN')),
                         nickname varchar(255) not null unique,
-                        introduction varchar(255),
+                        introduction text,
                         location geometry,
                         sido varchar(255),
                         sigungu varchar(255),
@@ -21,6 +21,18 @@ CREATE TABLE member (
                         last_login timestamp(6),
                         updated_at timestamp(6),
                         deletion_yn varchar(255) not null default 'N',
+                        primary key (id));
+
+CREATE TABLE EVENT_RECORD_ENTITY (
+                        id bigint auto_increment not null,
+                        transaction_id varchar(255),
+                        event_type varchar(255) check ( event_type in ('CREATE', 'UPDATE', 'DELETE')),
+                        entity_type varchar(255),
+                        entity_id varchar(255),
+                        json_data text,
+                        status varchar(255) check ( status in ('NEW', 'PUBLISHED', 'FAILED', 'PENDING')),
+                        created_at timestamp(6),
+                        updated_at timestamp(6),
                         primary key (id));
 
 INSERT INTO member (nickname, role, email, phone_number) VALUES ('관리자', 'ADMIN', 'comppi.comppi@gmail.com', '01012345678');
