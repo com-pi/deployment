@@ -35,9 +35,8 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.secret.rootPasswordSecretName }}
                   key: {{ .Values.secret.rootPasswordSecretKey }}
-
           ports:
-            - containerPort: {{ .Values.service.targetPort}}
+            - containerPort: {{ .Values.container.targetPort }}
           volumeMounts:
             - name: {{ .Release.Name }}-storage
               mountPath: /var/lib/mysql

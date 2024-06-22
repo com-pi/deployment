@@ -4,18 +4,12 @@ image:
   repository: utopiandrmer/comp-mysql
   tag: latest
 
+container:
+  port: 3306
+  targetPort: 3306
+
 service:
-  clusterIP:
-    type: ClusterIP
-    protocol: TCP
-    port: 3306
-    targetPort: 3306
-  nodePort:
-    type: NodePort
-    protocol: TCP
-    port: 3306
-    targetPort: 3306
-    nodePort: 32306
+  nodePort: 32306
 
 env:
   activeProfile: dev

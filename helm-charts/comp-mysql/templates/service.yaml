@@ -6,11 +6,11 @@ metadata:
 spec:
   selector:
     app: {{ .Release.Name }}-pod
-  type: {{ .Values.service.clusterIP.type }}
+  type: ClusterIP
   ports:
-    - protocol: {{ .Values.service.clusterIP.protocol }}
-      port: {{ .Values.service.clusterIP.port }}
-      targetPort: {{ .Values.service.clusterIP.targetPort }}
+    - protocol: TCP
+      port: {{ .Values.container.port }}
+      targetPort: {{ .Values.container.targetPort }}
 
 
 --- # 외부 접근
@@ -21,11 +21,10 @@ metadata:
 spec:
   selector:
     app: {{ .Release.Name }}-pod
-  type: {{ .Values.service.nodePort }}
+  type: NodePort
   ports:
-    - protocol: {{ .Values.service.nodePort.protocol }}
-      port: {{ .Values.service.nodePort.port }}
-      targetPort: {{ .Values.service.nodePort.targetPort }}
-      nodePort: {{ .Values.service.nodePort.nodePort }}
+    - port: {{ .Values.container.port }}
+      targetPort: {{ .Values.container.targetPort }}
+      nodePort: {{ .Values.service.nodePort }}
 
 
