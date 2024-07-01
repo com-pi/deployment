@@ -1,4 +1,6 @@
 USE board;
+
+-- tables
 create table member
 (
     member_id bigint auto_increment primary key,
@@ -9,7 +11,7 @@ create table member
 
 create table article
 (
-    article_id   bigint       not null  primary key,
+    article_id   bigint auto_increment primary key,
     view_count   int          null,
     created_at   datetime(6)  not null,
     deleted_at   datetime(6)  null,
@@ -19,41 +21,68 @@ create table article
     content      varchar(255) null,
     deletion_yn  varchar(255) null,
     image_urls   varchar(255) null,
-    title        varchar(255) null,
-    foreign key (member_id) references member (member_id)
+    title        varchar(255) null
 ) ENGINE = InnoDB;
 
-create table article_seq
-(
-    next_val bigint null
-) ENGINE = InnoDB;
 
-create table buy_and_sell
+create table general_board
 (
-    article_id  bigint       not null   primary key,
-    is_free     bit          null,
-    like_count  int          null,
-    price       int          null,
-    eupmyundong varchar(255) null,
-    hashtags    varchar(255) null,
-    sido        varchar(255) null,
-    sigungu     varchar(255) null,
-    location    geometry     null,
+    article_id bigint not null primary key,
     foreign key (article_id) references article (article_id)
 ) ENGINE = InnoDB;
 
-create table likes
+
+create table qna_board
 (
-    like_id      bigint auto_increment                             primary key,
-    is_liked     bit                                                      null,
-    article_id   bigint                                                   null,
-    member_id    bigint                                                   null,
-    article_type enum ('BUY_AND_SELL', 'PLANT_SITTER', 'SHOW_OFF', 'QNA') null,
-    unique (article_id, member_id),
-    foreign key (article_id) references article (article_id),
-    foreign key (member_id) references member (member_id)
+    article_id bigint not null primary key,
+    foreign key (article_id) references article (article_id)
 ) ENGINE = InnoDB;
 
 
+create table hashtag
+(
+    hashtag_id bigint auto_increment primary key,
+    name       varchar(255) null
+) ENGINE = InnoDB;
 
+
+create table article_hashtag
+(
+    article_hashtag_id bigint auto_increment primary key,
+    article_id bigint null,
+    hashtag_id bigint null,
+    foreign key (hashtag_id) references hashtag (hashtag_id)
+) ENGINE = InnoDB;
+
+
+create table likes
+(
+    like_id bigint auto_increment primary key,
+    is_liked bit null,
+    article_id bigint null,
+    member_id bigint null,
+    unique (article_id, member_id),
+    foreign key (article_id) references article (article_id)
+) ENGINE = InnoDB;
+
+
+create table comments
+(
+    comment_id bigint auto_increment primary key,
+    created_date date null,
+    article_id bigint null,
+    created_at datetime(6) not null,
+    deleted_at datetime(6) null,
+    member_id bigint null,
+    parent_id bigint null,
+    updated_at datetime(6) null,
+    content varchar(255) null,
+    deletion_yn varchar(255) null,
+    foreign key (parent_id) references comments (comment_id),
+    foreign key (article_id) references article (article_id)
+) ENGINE = InnoDB;
+
+
+-- indexes
+create index idx_name on hashtag (name);
 
