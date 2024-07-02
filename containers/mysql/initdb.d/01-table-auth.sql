@@ -17,10 +17,10 @@ CREATE TABLE member (
                         image_url varchar(255),
                         thumbnail_url varchar(255),
                         created_at timestamp(6) not null DEFAULT CURRENT_TIMESTAMP(6),
-                        deleted_at timestamp(6),
                         last_login timestamp(6),
                         updated_at timestamp(6),
                         deletion_yn varchar(255) not null default 'N',
+                        deleted_at timestamp(6),
                         primary key (id));
 
 CREATE TABLE EVENT_RECORD_ENTITY (

@@ -22,3 +22,26 @@ CREATE TABLE PLANT_SPECIES (
                                     updated_at timestamp(6),
                                     PRIMARY KEY (id)
 );
+
+CREATE TABLE MY_ENCYCLOPEDIA (
+                                   id	bigint	NOT NULL AUTO_INCREMENT,
+                                   member_id	bigint	NULL,
+                                   title	varchar(255)	NULL,
+                                   cover_image_url	varchar(255)	NULL,
+                                   created_at timestamp(6) not null DEFAULT CURRENT_TIMESTAMP(6),
+                                   updated_at timestamp(6),
+                                   deletion_yn varchar(255) not null default 'N',
+                                   deleted_at timestamp(6),
+                                   primary key (id)
+);
+
+CREATE TABLE ENCYCLOPEDIA_PLANT (
+                                    ID	bigint	NOT NULL AUTO_INCREMENT,
+                                    PLANT_SPECIES_ID	bigint	NOT NULL,
+                                    MY_ENCYCLOPEDIA_ID	bigint	NOT NULL,
+                                    PRIMARY KEY (ID),
+                                    FOREIGN KEY (plant_species_id) REFERENCES PLANT_SPECIES(id),
+                                    FOREIGN KEY (my_encyclopedia_id) REFERENCES MY_ENCYCLOPEDIA(id),
+                                    UNIQUE (PLANT_SPECIES_ID, MY_ENCYCLOPEDIA_ID)
+);
+
