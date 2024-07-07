@@ -18,7 +18,7 @@ services:
     volumes:
       - "~/minio/data:/data"
     environment:
-      - MINIO_ROOT_USER=ADMIN
+      - MINIO_ROOT_USER=admin
       - MINIO_ROOT_PASSWORD=compcomp!!
     command: server /data --console-address ":9001"
 
@@ -69,3 +69,18 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=1234
+
+  mysql:
+    container_name: mysql_local
+    image: utopiandrmer/comp-mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234
+    ports:
+      - 3306:3306
+
+  scraper:
+    container_name: scraper
+    image: utopiandrmer/comp-scraper
+    ports:
+      - "8999:8080"
+

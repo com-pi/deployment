@@ -117,7 +117,7 @@ services:
       - 8085:8080
 
   mysql:
-    container_name: mysql
+    container_name: mysql_local
     image: utopiandrmer/compi-mysql
     environment:
       - MYSQL_ROOT_PASSWORD=1234
