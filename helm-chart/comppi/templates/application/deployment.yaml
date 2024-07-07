@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name}}-{{ $key }}
+  name: {{ .Release.Name }}-{{ $key }}
 spec:
   replicas: {{ $value.replicaCount }}
   selector:

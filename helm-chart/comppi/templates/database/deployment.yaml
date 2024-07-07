@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ $key }}-deployment
+  name: {{ .Release.Name }}{{ $key }}
 spec:
   replicas: 1
   selector:
@@ -35,8 +35,8 @@ spec:
           {{ end }}
       volumes:
         {{ range $value.volumeMount }}
-        - name: {{ .name }}
+        - name: {{ $key }}-{{ .name }}
           persistentVolumeClaim:
-            claimName: {{ .name | cat "-pvc" }}
+            claimName: {{ $key | cat "-" .name "-pvc" }}
         {{ end }}
 {{ end }}

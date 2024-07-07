@@ -69,7 +69,6 @@ application:
 
 database:
   mysql:
-    name: mysql
     ports:
       - 3306
     nodePorts:
@@ -82,7 +81,7 @@ database:
             name: comppi-sercret
             key: MYSQL_ROOT_PASSWORD
     volumeMount:
-      - name: mysql-vol1
+      - name: vol1
         mountPath: "/var/lib/mysql"
         capacity: 10Gi
         nfs:
@@ -90,7 +89,6 @@ database:
           server: 172.30.1.60
 
   minio:
-    name: minio
     ports:
       - 9000
       - 9001

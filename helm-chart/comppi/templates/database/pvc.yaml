@@ -1,9 +1,10 @@
 {{- range $key, $value := .Values.database }}
+{{ $name := $key }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 {{ range $key, $value := $value.volumeMount }}
 metadata:
-  name: {{ $value.name }}-pvc
+  name: {{ $name }}-{{ $value.name }}-pvc
 spec:
   accessModes:
     - ReadWriteMany
