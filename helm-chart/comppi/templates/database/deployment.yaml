@@ -1,0 +1,45 @@
+{{- range $key, $value := .Values.database }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $.Release.Name }}-{{ $key }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ $key }}
+  template:
+    metadata:
+      labels:
+        app: {{ $key }}
+    spec:
+      containers:
+        - name: {{ $key }}
+          image: {{ printf "%s/%s-%s:%s" $.Values.docker.account $.Release.Name $key $.Values.env.activeProfile }}
+          imagePullPolicy: {{ if eq $.Values.env.activeProfile "dev" }}Always{{ else }}IfNotPresent{{ end }}
+          ports:
+            {{- range $value.ports }}
+            - containerPort: {{ . }}
+            {{- end }}
+          env:
+            {{- range $value.env }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          volumeMounts:
+            {{- range $value.volumeMount }}
+            - name: {{ .name }}
+              mountPath: {{ .mountPath }}
+            {{- end }}
+          {{- if $value.command }}
+          command:
+            {{- range $val := $value.command }}
+            - {{ $val }}
+            {{- end }}
+          {{- end }}
+      volumes:
+        {{- range $value.volumeMount }}
+        - name: {{ $key }}-{{ .name }}
+          persistentVolumeClaim:
+            claimName: {{ printf "%s-%s-pvc" $key .name }}
+        {{- end }}
+{{- end }}

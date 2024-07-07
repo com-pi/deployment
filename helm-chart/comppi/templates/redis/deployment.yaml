@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+        - name: redis
+          image: {{ printf "%s/%s-redis:%s" .Values.docker.account .Release.Name .Values.env.activeProfile }}
+          imagePullPolicy: {{ if eq .Values.env.activeProfile "dev" }}Always{{ else }}IfNotPresent{{ end }}
+          ports:
+            {{- range .Values.redis.port }}
+            - containerPort: {{ . }}
+            {{- end }}
+          env:
+            {{- range .Values.redis.env }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}

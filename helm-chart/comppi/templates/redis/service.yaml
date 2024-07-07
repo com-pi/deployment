@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-svc
+spec:
+  selector:
+    app: redis
+  ports:
+    {{- range .Values.redis.ports }}
+    - protocol: TCP
+      port: {{ . }}
+      targetPort: {{ . }}
+    {{- end }}
+
+  type: ClusterIP
