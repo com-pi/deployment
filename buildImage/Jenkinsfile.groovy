@@ -7,8 +7,8 @@ pipeline {
     }
 
     parameters {
-        string defaultValue: 'dev', description: '버전 선택', name: 'VERSION', trim: true
-        string defaultValue: 'null', description: '태그 입력', name: 'TAG', trim: true
+        chice defaultValue: 'dev', chice: ['dev', 'prod'], description: '버전', name: 'VERSION'
+        string defaultValue: 'null', description: '태그', name: 'TAG', trim: true
         choice choices: ['모듈 선택', 'auth-service', 'api-gateway', 'discovery-eureka', 'board-service', 'my-plant', 'encyclo-service'], description: '빌드할 모듈 선택', name: 'Module'
     }
 
