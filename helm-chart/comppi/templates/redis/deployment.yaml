@@ -2,6 +2,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Release.Name }}-redis
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: redis={{ printf "%s/%s-redis:%s" .Values.docker.account .Release.Name .Values.env.activeProfile }}
+    argocd-image-updater.argoproj.io/redis-update-strategy: name
+    argocd-image-updater.argoproj.io/redis.allow-tags: regexp:^[a-z]+-\d{8}-\d{6}$
 spec:
   replicas: 1
   selector:
@@ -17,7 +21,7 @@ spec:
           image: {{ printf "%s/%s-redis:%s" .Values.docker.account .Release.Name .Values.env.activeProfile }}
           imagePullPolicy: {{ if eq .Values.env.activeProfile "dev" }}Always{{ else }}IfNotPresent{{ end }}
           ports:
-            {{- range .Values.redis.port }}
+            {{- range .Values.redis.ports }}
             - containerPort: {{ . }}
             {{- end }}
           env:

@@ -127,7 +127,9 @@ nginx:
     - 443
     - 80
   nodePorts:
-    - port: 443
+    - name: https
+      port: 443
       nodePort: 30443
-    - port: 80
+    - name: http
+      port: 80
       nodePort: 30480
