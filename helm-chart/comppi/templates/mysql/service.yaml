@@ -8,12 +8,10 @@ spec:
     app: mysql
   type: ClusterIP
   ports:
-    - protocol: TCP
-      port: 443
-      targetPort: 443
-    - protocol: TCP
-      port: 80
-      targetPort: 80
+    - name: mysql
+      protocol: TCP
+      port: 3306
+      targetPort: 3306
 
 
 --- # 외부 접근
@@ -26,13 +24,9 @@ spec:
     app: comppi-mysql
   type: NodePort
   ports:
-    - name: https
-      port: 443
-      targetPort: 443
-      nodePort: 30443
-    - name: http
-      port: 80
-      targetPort: 80
-      nodePort: 30480
+    - name: mysql
+      port: 3306
+      targetPort: 3306
+      nodePort: 33066
 
 
