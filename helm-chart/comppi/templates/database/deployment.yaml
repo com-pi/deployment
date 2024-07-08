@@ -38,7 +38,7 @@ spec:
           {{- end }}
       volumes:
         {{- range $value.volumeMount }}
-        - name: {{ $key }}-{{ .name }}
+        - name: {{ .name }}
           persistentVolumeClaim:
             claimName: {{ printf "%s-%s-pvc" $key .name }}
         {{- end }}

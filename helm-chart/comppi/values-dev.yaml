@@ -67,7 +67,6 @@ application:
         image: busybox
         command: [ 'sh', '-c', 'until nc -z -v -w30 scraper 8080; do echo "Waiting for Scraper..."; sleep 5; done' ]
 
-
 database:
   mysql:
     ports:
@@ -79,7 +78,7 @@ database:
       - name: MYSQL_ROOT_PASSWORD
         valueFrom:
           secretKeyRef:
-            name: comppi-sercret
+            name: comppi-secret
             key: MYSQL_ROOT_PASSWORD
     volumeMount:
       - name: vol1
@@ -102,12 +101,12 @@ database:
       - name: MINIO_ROOT_PASSWORD
         valueFrom:
           secretKeyRef:
-            name: comppi-sercret
+            name: comppi-secret
             key: MINIO_ROOT_PASSWORD
     command: [ "minio", "server", "/data", "--console-address", ":9001" ]
     volumeMount:
       - name: minio-vol1
-        mountPath:
+        mountPath: /data
         capacity: 20Gi
         nfs:
           path: /srv/nfs/kubedata/minio
@@ -120,7 +119,7 @@ redis:
     - name: REDIS_PASSWORD
       valueFrom:
         secretKeyRef:
-          name: comppi-sercret
+          name: comppi-secret
           key: REDIS_PASSWORD
 
 nginx:
@@ -132,4 +131,3 @@ nginx:
       nodePort: 30443
     - port: 80
       nodePort: 30480
-
