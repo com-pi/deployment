@@ -44,7 +44,7 @@ pipeline {
                     def branch = params.ENVIRONMENT == 'dev' ? 'develop' : 'production'
                     dir('backend-source-code') {
                         git branch: branch, changelog: false, credentialsId: 'kihong', poll: false, url: 'git@github.com:com-pi/backend.git'
-                        sh "./gradlew :${params.Module}:bufildDockerImage -Ptag=${env.TAG}"
+                        sh "./gradlew :${params.Module}:buildDockerImage -Ptag=${env.TAG}"
                     }
 
                 }
