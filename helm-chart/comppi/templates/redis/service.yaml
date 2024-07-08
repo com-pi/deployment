@@ -6,10 +6,7 @@ spec:
   selector:
     app: redis
   ports:
-    {{- range .Values.redis.ports }}
     - protocol: TCP
-      port: {{ . }}
-      targetPort: {{ . }}
-    {{- end }}
-
+      port: 6379
+      targetPort: 6379
   type: ClusterIP
