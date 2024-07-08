@@ -10,14 +10,25 @@ pipeline {
     environment {
         DOCKERHUB_USERNAME = 'utopiandrmer'
         DOCKER_FILE_PATH = 'containers'
-        PROJECT_NAME = 'comp'
-
-        DATE = sh(script: 'date +%Y%m%d', returnStdout: true).trim()
-        TIME = sh(script: 'date +%H%M%S', returnStdout: true).trim()
-        TAG = "${params.VERSION}-${env.DATE}-${env.TIME}"
+        PROJECT_NAME = 'comppi'
     }
 
     stages {
+
+        stage('태그 생성') {
+            steps {
+                script {
+                    env.DATE = sh(script: 'date +%Y%m%d', returnStdout: true).trim()
+                    env.TIME = sh(script: 'date +%H%M%S', returnStdout: true).trim()
+                    if(params.VERSION == 'null'){
+                        env.TAG = "${params.ENVIRONMENT}-${env.DATE}-${env.TIME}"
+                    } else {
+                        env.TAG = "${params.ENVIRONMENT}-${params.VERSION}"
+                    }
+                }
+            }
+        }
+
         stage('scraper 리포지토리 체크 아웃'){
             when {
                 expression { params.Module != '모듈 선택' && params.Module == 'scraper'}
