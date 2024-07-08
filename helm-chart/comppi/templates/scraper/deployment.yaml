@@ -2,10 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Release.Name }}-scraper
-  annotations:
-    argocd-image-updater.argoproj.io/image-list: scraper={{ printf "%s/%s-%s" $.Values.docker.account $.Release.Name "scraper" }}
-    argocd-image-updater.argoproj.io/scraper.update-strategy: name
-    argocd-image-updater.argoproj.io/scraper.allow-tags: regexp:^dev-\d{8}-\d{6}$
 spec:
   replicas: 1
   selector:

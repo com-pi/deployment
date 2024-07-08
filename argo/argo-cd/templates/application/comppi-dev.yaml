@@ -8,8 +8,7 @@ metadata:
       {{- . | nindent 6}}=utopiandrmer/comppi-{{ . }}:^dev-\d{8}-\d{4}$
     {{ end }}
     {{ range .Values.images }}
-    argocd-image-updater.argoproj.io/{{ . }}.allow-tags: 'regexp:^dev-\d{8}-\d{6}$'
-    argocd-image-updater.argoproj.io/{{ . }}.update-strategy: name
+    argocd-image-updater.argoproj.io/{{ . }}.update-strategy: latest
     {{ end }}
 spec:
   destination:
