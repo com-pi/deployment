@@ -18,18 +18,23 @@ pipeline {
         PROJECT_NAME = 'comppi'
         DOCKER_FILE_PATH = 'deployment/docker/containers'
         DOCKER_COMPOSE_SCRIPT = 'deployment/docker/docker-compose'
-
-        DATE = sh(script: 'date +%Y%m%d', returnStdout: true).trim()
-        TIME = sh(script: 'date +%H%M%S', returnStdout: true).trim()
-        TAG = ''
-        if(TAG == 'null'){
-            TAG = "${params.ENVIRONMENT}-${env.DATE}-${env.TIME}"
-        } else {
-            TAG = "${params.ENVIRONMENT}-${env.VERSION}"
-        }
     }
 
     stages {
+        stage('태그 생성') {
+            steps {
+                script {
+                    env.DATE = sh(script: 'date +%Y%m%d', returnStdout: true).trim()
+                    env.TIME = sh(script: 'date +%H%M%S', returnStdout: true).trim()
+                    if(params.VERSION == 'null'){
+                        env.TAG = "${params.ENVIRONMENT}-${env.DATE}-${env.TIME}"
+                    } else {
+                        env.TAG = "${params.ENVIRONMENT}-${params.VERSION}"
+                    }
+                }
+            }
+        }
+
         stage('체크 아웃 및 이미지 빌드') {
             when {
                 expression { params.Module != '모듈 선택'}
