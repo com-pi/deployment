@@ -3,7 +3,8 @@ pipeline {
 
     parameters {
         choice choices: ['모듈 선택', 'nginx', 'mysql', 'scraper', 'mongodb'], description: '빌드할 모듈 선택', name: 'Module'
-        string(name: 'VERSION', defaultValue: 'dev', trim: true)
+        choice choices: ['dev', 'prod'], description: '배포 환경', name: 'ENVIRONMENT'
+        string defaultValue: 'null', description: '배포 버전', name: 'VERSION', trim: true
     }
 
 
