@@ -71,12 +71,6 @@ database:
     nodePorts:
       - port: 3306
         nodePort: 32306
-    env:
-      - name: MYSQL_ROOT_PASSWORD
-        valueFrom:
-          secretKeyRef:
-            name: comppi-secret
-            key: MYSQL_ROOT_PASSWORD
     volumeMount:
       - name: vol1
         mountPath: "/var/lib/mysql"
@@ -92,22 +86,6 @@ database:
     nodePorts:
       - port: 9001
         nodePort: 30901
-    env:
-      - name: MINIO_ROOT_USER
-        value: "admin"
-      - name: MINIO_ROOT_PASSWORD
-        valueFrom:
-          secretKeyRef:
-            name: comppi-secret
-            key: MINIO_ROOT_PASSWORD
-    command: [ "minio", "server", "/data", "--console-address", ":9001" ]
-    volumeMount:
-      - name: minio-vol1
-        mountPath: /data
-        capacity: 20Gi
-        nfs:
-          path: /srv/nfs/kubedata/minio
-          server: 172.30.1.70
 
 nginx:
   ports:

@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-minio
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: minio
+  template:
+    metadata:
+      labels:
+        app: minio
+    spec:
+      containers:
+        - name: minio
+          image: {{ printf "%s/%s-%s" $.Values.docker.account $.Release.Name "minio" }}
+          imagePullPolicy: {{ if eq $.Values.env.activeProfile "dev" }}Always{{ else }}IfNotPresent{{ end }}
+          ports:
+            {{- range .Values.database.minio.ports }}
+            - containerPort: {{ . }}
+            {{- end }}
+          env:
+            - name: MINIO_ROOT_USER
+              value: "admin"
+            - name: MINIO_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: comppi-secret
+                  key: MINIO_ROOT_PASSWORD
+          command: [ "minio", "server", "/data", "--console-address", ":9001" ]
+          volumeMounts:
+            - name: minio-vol
+              mountPath: /data
+
+      volumes:
+        - name: minio-vol
+          persistentVolumeClaim:
+            claimName: minio-pvc
+
+
