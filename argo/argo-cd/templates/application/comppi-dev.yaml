@@ -3,11 +3,16 @@ kind: Application
 metadata:
   name: comppi
   annotations:
-    argocd-image-updater.argoproj.io/image-list: |
-      {{- range $index, $image := .Values.images -}}
-      {{- if $index }},{{ end -}}
-        utopiandrmer/comppi-{{ $image }}
-      {{- end }}
+    argocd-image-updater.argoproj.io/image-list: >-
+      utopiandrmer/comppi-mysql,
+      redis=utopiandrmer/comppi-redis,
+      my-plant=utopiandrmer/comppi-my-plant,
+      auth-service=utopiandrmer/comppi-auth-service,
+      api-gateway=utopiandrmer/comppi-api-gateway,
+      discovery-eureka=utopiandrmer/comppi-discovery-eureka,
+      board-service=utopiandrmer/comppi-board-service,
+      scraper=utopiandrmer/comppi-scraper,
+      encyclo-service,utopiandrmer/comppi-encyclo-service
     {{- range .Values.images }}
     argocd-image-updater.argoproj.io/{{ . }}.update-strategy: latest
     {{- end }}
