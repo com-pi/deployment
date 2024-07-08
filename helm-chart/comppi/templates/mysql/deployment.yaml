@@ -13,7 +13,7 @@ spec:
         app: mysql
     spec:
       containers:
-        - name: minio
+        - name: mysql
           image: {{ printf "%s/%s-%s" $.Values.docker.account $.Release.Name "mysql" }}
           imagePullPolicy: {{ if eq $.Values.env.activeProfile "dev" }}Always{{ else }}IfNotPresent{{ end }}
           ports:
