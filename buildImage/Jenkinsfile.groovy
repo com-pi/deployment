@@ -8,19 +8,22 @@ pipeline {
 
     parameters {
         string defaultValue: 'dev', description: '버전 선택', name: 'VERSION', trim: true
+        string defaultValue: 'null', description: '태그 입력', name: 'TAG', trim: true
         choice choices: ['모듈 선택', 'auth-service', 'api-gateway', 'discovery-eureka', 'board-service', 'my-plant', 'encyclo-service'], description: '빌드할 모듈 선택', name: 'Module'
     }
 
     environment {
         DOCKERHUB_CREDENTIALS = 'dockerhub_account'
         DOCKERHUB_USERNAME = 'utopiandrmer'
-        PROJECT_NAME = 'comp'
+        PROJECT_NAME = 'comppi'
         DOCKER_FILE_PATH = 'deployment/docker/containers'
         DOCKER_COMPOSE_SCRIPT = 'deployment/docker/docker-compose'
 
         DATE = sh(script: 'date +%Y%m%d', returnStdout: true).trim()
         TIME = sh(script: 'date +%H%M%S', returnStdout: true).trim()
-        TAG = "${params.VERSION}-${env.DATE}-${env.TIME}"
+        if(TAG == 'null'){
+            TAG = "${params.VERSION}-${env.DATE}-${env.TIME}"
+        }
     }
 
     stages {
