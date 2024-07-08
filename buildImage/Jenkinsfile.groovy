@@ -7,7 +7,7 @@ pipeline {
     }
 
     parameters {
-        chice defaultValue: 'dev', choices: ['dev', 'prod'], description: '배포 환경', name: 'ENVIRONMENT'
+        choice defaultValue: 'dev', choices: ['dev', 'prod'], description: '배포 환경', name: 'ENVIRONMENT'
         string defaultValue: 'null', description: '배포 버전', name: 'VERSION', trim: true
         choice choices: ['모듈 선택', 'auth-service', 'api-gateway', 'discovery-eureka', 'board-service', 'my-plant', 'encyclo-service'], description: '빌드할 모듈 선택', name: 'Module'
     }
