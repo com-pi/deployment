@@ -7,7 +7,7 @@ spec:
     app: nginx
   ports:
   {{ range .Values.nginx.nodePorts }}
-    - name: nginx
+    - name: {{ .name }}
       protocol: TCP
       port: {{ .port }}
       targetPort: {{ .port }}
