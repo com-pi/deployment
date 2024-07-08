@@ -3,6 +3,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ $.Release.Name }}-{{ $key }}
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: {{ $key }}={{ printf "%s/%s-%s" $.Values.docker.account $.Release.Name $key }}
+    argocd-image-updater.argoproj.io/{{ $key }}-update-strategy: name
+    argocd-image-updater.argoproj.io/{{ $key }}.allow-tags: regexp:^[a-z]+-\d{8}-\d{6}$
 spec:
   replicas: {{ $value.replicaCount }}
   selector:
