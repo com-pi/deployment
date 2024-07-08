@@ -7,8 +7,8 @@ pipeline {
     }
 
     parameters {
-        chice defaultValue: 'dev', chice: ['dev', 'prod'], description: '버전', name: 'VERSION'
-        string defaultValue: 'null', description: '태그', name: 'TAG', trim: true
+        chice defaultValue: 'dev', chice: ['dev', 'prod'], description: '배포 환경', name: 'ENVIRONMENT'
+        string defaultValue: 'null', description: '배포 버전', name: 'VERSION', trim: true
         choice choices: ['모듈 선택', 'auth-service', 'api-gateway', 'discovery-eureka', 'board-service', 'my-plant', 'encyclo-service'], description: '빌드할 모듈 선택', name: 'Module'
     }
 
@@ -21,8 +21,11 @@ pipeline {
 
         DATE = sh(script: 'date +%Y%m%d', returnStdout: true).trim()
         TIME = sh(script: 'date +%H%M%S', returnStdout: true).trim()
+        TAG = ''
         if(TAG == 'null'){
-            TAG = "${params.VERSION}-${env.DATE}-${env.TIME}"
+            TAG = "${params.ENVIRONMENT}-${env.DATE}-${env.TIME}"
+        } else {
+            TAG = "${params.ENVIRONMENT}-${env.VERSION}"
         }
     }
 
