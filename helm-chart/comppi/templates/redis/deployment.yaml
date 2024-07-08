@@ -1,11 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}-redis
-  annotations:
-    argocd-image-updater.argoproj.io/image-list: redis={{ printf "%s/%s-redis:%s" .Values.docker.account .Release.Name .Values.env.activeProfile }}
-    argocd-image-updater.argoproj.io/redis-update-strategy: name
-    argocd-image-updater.argoproj.io/redis.allow-tags: regexp:^[a-z]+-\d{8}-\d{6}$
+  name: comppi-redis
 spec:
   replicas: 1
   selector:
@@ -18,17 +14,13 @@ spec:
     spec:
       containers:
         - name: redis
-          image: {{ printf "%s/%s-redis:%s" .Values.docker.account .Release.Name .Values.env.activeProfile }}
+          image: redis:latest
           imagePullPolicy: {{ if eq .Values.env.activeProfile "dev" }}Always{{ else }}IfNotPresent{{ end }}
           ports:
-            {{- range .Values.redis.ports }}
-            - containerPort: {{ . }}
-            {{- end }}
+            - containerPort: 6379
           env:
-            {{- range $index, $env := .Values.redis.env }}
-            - name: {{ $env.name }}
-              valueFrom: {{ $env.valueFrom }}
+            - name: REDIS_PASSWORD
+              valueFrom:
                 secretKeyRef:
-                  name: {{ $env.valueFrom.secretKeyRef.name }}
-                  key: {{ $env.valueFrom.secretKeyRef.key }}
-            {{- end }}
+                  name: comppi-secret
+                  key: REDIS_PASSWORD

@@ -109,16 +109,6 @@ database:
           path: /srv/nfs/kubedata/minio
           server: 172.30.1.60
 
-redis:
-  ports:
-    - 6379
-  env:
-    - name: REDIS_PASSWORD
-      valueFrom:
-        secretKeyRef:
-          name: comppi-secret
-          key: REDIS_PASSWORD
-
 nginx:
   ports:
     - 443
