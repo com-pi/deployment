@@ -31,6 +31,6 @@ spec:
           image: {{ printf "%s/%s-nginx:%s" .Values.docker.account .Values.releaseName .Values.env.activeProfile }}
           imagePullPolicy: {{ if eq .Values.env.activeProfile "dev" }}Always{{ else }}IfNotPresent{{ end }}
           ports:
-            {{- range .Values.redis.port }}
+            {{- range .Values.nginx.ports }}
             - containerPort: {{ . }}
             {{- end }}
