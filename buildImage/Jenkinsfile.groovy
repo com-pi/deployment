@@ -41,7 +41,7 @@ pipeline {
             }
             steps {
                 dir('backend-source-code') {
-                    git branch: 'develop', changelog: false, credentialsId: 'backend', poll: false, url: 'git@github.com:com-pi/backend.git'
+                    git branch: 'develop', changelog: false, credentialsId: 'kihong', poll: false, url: 'git@github.com:com-pi/backend.git'
                     sh "./gradlew :${params.Module}:buildDockerImage -Ptag=${env.TAG}"
                 }
             }
