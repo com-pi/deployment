@@ -35,7 +35,7 @@ pipeline {
             }
             steps {
                 dir('scraper') {
-                    git branch: 'main', changelog: false, credentialsId: 'repository-scraper', poll: false, url: 'git@github.com:com-pi/plant-scraper.git'
+                    git branch: 'main', changelog: false, credentialsId: 'kihong', poll: false, url: 'git@github.com:com-pi/plant-scraper.git'
                 }
             }
         }
