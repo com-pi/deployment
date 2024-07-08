@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: comppi
+spec:
+  destination:
+    name: ''
+    namespace: comppi-dev
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: helm-chart/comppi
+    repoURL: 'git@github.com:com-pi/deployment.git'
+    targetRevision: main
+  sources: []
+  project: default
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: false
+    syncOptions:
+      - CreateNamespace=true
