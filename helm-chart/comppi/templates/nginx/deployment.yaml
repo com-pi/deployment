@@ -1,39 +1,36 @@
-{{ with .Values.others.nginx }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .name }}-deployment
+  name: {{ .Values.releaseName }}-nginx
 spec:
-  replicas: {{ .replicaCount }}
+  replicas: 1
   selector:
     matchLabels:
-      app: {{ .name }}
+      app: nginx
   template:
     metadata:
       labels:
-        app: {{ .name }}
+        app: nginx
     spec:
       initContainers:
         - name: init-wait-for-discovery
           image: busybox
-          command: [ 'sh', '-c', 'until nc -z -v -w30 discovery-eureka 8761; do echo "Waiting for Discovery..."; sleep 5; done' ]
+          command: ['sh', '-c', 'until nc -z -v -w30 discovery-eureka 8761; do echo "Waiting for Discovery..."; sleep 5; done']
         - name: init-wait-for-auth-service
           image: busybox
-          command: [ 'sh', '-c', 'until nc -z -v -w30 auth-service 8080; do echo "Waiting for auth service..."; sleep 5; done' ]
+          command: ['sh', '-c', 'until nc -z -v -w30 auth-service 8080; do echo "Waiting for auth service..."; sleep 5; done']
         - name: init-wait-for-board-service
           image: busybox
-          command: [ 'sh', '-c', 'until nc -z -v -w30 board-service 8080; do echo "Waiting for board service..."; sleep 5; done' ]
+          command: ['sh', '-c', 'until nc -z -v -w30 board-service 8080; do echo "Waiting for board service..."; sleep 5; done']
         - name: init-wait-for-encyclo-service
           image: busybox
-          command: [ 'sh', '-c', 'until nc -z -v -w30 encyclo-service 8080; do echo "Waiting for encyclo service..."; sleep 5; done' ]
+          command: ['sh', '-c', 'until nc -z -v -w30 encyclo-service 8080; do echo "Waiting for encyclo service..."; sleep 5; done']
 
       containers:
-        - name: {{ .Release.Name }}
-          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
-          imagePullPolicy: {{ .Values.container.pullPolicy }}
+        - name: nginx
+          image: {{ printf "%s/%s-nginx:%s" .Values.docker.account .Values.releaseName .Values.env.activeProfile }}
+          imagePullPolicy: {{ if eq .Values.env.activeProfile "dev" }}Always{{ else }}IfNotPresent{{ end }}
           ports:
-          {{- range .Values.container.ports }}
-            - containerPort: {{ .containerPort }}
-          {{- end }}
-
-{{ end }}
+            {{- range .Values.redis.port }}
+            - containerPort: {{ . }}
+            {{- end }}

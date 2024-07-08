@@ -6,7 +6,7 @@ metadata:
   name: {{ $key }}
 spec:
   selector:
-    app: {{ .Release.Name }}-{{ $key }}
+    app: {{ $key }}
   type: ClusterIP
   ports:
     {{ range $value.ports }}
@@ -25,7 +25,7 @@ metadata:
   name: {{ $key }}-nodeport
 spec:
   selector:
-    app: {{ .Release.Name }}-{{ $key }}
+    app: {{ $.Values.releaseName }}-{{ $key }}
   type: NodePort
   ports:
     {{ range $value.nodePorts }}

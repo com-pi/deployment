@@ -1,8 +1,8 @@
-{{ range $key, $value := .Values.application }}
+{{- range $key, $value := .Values.application }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}-{{ $key }}
+  name: {{ $.Release.Name }}-{{ $key }}
 spec:
   replicas: {{ $value.replicaCount }}
   selector:
@@ -13,19 +13,19 @@ spec:
       labels:
         app: {{ $key }}
     spec:
-      {{ if $value.initContainers }}
+      {{- if $value.initContainers }}
       initContainers:
-        {{- toYaml $value.initContainers | nindent 8}}
-      {{ end }}
+        {{- toYaml $value.initContainers | nindent 8 }}
+      {{- end }}
       containers:
         - name: {{ $key }}
-          image: {{ .Values.docker.account | cat "/" .Release.Name "-" $key ":" .Values.env.activeProfile }}
-          imagePullPolicy: {{ if eq .Values.env.activeProfile "dev" }}Always{{ else }}IfNotPresent{{ end }}
+          image: {{ printf "%s/%s-%s:%s" $.Values.docker.account $.Release.Name $key $.Values.env.activeProfile }}
+          imagePullPolicy: {{ if eq $.Values.env.activeProfile "dev" }}Always{{ else }}IfNotPresent{{ end }}
           ports:
-            - containerPort: {{ default "8080" $value.port }}
+            - containerPort: {{ default 8080 $value.port }}
           env:
-          - name: SPRING_PROFILES_ACTIVE
-            value: {{ .Values.env.activeProfile }}
-          - name: TZ
-            value: {{ .Values.env.timezone }}
-{{ end }}
+            - name: SPRING_PROFILES_ACTIVE
+              value: {{ $.Values.env.activeProfile }}
+            - name: TZ
+              value: {{ $.Values.env.timezone }}
+{{- end }}

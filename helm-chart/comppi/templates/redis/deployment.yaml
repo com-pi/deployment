@@ -1,27 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}-deployment
+  name: {{ .Release.Name }}-redis
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: 1
   selector:
     matchLabels:
-      app: {{ .Release.Name }}-pod
+      app: redis
   template:
     metadata:
       labels:
-        app: {{ .Release.Name }}-pod
-
+        app: redis
     spec:
       containers:
-        - name: {{ .Release.Name }}
-          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        - name: redis
+          image: {{ printf "%s/%s-redis:%s" .Values.docker.account .Release.Name .Values.env.activeProfile }}
           imagePullPolicy: {{ if eq .Values.env.activeProfile "dev" }}Always{{ else }}IfNotPresent{{ end }}
           ports:
-            - containerPort: {{ .Values.service.targetPort}}
+            {{- range .Values.redis.port }}
+            - containerPort: {{ . }}
+            {{- end }}
           env:
-            - name: REDIS_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.secret.rootPasswordSecretName }}
-                  key: {{ .Values.secret.rootPasswordSecretKey }}
+            {{- range .Values.redis.env }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}

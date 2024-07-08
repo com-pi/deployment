@@ -8,8 +8,8 @@ spec:
     app: {{ $key }}
   ports:
     - protocol: TCP
-      port: {{ default "8080" | $value.port }}
-      targetPort: {{ default "8080" | $value.port }}
+      port: {{ default "8080" $value.port }}
+      targetPort: {{ default "8080" $value.port }}
 
-  type: {{ default "ClusterIP" | $value.serviceType }}
+  type: {{ default "ClusterIP" $value.serviceType }}
 {{ end }}
