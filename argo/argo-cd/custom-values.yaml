@@ -2,3 +2,14 @@ server:
   service:
     type: NodePort
     nodePortHttps: 30002
+
+images:
+  - mysql
+  - redis
+  - my-plant
+  - auth-service
+  - api-gateway
+  - discovery-eureka
+  - board-service
+  - scraper
+  - encyclo-service

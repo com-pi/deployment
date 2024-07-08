@@ -2,6 +2,12 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: comppi
+  annotations:
+    {{ range .Values.images }}
+    argocd-image-updater.argoproj.io/image-list: {{ . }}=utopiandrmer/comppi-{{ . }}
+    argocd-image-updater.argoproj.io/{{ . }}.allow-tags: 'regexp:^dev-\d{8}-\d{6}$'
+    argocd-image-updater.argoproj.io/{{ . }}.update-strategy: name
+    {{ end }}
 spec:
   destination:
     name: ''
@@ -11,6 +17,9 @@ spec:
     path: helm-chart/comppi
     repoURL: 'git@github.com:com-pi/deployment.git'
     targetRevision: main
+    helm:
+      valueFiles:
+        - values-dev.yaml
   sources: []
   project: default
   syncPolicy:
