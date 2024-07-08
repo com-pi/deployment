@@ -4,11 +4,12 @@ metadata:
   name: comppi
   annotations:
     argocd-image-updater.argoproj.io/image-list: |
+    {{- range $index, $image := .Values.images -}}
+    {{- if $index }},{{ end -}}
+    utopiandrmer/comppi-{{ $image }}
+    {{- end }}
     {{ range .Values.images }}
-      {{- . | nindent 6}}=utopiandrmer/comppi-{{ . }}
-    {{ end }}
-    {{ range .Values.images }}
-    argocd-image-updater.argoproj.io/{{ . }}.update-strategy: digest
+    argocd-image-updater.argoproj.io/{{ . }}.update-strategy: latest
     {{ end }}
 spec:
   destination:
