@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: minio
-          image: {{ printf "%s/%s-%s" $.Values.docker.account $.Release.Name "minio" }}
+          image: quay.io/minio/minio
           imagePullPolicy: {{ if eq $.Values.env.activeProfile "dev" }}Always{{ else }}IfNotPresent{{ end }}
           ports:
             {{- range .Values.database.minio.ports }}

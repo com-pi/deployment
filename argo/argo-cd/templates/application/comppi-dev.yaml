@@ -14,7 +14,7 @@ metadata:
       scraper=utopiandrmer/comppi-scraper,
       encyclo-service,utopiandrmer/comppi-encyclo-service
     {{- range .Values.images }}
-    argocd-image-updater.argoproj.io/{{ . }}.update-strategy: latest
+    argocd-image-updater.argoproj.io/{{ . }}.update-strategy: newest-build
     {{- end }}
 spec:
   destination:
