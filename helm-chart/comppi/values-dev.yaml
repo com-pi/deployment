@@ -44,9 +44,6 @@ application:
         image: busybox
         command: [ 'sh', '-c', 'until nc -z -v -w30 discovery-eureka 8761; do echo "Waiting for Discovery..."; sleep 5; done' ]
 
-  scraper:
-    replicaCount: 1
-
   discovery-eureka:
     replicaCount: 1
     port: 8761

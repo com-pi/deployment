@@ -23,7 +23,7 @@ spec:
       {{- end }}
       containers:
         - name: {{ $key }}
-          image: {{ printf "%s/%s-%s:%s" $.Values.docker.account $.Release.Name $key $.Values.env.activeProfile }}
+          image: {{ printf "%s/%s-%s" $.Values.docker.account $.Release.Name $key }}
           imagePullPolicy: {{ if eq $.Values.env.activeProfile "dev" }}Always{{ else }}IfNotPresent{{ end }}
           ports:
             - containerPort: {{ default 8080 $value.port }}
