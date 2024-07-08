@@ -22,8 +22,18 @@ spec:
             - containerPort: {{ . }}
             {{- end }}
           env:
-            {{- range $value.env }}
-            {{- toYaml . | nindent 12 }}
+            {{- range $index, $env := $value.env }}
+            - name: {{ $env.name }}
+              {{- if $env.value }}
+              value: {{ $env.value }}
+              {{- else if $env.valueFrom }}
+              valueFrom:
+                {{- if $env.valueFrom.secretKeyRef }}
+                secretKeyRef:
+                  name: {{ $env.valueFrom.secretKeyRef.name }}
+                  key: {{ $env.valueFrom.secretKeyRef.key }}
+                {{- end }}
+              {{- end }}
             {{- end }}
           volumeMounts:
             {{- range $value.volumeMount }}
