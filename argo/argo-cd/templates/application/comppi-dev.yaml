@@ -5,10 +5,10 @@ metadata:
   annotations:
     argocd-image-updater.argoproj.io/image-list: |
     {{ range .Values.images }}
-      {{- . | nindent 6}}=utopiandrmer/comppi-{{ . }}:^dev-\d{8}-\d{4}$
+      {{- . | nindent 6}}=utopiandrmer/comppi-{{ . }}
     {{ end }}
     {{ range .Values.images }}
-    argocd-image-updater.argoproj.io/{{ . }}.update-strategy: latest
+    argocd-image-updater.argoproj.io/{{ . }}.update-strategy: digest
     {{ end }}
 spec:
   destination:
