@@ -15,7 +15,7 @@ spec:
       initContainers:
         - name: init-wait-for-discovery
           image: busybox
-          command: [ 'sh', '-c', 'until nc -z -v -w30 discovery-eureka-svc 8761; do echo "Waiting for Discovery..."; sleep 5; done' ]
+          command: [ 'sh', '-c', 'until nc -z -v -w30 discovery-eureka 8761; do echo "Waiting for Discovery..."; sleep 5; done' ]
 
       containers:
         - name: encyclo-service
