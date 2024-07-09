@@ -15,19 +15,16 @@ spec:
       initContainers:
         - name: init-wait-for-mysql
           image: busybox
-          command: [ 'sh', '-c', 'until nc -z -v -w30 mysql 3306; do echo "Waiting for MySQL..."; sleep 5; done' ]
+          command: [ 'sh', '-c', 'until nc -z -v -w30 mysql-svc 3306; do echo "Waiting for MySQL..."; sleep 5; done' ]
         - name: init-wait-for-redis
           image: busybox
-          command: [ 'sh', '-c', 'until nc -z -v -w30 redis 6379; do echo "Waiting for Redis..."; sleep 5; done' ]
-        - name: init-wait-for-mongodb
-          image: busybox
-          command: [ 'sh', '-c', 'until nc -z -v -w30 mongodb 27017; do echo "Waiting for MongoDB..."; sleep 5; done' ]
+          command: [ 'sh', '-c', 'until nc -z -v -w30 redis-svc 6379; do echo "Waiting for Redis..."; sleep 5; done' ]
         - name: init-wait-for-minio
           image: busybox
-          command: [ 'sh', '-c', 'until nc -z -v -w30 minio 9000; do echo "Waiting for Minio..."; sleep 5; done' ]
+          command: [ 'sh', '-c', 'until nc -z -v -w30 minio-svc 9000; do echo "Waiting for Minio..."; sleep 5; done' ]
         - name: init-wait-for-scraper
           image: busybox
-          command: [ 'sh', '-c', 'until nc -z -v -w30 scraper 8080; do echo "Waiting for Scraper..."; sleep 5; done' ]
+          command: [ 'sh', '-c', 'until nc -z -v -w30 scraper-svc 8080; do echo "Waiting for Scraper..."; sleep 5; done' ]
 
       containers:
         - name: auth-service
