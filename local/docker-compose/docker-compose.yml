@@ -72,7 +72,7 @@ services:
 
   mysql:
     container_name: mysql_local
-    image: utopiandrmer/comp-mysql
+    image: utopiandrmer/comppi-mysql
     environment:
       - MYSQL_ROOT_PASSWORD=1234
     ports:
@@ -80,7 +80,7 @@ services:
 
   scraper:
     container_name: scraper
-    image: utopiandrmer/comp-scraper
+    image: utopiandrmer/comppi-scraper
     ports:
       - "8999:8080"
 

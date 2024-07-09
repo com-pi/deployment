@@ -5,7 +5,6 @@ metadata:
   annotations:
     argocd-image-updater.argoproj.io/image-list: >-
       utopiandrmer/comppi-mysql,
-      redis=utopiandrmer/comppi-redis,
       my-plant=utopiandrmer/comppi-my-plant,
       auth-service=utopiandrmer/comppi-auth-service,
       api-gateway=utopiandrmer/comppi-api-gateway,
