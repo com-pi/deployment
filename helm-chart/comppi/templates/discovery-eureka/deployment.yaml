@@ -27,7 +27,7 @@ spec:
           command: [ 'sh', '-c', 'until nc -z -v -w30 scraper-svc 8080; do echo "Waiting for Scraper..."; sleep 5; done' ]
 
       containers:
-        - name: auth-service
+        - name: discovery-eureka
           image: {{ printf "%s/%s-%s" $.Values.docker.account $.Release.Name "discovery-eureka" }}
           imagePullPolicy: {{ if eq $.Values.env.activeProfile "dev" }}Always{{ else }}IfNotPresent{{ end }}
           ports:

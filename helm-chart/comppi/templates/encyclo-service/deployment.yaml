@@ -18,7 +18,7 @@ spec:
           command: [ 'sh', '-c', 'until nc -z -v -w30 discovery-eureka-svc 8761; do echo "Waiting for Discovery..."; sleep 5; done' ]
 
       containers:
-        - name: auth-service
+        - name: encyclo-service
           image: {{ printf "%s/%s-%s" $.Values.docker.account $.Release.Name "encyclo-service" }}
           imagePullPolicy: {{ if eq $.Values.env.activeProfile "dev" }}Always{{ else }}IfNotPresent{{ end }}
           ports:
