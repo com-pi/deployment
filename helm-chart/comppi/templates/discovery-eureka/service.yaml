@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: discovery-eureka-svc
+spec:
+  selector:
+    app: discovery-eureka
+  ports:
+    - protocol: TCP
+      port: {{ default "8080" .Values.application.discovery_eureka.port }}
+      targetPort: {{ default "8080" .Values.application.discovery_eureka.port }}
+
+  type: {{ default "ClusterIP" .Values.application.discovery_eureka.serviceType }}
+

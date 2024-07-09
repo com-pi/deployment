@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-plant-svc
+spec:
+  selector:
+    app: my-plant
+  ports:
+    - protocol: TCP
+      port: {{ default "8080" .Values.application.my_plant.port }}
+      targetPort: {{ default "8080" .Values.application.my_plant.port }}
+
+  type: {{ default "ClusterIP" .Values.application.my_plant.serviceType }}
+

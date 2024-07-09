@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $.Release.Name }}-my-plant
+spec:
+  replicas: {{ .Values.application.auth_service.replicaCount }}
+  selector:
+    matchLabels:
+      app: my-plant
+  template:
+    metadata:
+      labels:
+        app: my-plant
+    spec:
+      initContainers:
+        - name: init-wait-for-discovery
+          image: busybox
+          command: [ 'sh', '-c', 'until nc -z -v -w30 discovery-eureka 8761; do echo "Waiting for Discovery..."; sleep 5; done' ]
+
+      containers:
+        - name: auth-service
+          image: {{ printf "%s/%s-%s" $.Values.docker.account $.Release.Name "my-plant" }}
+          imagePullPolicy: {{ if eq $.Values.env.activeProfile "dev" }}Always{{ else }}IfNotPresent{{ end }}
+          ports:
+            - containerPort: {{ default 8080 .Values.application.my_plant.port }}
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: {{ $.Values.env.activeProfile }}
+            - name: TZ
+              value: {{ $.Values.env.timezone }}

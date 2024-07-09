@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: board-service-svc
+spec:
+  selector:
+    app: board-service
+  ports:
+    - protocol: TCP
+      port: {{ default "8080" .Values.application.board_service.port }}
+      targetPort: {{ default "8080" .Values.application.board_service.port }}
+
+  type: {{ default "ClusterIP" .Values.application.board_service.serviceType }}
+
