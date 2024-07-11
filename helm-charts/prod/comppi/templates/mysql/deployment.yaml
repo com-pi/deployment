@@ -28,7 +28,7 @@ spec:
                   key: MYSQL_ROOT_PASSWORD
           volumeMounts:
             - name: mysql-vol
-              mountPath: /data
+              mountPath: {{ .Values.database.mysql.volumeMount.mountPath }}
       volumes:
         - name: mysql-vol
           persistentVolumeClaim:

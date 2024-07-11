@@ -8,5 +8,5 @@ spec:
   accessModes:
     - ReadWriteMany
   nfs:
-    path: /srv/nfs/kubedata/minio
+    path: {{ .Values.database.minio.volumeMount.nfs.path }}
     server: 172.30.1.70

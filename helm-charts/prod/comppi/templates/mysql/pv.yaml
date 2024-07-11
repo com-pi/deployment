@@ -4,9 +4,9 @@ metadata:
   name: mysql-pv
 spec:
   capacity:
-    storage: 20Gi
+    storage: {{ .Values.database.mysql.volumeMount.capacity }}
   accessModes:
     - ReadWriteMany
   nfs:
-    path: /srv/nfs/kubedata/mysql
+    path: {{ .Values.database.mysql.volumeMount.nfs.path }}
     server: 172.30.1.70

@@ -31,7 +31,7 @@ spec:
           command: [ "minio", "server", "/data", "--console-address", ":9001" ]
           volumeMounts:
             - name: minio-vol
-              mountPath: /data
+              mountPath: {{ .Values.database.minio.volumeMount.mountPath }}
 
       volumes:
         - name: minio-vol
