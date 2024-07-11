@@ -39,7 +39,7 @@ pipeline {
                         if (params.TARGET_ARGO == "argocd-image-updater") {
                             withCredentials([usernamePassword(credentialsId: 'dockerhub_account', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
                                 echo "${USERNAME}:${PASSWORD}"
-                                HELM_DEPLOY_COMMAND += " --set config.registries[0].credentials=env:DOCKER_HUB_CRED=" + '${USERNAME}' + ":" + '${PASSWORD}'
+                                HELM_DEPLOY_COMMAND += " --set config.registries[0].credentials=env:DOCKER_HUB_CREDS=" + '${USERNAME}' + ":" + '${PASSWORD}'
                             }
                         }
 
