@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: utopiandrmer/comp-scraper
+  repository: utopiandrmer/comppi-scraper
   tag: latest
 
 env:
