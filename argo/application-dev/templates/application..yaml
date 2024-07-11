@@ -23,7 +23,7 @@ metadata:
 spec:
   destination:
     name: ''
-    namespace: argo
+    namespace: comppi-dev
     server: 'https://kubernetes.default.svc'
   source:
     path: helm-charts/dev-test/comppi
