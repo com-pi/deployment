@@ -11,7 +11,7 @@ metadata:
 spec:
   destination:
     name: ''
-    namespace: comppi-dev
+    namespace: argo
     server: 'https://kubernetes.default.svc'
   source:
     path: {{ .path }}

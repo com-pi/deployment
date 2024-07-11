@@ -5,7 +5,7 @@ metadata:
 spec:
   destination:
     name: ''
-    namespace: comppi-prod
+    namespace: argo
     server: 'https://kubernetes.default.svc'
   source:
     path: helm-charts/prod/comppi
