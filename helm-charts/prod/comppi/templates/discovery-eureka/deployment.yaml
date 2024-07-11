@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ $.Release.Name }}-discovery-eureka
+  name: discovery-eureka-deployment
 spec:
   replicas: {{ .Values.application.auth_service.replicaCount }}
   selector:
@@ -28,7 +28,7 @@ spec:
 
       containers:
         - name: discovery-eureka
-          image: {{ printf "%s/%s-%s" $.Values.docker.account $.Release.Name "discovery-eureka" }}
+          image: {{ .Values.application.discovery_eureka.image.name }}:{{ .Values.application.discovery_eureka.image.tag }}
           imagePullPolicy: {{ if eq $.Values.env.activeProfile "dev" }}Always{{ else }}IfNotPresent{{ end }}
           ports:
             - containerPort: {{ default 8080 .Values.application.discovery_eureka.port }}

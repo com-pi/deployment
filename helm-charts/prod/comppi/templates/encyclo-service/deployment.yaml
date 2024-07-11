@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ $.Release.Name }}-encyclo-service
+  name: encyclo-service-deployment
 spec:
   replicas: {{ .Values.application.auth_service.replicaCount }}
   selector:
@@ -19,7 +19,7 @@ spec:
 
       containers:
         - name: encyclo-service
-          image: {{ printf "%s/%s-%s" $.Values.docker.account $.Release.Name "encyclo-service" }}
+          image: {{ .Values.application.encyclo_service.image.name }}:{{ .Values.application.encyclo_service.image.tag }}
           imagePullPolicy: {{ if eq $.Values.env.activeProfile "dev" }}Always{{ else }}IfNotPresent{{ end }}
           ports:
             - containerPort: {{ default 8080 .Values.application.encyclo_service.port }}

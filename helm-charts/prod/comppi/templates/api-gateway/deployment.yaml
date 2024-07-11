@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ $.Release.Name }}-api-gateway
+  name: api-gateway-deployment
 spec:
   replicas: {{ .Values.application.api_gateway.replicaCount }}
   selector:
@@ -18,7 +18,7 @@ spec:
           command: [ 'sh', '-c', 'until nc -z -v -w30 discovery-eureka 8761; do echo "Waiting for Discovery..."; sleep 5; done' ]
       containers:
         - name: api-gateway
-          image: {{ printf "%s/%s-%s" $.Values.docker.account $.Release.Name "api-gateway" }}
+          image: {{ .Values.application.api_gateway.image.name }}:{{ .Values.application.api_gateway.image.tag }}
           imagePullPolicy: {{ if eq $.Values.env.activeProfile "dev" }}Always{{ else }}IfNotPresent{{ end }}
           ports:
             - containerPort: {{ default 8080 .Values.application.api_gateway.port }}

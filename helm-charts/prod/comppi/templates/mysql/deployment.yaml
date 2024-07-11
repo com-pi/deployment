@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}-mysql
+  name: mysql-deployment
 spec:
   replicas: 1
   selector:
@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: mysql
-          image: {{ printf "%s/%s-%s" $.Values.docker.account $.Release.Name "mysql" }}
+          image: {{ .Values.database.mysql.image.name }}:{{ .Values.database.mysql.image.tag }}
           imagePullPolicy: {{ if eq $.Values.env.activeProfile "dev" }}Always{{ else }}IfNotPresent{{ end }}
           ports:
             {{- range .Values.database.mysql.ports }}

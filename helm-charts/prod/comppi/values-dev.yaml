@@ -1,5 +1,6 @@
 # 어플리케이션 설정
 releaseName: comppi
+
 env:
   activeProfile: dev
   timezone: Asia/Seoul
@@ -17,7 +18,7 @@ application:
 
   auth_service:
     image:
-      name: utopiandrmer/comppi-api-gateway
+      name: utopiandrmer/comppi-auth-service
       tag: latest
     replicaCount: 1
 
@@ -52,10 +53,11 @@ application:
       tag: latest
     replicaCount: 1
 
+
 database:
   mysql:
     image:
-      name: utopiandrmer/comppi-mysql
+      name: utopiandrmer/comnppi-mysql
       tag: latest
     ports:
       - 3306

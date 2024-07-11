@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ $.Release.Name }}-auth-service
+  name: auth-service-deployment
 spec:
   replicas: {{ .Values.application.auth_service.replicaCount }}
   selector:
@@ -19,7 +19,7 @@ spec:
 
       containers:
         - name: auth-service
-          image: {{ printf "%s/%s-%s" $.Values.docker.account $.Release.Name "auth-service" }}
+          image: {{ .Values.application.auth_service.image.name }}:{{ .Values.application.auth_service.image.tag }}
           imagePullPolicy: {{ if eq $.Values.env.activeProfile "dev" }}Always{{ else }}IfNotPresent{{ end }}
           ports:
             - containerPort: {{ default 8080 .Values.application.auth_service.port }}

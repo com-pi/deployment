@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: scraper
-          image: {{ printf "%s/%s-%s" $.Values.docker.account $.Release.Name "scraper" }}
+          image: {{ .Values.application.scraper.image.name }}:{{ .Values.application.scraper.image.tag }}
           imagePullPolicy: {{ if eq $.Values.env.activeProfile "dev" }}Always{{ else }}IfNotPresent{{ end }}
           ports:
             - containerPort: 8080
