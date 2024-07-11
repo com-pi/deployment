@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-deployment
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-pod
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-pod
+
+    spec:
+      nodeSelector:
+        node-role: dev
+      containers:
+        - name: {{ .Release.Name }}
+          image: {{ .Values.image }}
+          imagePullPolicy: Always
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              value: "root"
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: comppi-secret
+                  key: MONGO_INITDB_ROOT_PASSWORD
+          ports:
+            {{ range .Values.service.clusterIp.ports }}
+            - containerPort: {{ .port }}
+            {{ end }}
+          volumeMounts:
+            - name: mongodb-vol
+              mountPath: /data/db
+      volumes:
+        - name: mongodb-vol
+          persistentVolumeClaim:
+            claimName: mongodb-pvc

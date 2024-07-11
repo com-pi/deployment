@@ -86,7 +86,7 @@ global:
   addPrometheusAnnotations: false
 
   # -- Toggle and define pod-level security context.
-  # @default -- `{}` (See [values.yaml])
+  # @default -- `{}` (See [values-dev.yaml])
   securityContext: {}
   #  runAsUser: 999
   #  runAsGroup: 999
@@ -304,7 +304,7 @@ configs:
     policy.default: ''
 
     # -- File containing user-defined policies and role definitions.
-    # @default -- `''` (See [values.yaml])
+    # @default -- `''` (See [values-dev.yaml])
     policy.csv: ''
     # Policy rules are in the form:
     #  p, subject, resource, action, object, effect
@@ -332,7 +332,7 @@ configs:
     annotations: {}
 
     # -- [GnuPG] public keys to add to the keyring
-    # @default -- `{}` (See [values.yaml])
+    # @default -- `{}` (See [values-dev.yaml])
     ## Note: Public keys should be exported with `gpg --export --armor <KEY>`
     keys: {}
       # 4AEE18F83AFDEB23: |
@@ -347,7 +347,7 @@ configs:
     annotations: {}
 
     # -- Known hosts to be added to the known host list by default.
-    # @default -- See [values.yaml]
+    # @default -- See [values-dev.yaml]
     knownHosts: |
       [ssh.github.com]:443 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBEmKSENjQEezOmxkZMy7opKgwFB9nkt5YRrYMjNuG5N87uRgg6CLrbo5wAdT/y6v0mKV0U2w0WZ2YB/++Tpockg=
       [ssh.github.com]:443 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl
@@ -374,7 +374,7 @@ configs:
     annotations: {}
 
     # -- TLS certificates for Git repositories
-    # @default -- `{}` (See [values.yaml])
+    # @default -- `{}` (See [values-dev.yaml])
     certificates: {}
       # server.example.com: |
       #   -----BEGIN CERTIFICATE-----
@@ -425,7 +425,7 @@ configs:
       #       command: [sh, -c, find . -name env.yaml]
 
   # -- Provide one or multiple [external cluster credentials]
-  # @default -- `{}` (See [values.yaml])
+  # @default -- `{}` (See [values-dev.yaml])
   ## Ref:
   ## - https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#clusters
   ## - https://argo-cd.readthedocs.io/en/stable/operator-manual/security/#external-cluster-credentials
@@ -553,7 +553,7 @@ configs:
 
   # -- Define custom [CSS styles] for your argo instance.
   # This setting will automatically mount the provided CSS and reference it in the argo configuration.
-  # @default -- `""` (See [values.yaml])
+  # @default -- `""` (See [values-dev.yaml])
   ## Ref: https://argo-cd.readthedocs.io/en/stable/operator-manual/custom-styles/
   styles: ""
   # styles: |
@@ -655,7 +655,7 @@ controller:
   env: []
 
   # -- envFrom to pass to application controller
-  # @default -- `[]` (See [values.yaml])
+  # @default -- `[]` (See [values-dev.yaml])
   envFrom: []
   # - configMapRef:
   #     name: config-map-name
@@ -735,7 +735,7 @@ controller:
   dnsPolicy: "ClusterFirst"
 
   # -- Application controller container-level security context
-  # @default -- See [values.yaml]
+  # @default -- See [values-dev.yaml]
   containerSecurityContext:
     runAsNonRoot: true
     readOnlyRootFilesystem: true
@@ -998,7 +998,7 @@ dex:
   env: []
 
   # -- envFrom to pass to the Dex server
-  # @default -- `[]` (See [values.yaml])
+  # @default -- `[]` (See [values-dev.yaml])
   envFrom: []
   # - configMapRef:
   #     name: config-map-name
@@ -1077,7 +1077,7 @@ dex:
   dnsPolicy: "ClusterFirst"
 
   # -- Dex container-level security context
-  # @default -- See [values.yaml]
+  # @default -- See [values-dev.yaml]
   containerSecurityContext:
     runAsNonRoot: true
     readOnlyRootFilesystem: true
@@ -1246,7 +1246,7 @@ redis:
       imagePullPolicy: ""
 
     # -- Redis exporter security context
-    # @default -- See [values.yaml]
+    # @default -- See [values-dev.yaml]
     containerSecurityContext:
       runAsNonRoot: true
       readOnlyRootFilesystem: true
@@ -1308,7 +1308,7 @@ redis:
   env: []
 
   # -- envFrom to pass to the Redis server
-  # @default -- `[]` (See [values.yaml])
+  # @default -- `[]` (See [values-dev.yaml])
   envFrom: []
   # - configMapRef:
   #     name: config-map-name
@@ -1377,7 +1377,7 @@ redis:
   #    memory: 64Mi
 
   # -- Redis pod-level security context
-  # @default -- See [values.yaml]
+  # @default -- See [values-dev.yaml]
   securityContext:
     runAsNonRoot: true
     runAsUser: 999
@@ -1397,7 +1397,7 @@ redis:
   dnsPolicy: "ClusterFirst"
 
   # -- Redis container-level security context
-  # @default -- See [values.yaml]
+  # @default -- See [values-dev.yaml]
   containerSecurityContext:
     readOnlyRootFilesystem: true
     allowPrivilegeEscalation: false
@@ -1525,7 +1525,7 @@ redis-ha:
     # -- Redis convention for naming the cluster group: must match `^[\\w-\\.]+$` and can be templated
     masterGroupName: argocd
     # -- Any valid redis config options in this section will be applied to each server (see `redis-ha` chart)
-    # @default -- See [values.yaml]
+    # @default -- See [values-dev.yaml]
     config:
       # -- Will save the DB if both the given number of seconds and the given number of write operations against the DB occurred. `""`  is disabled
       # @default -- `'""'`
@@ -1550,7 +1550,7 @@ redis-ha:
     # -- [Tolerations] for use with node taints for haproxy pods.
     tolerations: []
     # -- HAProxy container-level security context
-    # @default -- See [values.yaml]
+    # @default -- See [values-dev.yaml]
     containerSecurityContext:
       readOnlyRootFilesystem: true
 
@@ -1587,7 +1587,7 @@ redis-ha:
     # @default -- `""` (defaults to `ScheduleAnyway`)
     whenUnsatisfiable: ""
   # -- Redis HA statefulset container-level security context
-  # @default -- See [values.yaml]
+  # @default -- See [values-dev.yaml]
   containerSecurityContext:
     readOnlyRootFilesystem: true
 
@@ -1647,7 +1647,7 @@ redisSecretInit:
   #    memory: 64Mi
 
   # -- Application controller container-level security context
-  # @default -- See [values.yaml]
+  # @default -- See [values-dev.yaml]
   containerSecurityContext:
     allowPrivilegeEscalation: false
     capabilities:
@@ -1760,7 +1760,7 @@ server:
   env: []
 
   # -- envFrom to pass to Argo CD server
-  # @default -- `[]` (See [values.yaml])
+  # @default -- `[]` (See [values-dev.yaml])
   envFrom: []
   # - configMapRef:
   #     name: config-map-name
@@ -1790,7 +1790,7 @@ server:
       imagePullPolicy: ""
 
     # -- Extensions for Argo CD
-    # @default -- `[]` (See [values.yaml])
+    # @default -- `[]` (See [values-dev.yaml])
     ## Ref: https://github.com/argoproj-labs/argocd-extension-metrics#install-ui-extension
     extensionList: []
     #  - name: extension-metrics
@@ -1801,7 +1801,7 @@ server:
     #        value: https://github.com/argoproj-labs/argocd-extension-metrics/releases/download/v1.0.0/extension_checksums.txt
 
     # -- Server UI extensions container-level security context
-    # @default -- See [values.yaml]
+    # @default -- See [values-dev.yaml]
     containerSecurityContext:
       runAsNonRoot: true
       readOnlyRootFilesystem: true
@@ -1913,7 +1913,7 @@ server:
   dnsPolicy: "ClusterFirst"
 
   # -- Server container-level security context
-  # @default -- See [values.yaml]
+  # @default -- See [values-dev.yaml]
   containerSecurityContext:
     runAsNonRoot: true
     readOnlyRootFilesystem: true
@@ -2175,13 +2175,13 @@ server:
     tls: false
 
     # -- The list of additional hostnames to be covered by ingress record
-    # @default -- `[]` (See [values.yaml])
+    # @default -- `[]` (See [values-dev.yaml])
     extraHosts: []
       # - name: argocd.example.com
       #   path: /
 
     # -- Additional ingress paths
-    # @default -- `[]` (See [values.yaml])
+    # @default -- `[]` (See [values-dev.yaml])
     ## Note: Supports use of custom Helm templates
     extraPaths: []
       # - path: /*
@@ -2193,7 +2193,7 @@ server:
       #         name: use-annotation
 
     # -- Additional ingress rules
-    # @default -- `[]` (See [values.yaml])
+    # @default -- `[]` (See [values-dev.yaml])
     ## Note: Supports use of custom Helm templates
     extraRules: []
       # - http:
@@ -2207,7 +2207,7 @@ server:
       #             name: '{{ .Values.server.service.servicePortHttpsName }}'
 
     # -- Additional TLS configuration
-    # @default -- `[]` (See [values.yaml])
+    # @default -- `[]` (See [values-dev.yaml])
     extraTls: []
       # - hosts:
       #   - argocd.example.com
@@ -2232,7 +2232,7 @@ server:
     ## Ref: https://argo-cd.readthedocs.io/en/stable/operator-manual/ingress/#google-cloud-load-balancers-with-kubernetes-ingress
     gke:
       # -- Google [BackendConfig] resource, for use with the GKE Ingress Controller
-      # @default -- `{}` (See [values.yaml])
+      # @default -- `{}` (See [values-dev.yaml])
       ## Ref: https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-features#configuring_ingress_features_through_frontendconfig_parameters
       backendConfig: {}
         # iap:
@@ -2241,7 +2241,7 @@ server:
         #    secretName: argocd-secret
 
       # -- Google [FrontendConfig] resource, for use with the GKE Ingress Controller
-      # @default -- `{}` (See [values.yaml])
+      # @default -- `{}` (See [values-dev.yaml])
       ## Ref: https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-features#configuring_ingress_features_through_frontendconfig_parameters
       frontendConfig: {}
         # redirectToHttps:
@@ -2284,13 +2284,13 @@ server:
     tls: false
 
     # -- The list of additional hostnames to be covered by ingress record
-    # @default -- `[]` (See [values.yaml])
+    # @default -- `[]` (See [values-dev.yaml])
     extraHosts: []
       # - name: grpc.argocd.example.com
       #   path: /
 
     # -- Additional ingress paths for dedicated [gRPC-ingress]
-    # @default -- `[]` (See [values.yaml])
+    # @default -- `[]` (See [values-dev.yaml])
     ## Note: Supports use of custom Helm templates
     extraPaths: []
       # - path: /*
@@ -2302,7 +2302,7 @@ server:
       #         name: use-annotation
 
     # -- Additional ingress rules
-    # @default -- `[]` (See [values.yaml])
+    # @default -- `[]` (See [values-dev.yaml])
     ## Note: Supports use of custom Helm templates
     extraRules: []
       # - http:
@@ -2316,7 +2316,7 @@ server:
       #             name: '{{ .Values.server.service.servicePortHttpName }}'
 
     # -- Additional TLS configuration for dedicated [gRPC-ingress]
-    # @default -- `[]` (See [values.yaml])
+    # @default -- `[]` (See [values-dev.yaml])
     extraTls: []
       # - secretName: your-certificate-name
       #   hosts:
@@ -2423,7 +2423,7 @@ repoServer:
   env: []
 
   # -- envFrom to pass to repo server
-  # @default -- `[]` (See [values.yaml])
+  # @default -- `[]` (See [values-dev.yaml])
   envFrom: []
   # - configMapRef:
   #     name: config-map-name
@@ -2554,7 +2554,7 @@ repoServer:
   dnsPolicy: "ClusterFirst"
 
   # -- Repo server container-level security context
-  # @default -- See [values.yaml]
+  # @default -- See [values-dev.yaml]
   containerSecurityContext:
     runAsNonRoot: true
     readOnlyRootFilesystem: true
@@ -2783,7 +2783,7 @@ applicationSet:
     #   value: "value"
 
   # -- envFrom to pass to the ApplicationSet controller
-  # @default -- `[]` (See [values.yaml])
+  # @default -- `[]` (See [values-dev.yaml])
   extraEnvFrom: []
     # - configMapRef:
     #     name: config-map-name
@@ -2915,7 +2915,7 @@ applicationSet:
   dnsPolicy: "ClusterFirst"
 
   # -- ApplicationSet controller container-level security context
-  # @default -- See [values.yaml]
+  # @default -- See [values-dev.yaml]
   containerSecurityContext:
     runAsNonRoot: true
     readOnlyRootFilesystem: true
@@ -3059,13 +3059,13 @@ applicationSet:
     tls: false
 
     # -- The list of additional hostnames to be covered by ingress record
-    # @default -- `[]` (See [values.yaml])
+    # @default -- `[]` (See [values-dev.yaml])
     extraHosts: []
       # - name: argocd.example.com
       #   path: /
 
     # -- Additional ingress paths
-    # @default -- `[]` (See [values.yaml])
+    # @default -- `[]` (See [values-dev.yaml])
     extraPaths: []
       # - path: /*
       #   pathType: Prefix
@@ -3076,7 +3076,7 @@ applicationSet:
       #         name: use-annotation
 
     # -- Additional ingress rules
-    # @default -- `[]` (See [values.yaml])
+    # @default -- `[]` (See [values-dev.yaml])
     ## Note: Supports use of custom Helm templates
     extraRules: []
       # - http:
@@ -3090,7 +3090,7 @@ applicationSet:
       #            name: '{{ .Values.applicationSet.service.portName }}'
 
     # -- Additional ingress TLS configuration
-    # @default -- `[]` (See [values.yaml])
+    # @default -- `[]` (See [values-dev.yaml])
     extraTls: []
       # - secretName: argocd-applicationset-tls
       #   hosts:
@@ -3155,7 +3155,7 @@ notifications:
   extraEnv: []
 
   # -- envFrom to pass to the notifications controller
-  # @default -- `[]` (See [values.yaml])
+  # @default -- `[]` (See [values-dev.yaml])
   extraEnvFrom: []
     # - configMapRef:
     #     name: config-map-name
@@ -3251,7 +3251,7 @@ notifications:
       metricRelabelings: []
 
   # -- Configures notification services such as slack, email or custom webhook
-  # @default -- See [values.yaml]
+  # @default -- See [values-dev.yaml]
   ## For more information: https://argo-cd.readthedocs.io/en/stable/operator-manual/notifications/services/overview/
   notifiers: {}
     # service.slack: |
@@ -3286,7 +3286,7 @@ notifications:
   dnsPolicy: "ClusterFirst"
 
   # -- Notification controller container-level security Context
-  # @default -- See [values.yaml]
+  # @default -- See [values-dev.yaml]
   containerSecurityContext:
     runAsNonRoot: true
     readOnlyRootFilesystem: true

@@ -1,0 +1,6 @@
+replicaCount: 1
+image: utopiandrmer/comppi-auth-service
+
+service:
+  type: ClusterIP
+  port: 8080

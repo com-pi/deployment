@@ -159,7 +159,7 @@ controller:
       metricRelabelings: []
 
   # -- Configure liveness [probe] for the controller
-  # @default -- See [values.yaml]
+  # @default -- See [values-dev.yaml]
   livenessProbe:
     httpGet:
       path: /healthz
@@ -171,7 +171,7 @@ controller:
     timeoutSeconds: 10
 
   # -- Configure readiness [probe] for the controller
-  # @default -- See [values.yaml]
+  # @default -- See [values-dev.yaml]
   readinessProbe:
     httpGet:
       path: /metrics

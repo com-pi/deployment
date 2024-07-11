@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-deployment
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-pod
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-pod
+
+    spec:
+      initContainers:
+        - name: init-wait-for-auth-service
+          image: busybox
+          command: [ 'sh', '-c', 'until nc -z -v -w30 auth-service 8080; do echo "Waiting for auth service..."; sleep 5; done' ]
+        - name: init-wait-for-board-service
+          image: busybox
+          command: [ 'sh', '-c', 'until nc -z -v -w30 board-service 8080; do echo "Waiting for board service..."; sleep 5; done' ]
+        - name: init-wait-for-encyclo-service
+          image: busybox
+          command: [ 'sh', '-c', 'until nc -z -v -w30 encyclo-service 8080; do echo "Waiting for encyclo service..."; sleep 5; done' ]
+
+      containers:
+        - name: {{ .Release.Name }}
+          image: {{ .Values.image }}
+          imagePullPolicy: {{ .Values.container.pullPolicy }}
+          ports:
+          {{- range .Values.container.ports }}
+            - containerPort: {{ . }}
+          {{- end }}

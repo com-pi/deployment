@@ -214,7 +214,7 @@ podSecurityContext: {}
   # fsGroup: 2000
 
 # -- Security context settings for the deployment
-# @default -- See [values.yaml]
+# @default -- See [values-dev.yaml]
 securityContext:
   allowPrivilegeEscalation: false
   capabilities:

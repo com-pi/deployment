@@ -1,0 +1,31 @@
+{{ range .Values.application }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ .name }}
+  {{ if .update }}
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: {{ .alias }}=utopiandrmer/comppi-{{ .alias }}
+    argocd-image-updater.argoproj.io/{{ .alias }}.update-strategy: newest-build
+    argocd-image-updater.argoproj.io/{{ .alias }}.allow-tags: regexp:^dev
+  {{ end }}
+spec:
+  destination:
+    name: ''
+    namespace: comppi-dev
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: {{ .path}}
+    repoURL: 'git@github.com:com-pi/deployment.git'
+    targetRevision: main
+    helm:
+      valueFiles:
+        - values.yaml
+  project: default
+  syncPolicy:
+    automated:
+      prune: enabled
+      selfHeal: enabled
+    syncOptions:
+      - CreateNamespace=true
+{{ end }}

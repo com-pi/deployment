@@ -1,0 +1,7 @@
+replicaCount: 1
+
+image: utopiandrmer/comp-discovery-eureka
+
+service:
+  type: ClusterIP
+  port: 8761

@@ -1,0 +1,7 @@
+image: utopiandrmer/comp-encyclo-service
+
+replicaCount: 1
+
+service:
+  type: ClusterIP
+  port: 8080

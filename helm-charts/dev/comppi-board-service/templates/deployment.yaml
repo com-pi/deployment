@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-deployment
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-pod
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-pod
+    spec:
+      nodeSelector:
+        node-role: dev
+      initContainers:
+        - name: init-wait-for-discovery
+          image: busybox
+          command: [ 'sh', '-c', 'until nc -z -v -w30 discovery-eureka 8761; do echo "Waiting for Discovery..."; sleep 5; done' ]
+      containers:
+        - name: {{ .Release.Name }}
+          image: {{ .Values.image }}
+          imagePullPolicy: Always
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              valueFrom:
+                configMapKeyRef:
+                  name: comppi-config
+                  key: active_profile
+            - name: TZ
+              valueFrom:
+                configMapKeyRef:
+                  name: comppi-config
+                  key: TZ
+          ports:
+            - containerPort: {{ .Values.service.port}}

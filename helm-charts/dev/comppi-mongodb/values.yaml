@@ -1,0 +1,21 @@
+image: utopiandrmer/comppi-mongodb
+replicaCount: 1
+
+service:
+  clusterIp:
+    type: ClusterIP
+    ports:
+      - name: cluster
+        protocol: TCP
+        port: 27017
+
+  nodePort:
+    type: NodePort
+    ports:
+      - name: node
+        protocol: TCP
+        port: 27017
+        nodePort: 30017
+
+pv:
+  capacity: 10Gi

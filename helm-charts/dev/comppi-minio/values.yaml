@@ -1,0 +1,34 @@
+replicaCount: 1
+
+image: quay.io/minio/minio
+
+service:
+  clusterIp:
+    type: ClusterIP
+    ports:
+      - name: api
+        protocol: TCP
+        port: 9000
+      - name: console
+        protocol: TCP
+        port: 9001
+
+  nodePort:
+    type: NodePort
+    ports:
+      - name: console
+        protocol: TCP
+        port: 9001
+        nodePort: 30901
+
+
+env:
+  activeProfile: dev
+  timezone: Asia/Seoul
+
+pv:
+  capacity: 10Gi
+
+secret:
+  rootPasswordSecretName: comppi-secret
+  rootPasswordSecretKey: MINIO_ROOT_PASSWORD

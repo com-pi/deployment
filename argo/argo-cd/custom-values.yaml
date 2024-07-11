@@ -3,13 +3,54 @@ server:
     type: NodePort
     nodePortHttps: 30002
 
-images:
-  - mysql
-  - redis
-  - my-plant
-  - auth-service
-  - api-gateway
-  - discovery-eureka
-  - board-service
-  - scraper
-  - encyclo-service
+application:
+  - name: comppi-api-gateway
+    path: helm-charts/comppi-api-gateway
+    alias: api-gateway
+    update: true
+
+  - name: comppi-auth-service
+    path: helm-charts/comppi-auth-service
+    alias: auth-service
+    update: true
+
+  - name: comppi-board-service
+    path: helm-charts/comppi-board-service
+    alias: board-service
+    update: true
+
+  - name: comppi-common
+    path: helm-charts/comppi-common
+    alias: common
+
+  - name: comppi-encyclo-service
+    path: helm-charts/comppi-encyclo-service
+    alias: encyclo-service
+    update: true
+
+  - name: comppi-kafdrop
+    path: helm-charts/comppi-kafdrop
+    alias: kafdrop
+
+  - name: comppi-minio
+    path: helm-charts/comppi-minio
+    alias: minio
+
+  - name: comppi-mysql
+    path: helm-charts/comppi-mysql
+    alias: mysql
+    update: true
+
+  - name: comppi-nginx
+    path: helm-charts/comppi-nginx
+    alias: nginx
+    update: true
+
+  - name: comppi-scraper
+    path: helm-charts/comppi-scraper
+    alias: scraper
+    update: true
+
+  - name: comppi-redis
+    path: helm-charts/comppi-redis
+    alias: redis

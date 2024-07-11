@@ -32,7 +32,7 @@ pipeline {
                 script {
                     if (params.DEPLOY_TYPE == "helm_upgrade") {
                         HELM_DEPLOY_COMMAND = "helm upgrade ${params.TARGET_ARGO} ${ARGO_PATH}/${params.TARGET_ARGO} " +
-                                " -f ${ARGO_PATH}/${params.TARGET_ARGO}/custom-values.yaml " +
+                                " -f ${ARGO_PATH}/${params.TARGET_ARGO}/custom-values-dev.yaml " +
                                 " -n argo --install --wait --timeout=10m "
 
                         // image-updater일 경우 도커허브 credentials 주입

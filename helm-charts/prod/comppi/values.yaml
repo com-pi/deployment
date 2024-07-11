@@ -1,0 +1,64 @@
+# 어플리케이션 설정
+releaseName: comppi
+env:
+  activeProfile: prod
+  timezone: Asia/Seoul
+
+docker:
+  account: utopiandrmer
+
+application:
+  api_gateway:
+    replicaCount: 1
+    port: 8000
+
+  auth_service:
+    replicaCount: 1
+
+  board_service:
+    replicaCount: 1
+
+  encyclo_service:
+    replicaCount: 1
+
+  my_plant:
+    replicaCount: 1
+
+  discovery_eureka:
+    replicaCount: 1
+    port: 8761
+
+database:
+  mysql:
+    ports:
+      - 3306
+    nodePorts:
+      - port: 3306
+        nodePort: 32306
+    volumeMount:
+      - name: vol1
+        mountPath: "/var/lib/mysql"
+        capacity: 10Gi
+        nfs:
+          path: /srv/nfs/kubedata/mysql
+          server: 172.30.1.70
+
+  minio:
+    ports:
+      - 9000
+      - 9001
+    nodePorts:
+      - port: 9001
+        nodePort: 30901
+
+nginx:
+  ports:
+    - 443
+    - 80
+  nodePorts:
+    - name: https
+      port: 443
+      nodePort: 30443
+    - name: http
+      port: 80
+      nodePort: 30480

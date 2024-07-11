@@ -1,0 +1,19 @@
+image: utopiandrmer/comppi-mysql
+replicaCount: 1
+
+service:
+  clusterIp:
+    type: ClusterIP
+    ports:
+      - name: cluster
+        port: 3306
+
+  nodePort:
+    type: NodePort
+    ports:
+      - name: nodeport
+        port: 3306
+        nodePort: 30306
+
+pv:
+  capacity: 10Gi

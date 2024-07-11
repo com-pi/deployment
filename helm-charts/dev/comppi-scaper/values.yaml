@@ -1,0 +1,8 @@
+image: utopiandrmer/comppi-scraper
+
+replicaCount: 1
+
+service:
+  type: ClusterIP
+  protocol: TCP
+  port: 8080

@@ -1,0 +1,7 @@
+replicaCount: 1
+
+image: utopiandrmer/comppi-board-service
+
+service:
+  type: ClusterIP
+  port: 8080

@@ -1,0 +1,8 @@
+replicaCount: 1
+
+image:
+  repository: redis
+
+service:
+  type: ClusterIP
+  port: 6379

@@ -1,0 +1,6 @@
+image: utopiandrmer/comppi-my-plant
+replicaCount: 1
+
+service:
+  type: ClusterIP
+  port: 8080
