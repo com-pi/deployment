@@ -21,9 +21,6 @@ spec:
         - name: init-wait-for-redis
           image: busybox
           command: [ 'sh', '-c', 'until nc -z -v -w30 redis 6379; do echo "Waiting for Redis..."; sleep 5; done' ]
-        - name: init-wait-for-mongodb
-          image: busybox
-          command: [ 'sh', '-c', 'until nc -z -v -w30 mongodb 27017; do echo "Waiting for MongoDB..."; sleep 5; done' ]
         - name: init-wait-for-minio
           image: busybox
           command: [ 'sh', '-c', 'until nc -z -v -w30 minio 9000; do echo "Waiting for Minio..."; sleep 5; done' ]
