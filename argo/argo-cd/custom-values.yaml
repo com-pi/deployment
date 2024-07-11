@@ -28,10 +28,6 @@ application:
     alias: encyclo-service
     update: true
 
-  - name: comppi-kafdrop
-    path: helm-charts/dev/comppi-kafdrop
-    alias: kafdrop
-
   - name: comppi-minio
     path: helm-charts/dev/comppi-minio
     alias: minio

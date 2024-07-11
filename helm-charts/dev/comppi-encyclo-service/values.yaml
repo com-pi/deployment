@@ -1,4 +1,4 @@
-image: utopiandrmer/comp-encyclo-service
+image: utopiandrmer/comppi-encyclo-service
 
 replicaCount: 1
 
