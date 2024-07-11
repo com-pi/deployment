@@ -7,8 +7,8 @@ spec:
     app: board-service
   ports:
     - protocol: TCP
-      port: {{ default "8080" .Values.board-service.port }}
-      targetPort: {{ default "8080" .Values.board-service.port }}
+      port: {{ default "8080" index .Values "board-service" "port" }}
+      targetPort: {{ default "8080" index .Values "board-service" "port" }}
 
-  type: {{ default "ClusterIP" .Values.board-service.serviceType }}
+  type: {{ default "ClusterIP" index .Values "board-service" "serviceType" }}
 

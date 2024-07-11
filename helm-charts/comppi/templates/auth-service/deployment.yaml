@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: auth-service-deployment
 spec:
-  replicas: {{ .Values.auth-service.replicaCount }}
+  replicas: {{ index .Values "auth-service" "replicaCount" }}
   selector:
     matchLabels:
       app: auth-service
@@ -19,10 +19,10 @@ spec:
 
       containers:
         - name: auth-service
-          image: {{ .Values.auth-service.image.name }}:{{ .Values.auth-service.image.tag }}
+          image: {{ index .Values "auth-service" "image" "name" }}:{{ index .Values "auth-service" "image" "tag" }}
           imagePullPolicy: {{ if eq $.Values.env.activeProfile "dev" }}Always{{ else }}IfNotPresent{{ end }}
           ports:
-            - containerPort: {{ default 8080 .Values.auth-service.port }}
+            - containerPort: {{ default 8080 index .Values "auth-service" "port" }}
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: {{ $.Values.env.activeProfile }}

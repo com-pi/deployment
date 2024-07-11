@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: discovery-eureka-deployment
 spec:
-  replicas: {{ .Values.discovery-eureka.replicaCount }}
+  replicas: {{ index .Values "discovery-eureka" "replicaCount" }}
   selector:
     matchLabels:
       app: discovery-eureka
@@ -28,10 +28,10 @@ spec:
 
       containers:
         - name: discovery-eureka
-          image: {{ .Values.discovery-eureka.image.name }}:{{ .Values.discovery-eureka.image.tag }}
+          image: {{ index .Values "discovery-eureka" "image" "name" }}:{{ index .Values "discovery-eureka" "image" "tag" }}
           imagePullPolicy: {{ if eq $.Values.env.activeProfile "dev" }}Always{{ else }}IfNotPresent{{ end }}
           ports:
-            - containerPort: {{ default 8080 .Values.discovery-eureka.port }}
+            - containerPort: {{ default 8080 index .Values "discovery-eureka" "port" }}
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: {{ $.Values.env.activeProfile }}

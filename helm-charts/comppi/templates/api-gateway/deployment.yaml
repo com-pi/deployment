@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: api-gateway-deployment
 spec:
-  replicas: {{ .Values.api-gateway.replicaCount }}
+  replicas: {{ index .Values "api-gateway" "replicaCount" }}
   selector:
     matchLabels:
       app: api-gateway
@@ -18,10 +18,10 @@ spec:
           command: [ 'sh', '-c', 'until nc -z -v -w30 discovery-eureka 8761; do echo "Waiting for Discovery..."; sleep 5; done' ]
       containers:
         - name: api-gateway
-          image: {{ .Values.api-gateway.image.name }}:{{ .Values.api-gateway.image.tag }}
+          image: {{ index .Values "api-gateway" "image" "name" }}:{{ index .Values "api-gateway" "image" "tag" }}
           imagePullPolicy: {{ if eq $.Values.env.activeProfile "dev" }}Always{{ else }}IfNotPresent{{ end }}
           ports:
-            - containerPort: {{ default 8080 .Values.api-gateway.port }}
+            - containerPort: {{ default 8080 index .Values "api-gateway" "port" }}
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: {{ $.Values.env.activeProfile }}
