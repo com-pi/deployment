@@ -4,14 +4,14 @@ metadata:
   name: comppi-dev
   annotations:
     argocd-image-updater.argoproj.io/image-list: >-
-    mysql=utopiandrmer/comppi-mysql,
-    scraper=utopiandrmer/comppi-scraper,
-    api-gateway=utopiandrmer/comppi-api-gateway,
-    my-plant=utopiandrmer/comppi-my-plant,
-    encyclo-service=utopiandrmer/comppi-encyclo-service,
-    auth-service=utopiandrmer/comppi-auth-service,
-    discovery=utopiandrmer/comppi-discovery-eureka,
-    nginx=utopiandrmer/comppi-nginx
+      mysql=utopiandrmer/comppi-mysql,
+      scraper=utopiandrmer/comppi-scraper,
+      api-gateway=utopiandrmer/comppi-api-gateway,
+      my-plant=utopiandrmer/comppi-my-plant,
+      encyclo-service=utopiandrmer/comppi-encyclo-service,
+      auth-service=utopiandrmer/comppi-auth-service,
+      discovery=utopiandrmer/comppi-discovery-eureka,
+      nginx=utopiandrmer/comppi-nginx
     argocd-image-updater.argoproj.io/mysql.update-strategy: newest-build
     argocd-image-updater.argoproj.io/scraper.update-strategy: newest-build
     argocd-image-updater.argoproj.io/api-gateway.update-strategy: newest-build
