@@ -15,12 +15,12 @@ spec:
     namespace: comppi-dev
     server: 'https://kubernetes.default.svc'
   source:
-    path: {{ .path}}
+    path: {{ .path }}
     repoURL: 'git@github.com:com-pi/deployment.git'
     targetRevision: main
     helm:
       valueFiles:
-        - values.yaml
+        - {{ .path }}/values.yaml
   project: default
   syncPolicy:
     automated:
