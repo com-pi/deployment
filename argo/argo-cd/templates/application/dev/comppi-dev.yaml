@@ -20,7 +20,7 @@ spec:
     targetRevision: main
     helm:
       valueFiles:
-        - {{ .path }}/values.yaml
+        - values.yaml
   project: default
   syncPolicy:
     automated:
