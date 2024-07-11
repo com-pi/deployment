@@ -1,35 +1,3 @@
-{{/*{{ range .Values.application }}*/}}
-{{/*apiVersion: argoproj.io/v1alpha1*/}}
-{{/*kind: Application*/}}
-{{/*metadata:*/}}
-{{/*  name: {{ .name }}*/}}
-{{/*  {{ if .update }}*/}}
-{{/*  annotations:*/}}
-{{/*    argocd-image-updater.argoproj.io/image-list: {{ .alias }}=utopiandrmer/comppi-{{ .alias }}*/}}
-{{/*    argocd-image-updater.argoproj.io/{{ .alias }}.update-strategy: newest-build*/}}
-{{/*  {{ end }}*/}}
-{{/*spec:*/}}
-{{/*  destination:*/}}
-{{/*    name: ''*/}}
-{{/*    namespace: argo*/}}
-{{/*    server: 'https://kubernetes.default.svc'*/}}
-{{/*  source:*/}}
-{{/*    path: {{ .path }}*/}}
-{{/*    repoURL: 'git@github.com:com-pi/deployment.git'*/}}
-{{/*    targetRevision: main*/}}
-{{/*    helm:*/}}
-{{/*      valueFiles:*/}}
-{{/*        - values.yaml*/}}
-{{/*  project: default*/}}
-{{/*  syncPolicy:*/}}
-{{/*    automated:*/}}
-{{/*      prune: true*/}}
-{{/*      selfHeal: true*/}}
-{{/*    syncOptions:*/}}
-{{/*      - CreateNamespace=true*/}}
-{{/*---*/}}
-{{/*{{ end }}*/}}
-
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
