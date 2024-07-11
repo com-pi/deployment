@@ -65,7 +65,7 @@ mysql:
     mountPath: "/var/lib/mysql"
     capacity: 10Gi
     nfs:
-      path: /srv/nfs/kubedata/dev/mysql
+      path: /srv/nfs/kubedata/prod/mysql
       server: 172.30.1.70
 
 minio:
@@ -79,7 +79,7 @@ minio:
     mountPath: "/data"
     capacity: 20Gi
     nfs:
-      path: /srv/nfs/kubedata/dev/minio
+      path: /srv/nfs/kubedata/prod/minio
       server: 172.30.1.70
 
 nginx:
