@@ -57,7 +57,7 @@ application:
 database:
   mysql:
     image:
-      name: utopiandrmer/comnppi-mysql
+      name: utopiandrmer/comppi-mysql
       tag: latest
     ports:
       - 3306
