@@ -1,4 +1,6 @@
-image: utopiandrmer/comppi-scraper
+image:
+  name: utopiandrmer/comppi-scraper
+  tag: latest
 
 replicaCount: 1
 
