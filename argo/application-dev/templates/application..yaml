@@ -1,20 +1,64 @@
-{{ range .Values.application }}
+{{/*{{ range .Values.application }}*/}}
+{{/*apiVersion: argoproj.io/v1alpha1*/}}
+{{/*kind: Application*/}}
+{{/*metadata:*/}}
+{{/*  name: {{ .name }}*/}}
+{{/*  {{ if .update }}*/}}
+{{/*  annotations:*/}}
+{{/*    argocd-image-updater.argoproj.io/image-list: {{ .alias }}=utopiandrmer/comppi-{{ .alias }}*/}}
+{{/*    argocd-image-updater.argoproj.io/{{ .alias }}.update-strategy: newest-build*/}}
+{{/*  {{ end }}*/}}
+{{/*spec:*/}}
+{{/*  destination:*/}}
+{{/*    name: ''*/}}
+{{/*    namespace: argo*/}}
+{{/*    server: 'https://kubernetes.default.svc'*/}}
+{{/*  source:*/}}
+{{/*    path: {{ .path }}*/}}
+{{/*    repoURL: 'git@github.com:com-pi/deployment.git'*/}}
+{{/*    targetRevision: main*/}}
+{{/*    helm:*/}}
+{{/*      valueFiles:*/}}
+{{/*        - values.yaml*/}}
+{{/*  project: default*/}}
+{{/*  syncPolicy:*/}}
+{{/*    automated:*/}}
+{{/*      prune: true*/}}
+{{/*      selfHeal: true*/}}
+{{/*    syncOptions:*/}}
+{{/*      - CreateNamespace=true*/}}
+{{/*---*/}}
+{{/*{{ end }}*/}}
+
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: {{ .name }}
-  {{ if .update }}
+  name: comppi-dev
   annotations:
-    argocd-image-updater.argoproj.io/image-list: {{ .alias }}=utopiandrmer/comppi-{{ .alias }}
-    argocd-image-updater.argoproj.io/{{ .alias }}.update-strategy: newest-build
-  {{ end }}
+    argocd-image-updater.argoproj.io/image-list: >-
+    mysql=utopiandrmer/comppi-mysql,
+    scraper=utopiandrmer/comppi-scraper,
+    api-gateway=utopiandrmer/comppi-api-gateway,
+    my-plant=utopiandrmer/comppi-my-plant,
+    encyclo-service=utopiandrmer/comppi-encyclo-service,
+    auth-service=utopiandrmer/comppi-auth-service,
+    discovery=utopiandrmer/comppi-discovery-eureka,
+    nginx=utopiandrmer/comppi-nginx
+    argocd-image-updater.argoproj.io/mysql.update-strategy: newest-build
+    argocd-image-updater.argoproj.io/scraper.update-strategy: newest-build
+    argocd-image-updater.argoproj.io/api-gateway.update-strategy: newest-build
+    argocd-image-updater.argoproj.io/my-plant.update-strategy: newest-build
+    argocd-image-updater.argoproj.io/encyclo-service.update-strategy: newest-build
+    argocd-image-updater.argoproj.io/auth-service.update-strategy: newest-build
+    argocd-image-updater.argoproj.io/discovery-eureka.update-strategy: newest-build
+    argocd-image-updater.argoproj.io/nginx.update-strategy: newest-build
 spec:
   destination:
     name: ''
     namespace: argo
     server: 'https://kubernetes.default.svc'
   source:
-    path: {{ .path }}
+    path: helm-charts/dev-test/comppi
     repoURL: 'git@github.com:com-pi/deployment.git'
     targetRevision: main
     helm:
@@ -23,9 +67,7 @@ spec:
   project: default
   syncPolicy:
     automated:
-      prune: true
-      selfHeal: true
+      prune: false
+      selfHeal: false
     syncOptions:
       - CreateNamespace=true
----
-{{ end }}

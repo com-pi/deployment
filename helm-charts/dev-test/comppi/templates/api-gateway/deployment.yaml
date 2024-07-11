@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $.Release.Name }}-api-gateway
+spec:
+  replicas: {{ .Values.application.api_gateway.replicaCount }}
+  selector:
+    matchLabels:
+      app: api-gateway
+  template:
+    metadata:
+      labels:
+        app: api-gateway
+    spec:
+      initContainers:
+        - name: init-wait-for-discovery
+          image: busybox
+          command: [ 'sh', '-c', 'until nc -z -v -w30 discovery-eureka 8761; do echo "Waiting for Discovery..."; sleep 5; done' ]
+      containers:
+        - name: api-gateway
+          image: {{ .Values.application.api_gateway.image.name }}:{{ .Values.application.api_gateway.image.tag }}
+          imagePullPolicy: {{ if eq $.Values.env.activeProfile "dev" }}Always{{ else }}IfNotPresent{{ end }}
+          ports:
+            - containerPort: {{ default 8080 .Values.application.api_gateway.port }}
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: {{ $.Values.env.activeProfile }}
+            - name: TZ
+              value: {{ $.Values.env.timezone }}
