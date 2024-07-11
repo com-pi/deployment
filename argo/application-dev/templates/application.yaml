@@ -42,7 +42,7 @@ spec:
     namespace: comppi-dev
     server: 'https://kubernetes.default.svc'
   source:
-    path: helm-charts/prod/comppi
+    path: helm-charts/comppi
     repoURL: 'git@github.com:com-pi/deployment.git'
     targetRevision: main
     helm:
