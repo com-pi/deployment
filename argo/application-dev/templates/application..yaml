@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: comppi-dev
+  name: comppi
   annotations:
     argocd-image-updater.argoproj.io/image-list: >-
       mysql=utopiandrmer/comppi-mysql,
