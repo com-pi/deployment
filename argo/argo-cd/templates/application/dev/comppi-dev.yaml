@@ -24,8 +24,8 @@ spec:
   project: default
   syncPolicy:
     automated:
-      prune: enabled
-      selfHeal: enabled
+      prune: true
+      selfHeal: true
     syncOptions:
       - CreateNamespace=true
 {{ end }}
