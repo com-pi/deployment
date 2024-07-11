@@ -19,6 +19,11 @@ application:
     alias: board-service
     update: true
 
+  - name: comppi-discovery-eureka
+    path: helm-charts/dev/comppi-discovery-eureka
+    alias: discovery-eureka
+    update: true
+
   - name: comppi-common
     path: helm-charts/dev/comppi-common
     alias: common
