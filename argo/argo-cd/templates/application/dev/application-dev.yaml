@@ -7,7 +7,6 @@ metadata:
   annotations:
     argocd-image-updater.argoproj.io/image-list: {{ .alias }}=utopiandrmer/comppi-{{ .alias }}
     argocd-image-updater.argoproj.io/{{ .alias }}.update-strategy: newest-build
-    argocd-image-updater.argoproj.io/{{ .alias }}.allow-tags: regexp:^dev
   {{ end }}
 spec:
   destination:
