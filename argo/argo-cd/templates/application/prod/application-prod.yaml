@@ -8,7 +8,7 @@ spec:
     namespace: comppi-prod
     server: 'https://kubernetes.default.svc'
   source:
-    path: helm-chart/prod/comppi
+    path: helm-charts/prod/comppi
     repoURL: 'git@github.com:com-pi/deployment.git'
     targetRevision: main
     helm:
