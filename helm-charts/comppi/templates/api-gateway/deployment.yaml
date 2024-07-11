@@ -21,7 +21,7 @@ spec:
           image: {{ index .Values "api-gateway" "image" "name" }}:{{ index .Values "api-gateway" "image" "tag" }}
           imagePullPolicy: {{ if eq $.Values.env.activeProfile "dev" }}Always{{ else }}IfNotPresent{{ end }}
           ports:
-            - containerPort: {{ default 8080 index .Values "api-gateway" "port" }}
+            - containerPort: {{ default 8080 (index .Values "api-gateway" "port") }}
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: {{ $.Values.env.activeProfile }}

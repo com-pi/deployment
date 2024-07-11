@@ -31,7 +31,7 @@ spec:
           image: {{ index .Values "discovery-eureka" "image" "name" }}:{{ index .Values "discovery-eureka" "image" "tag" }}
           imagePullPolicy: {{ if eq $.Values.env.activeProfile "dev" }}Always{{ else }}IfNotPresent{{ end }}
           ports:
-            - containerPort: {{ default 8080 index .Values "discovery-eureka" "port" }}
+            - containerPort: {{ default 8080 (index .Values "discovery-eureka" "port") }}
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: {{ $.Values.env.activeProfile }}

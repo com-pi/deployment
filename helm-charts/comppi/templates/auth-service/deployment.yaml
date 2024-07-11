@@ -22,7 +22,7 @@ spec:
           image: {{ index .Values "auth-service" "image" "name" }}:{{ index .Values "auth-service" "image" "tag" }}
           imagePullPolicy: {{ if eq $.Values.env.activeProfile "dev" }}Always{{ else }}IfNotPresent{{ end }}
           ports:
-            - containerPort: {{ default 8080 index .Values "auth-service" "port" }}
+            - containerPort: {{ default 8080 (index .Values "auth-service" "port") }}
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: {{ $.Values.env.activeProfile }}

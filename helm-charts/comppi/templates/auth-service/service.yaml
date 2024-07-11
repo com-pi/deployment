@@ -7,8 +7,8 @@ spec:
     app: auth-service
   ports:
     - protocol: TCP
-      port: {{ default "8080" index .Values "auth-service" "port" }}
-      targetPort: {{ default "8080" index .Values "auth-service" "port" }}
+      port: {{ default "8080" (index .Values "auth-service" "port") }}
+      targetPort: {{ default "8080" (index .Values "auth-service" "port") }}
 
-  type: {{ default "ClusterIP" index .Values "auth-service" "serviceType" }}
+  type: {{ default "ClusterIP" (index .Values "auth-service" "serviceType") }}
 

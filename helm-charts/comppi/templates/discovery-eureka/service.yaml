@@ -7,7 +7,7 @@ spec:
     app: discovery-eureka
   ports:
     - protocol: TCP
-      port: {{ default "8080" index .Values "discovery-eureka" "port" }}
-      targetPort: {{ default "8080" index .Values "discovery-eureka" "port" }}
-  type: {{ default "ClusterIP" index .Values "discovery-eureka" "serviceType" }}
+      port: {{ default "8080" (index .Values "discovery-eureka" "port") }}
+      targetPort: {{ default "8080" (index .Values "discovery-eureka" "port") }}
+  type: {{ default "ClusterIP" (index .Values "discovery-eureka" "serviceType") }}
 
