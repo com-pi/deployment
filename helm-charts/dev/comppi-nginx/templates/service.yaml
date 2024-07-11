@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Release.Name }}
+  name: nginx
 spec:
   selector:
     app: {{ .Release.Name }}-pod
