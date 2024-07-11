@@ -1,0 +1,98 @@
+# 어플리케이션 설정
+releaseName: comppi
+
+env:
+  activeProfile: prod
+  timezone: Asia/Seoul
+
+docker:
+  account: utopiandrmer
+
+api-gateway:
+  image:
+    name: utopiandrmer/comppi-api-gateway
+    tag: latest
+  replicaCount: 1
+  port: 8000
+
+auth-service:
+  image:
+    name: utopiandrmer/comppi-auth-service
+    tag: latest
+  replicaCount: 1
+
+board-service:
+  image:
+    name: utopiandrmer/comppi-board-service
+    tag: latest
+  replicaCount: 1
+
+encyclo-service:
+  image:
+    name: utopiandrmer/comppi-encyclo-service
+    tag: latest
+  replicaCount: 1
+
+my-plant:
+  image:
+    name: utopiandrmer/comppi-my-plant
+    tag: latest
+  replicaCount: 1
+
+discovery-eureka:
+  image:
+    name: utopiandrmer/comppi-discovery-eureka
+    tag: latest
+  replicaCount: 1
+  port: 8761
+
+scraper:
+  image:
+    name: utopiandrmer/comppi-scraper
+    tag: latest
+  replicaCount: 1
+
+mysql:
+  image:
+    name: utopiandrmer/comppi-mysql
+    tag: latest
+  ports:
+    - 3306
+  nodePorts:
+    - port: 3306
+      nodePort: 32306
+  volumeMount:
+    mountPath: "/var/lib/mysql"
+    capacity: 10Gi
+    nfs:
+      path: /srv/nfs/kubedata/dev/mysql
+      server: 172.30.1.70
+
+minio:
+  ports:
+    - 9000
+    - 9001
+  nodePorts:
+    - port: 9001
+      nodePort: 30901
+  volumeMount:
+    mountPath: "/data"
+    capacity: 20Gi
+    nfs:
+      path: /srv/nfs/kubedata/dev/minio
+      server: 172.30.1.70
+
+nginx:
+  image:
+    name: utopiandrmer/comppi-nginx
+    tag: latest
+  ports:
+    - 443
+    - 80
+  nodePorts:
+    - name: https
+      port: 443
+      nodePort: 30443
+    - name: http
+      port: 80
+      nodePort: 30480

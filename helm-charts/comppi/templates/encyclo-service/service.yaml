@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: encyclo-service
+spec:
+  selector:
+    app: encyclo-service
+  ports:
+    - protocol: TCP
+      port: {{ default "8080" .Values.encyclo-service.port }}
+      targetPort: {{ default "8080" .Values.encyclo-service.port }}
+
+  type: {{ default "ClusterIP" .Values.encyclo-service.serviceType }}
+

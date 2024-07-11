@@ -1,0 +1,57 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: comppi
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: >-
+      mysql=utopiandrmer/comppi-mysql,
+      scraper=utopiandrmer/comppi-scraper,
+      api-gateway=utopiandrmer/comppi-api-gateway,
+      my-plant=utopiandrmer/comppi-my-plant,
+      encyclo-service=utopiandrmer/comppi-encyclo-service,
+      auth-service=utopiandrmer/comppi-auth-service,
+      discovery=utopiandrmer/comppi-discovery-eureka,
+      nginx=utopiandrmer/comppi-nginx
+    argocd-image-updater.argoproj.io/mysql.update-strategy: newest-build
+    argocd-image-updater.argoproj.io/mysql.helm.image-name: mysql.image.name
+    argocd-image-updater.argoproj.io/mysql.helm.image-tag: mysql.image.tag
+    argocd-image-updater.argoproj.io/scraper.update-strategy: newest-build
+    argocd-image-updater.argoproj.io/scraper.helm.image-name: scraper.image.name
+    argocd-image-updater.argoproj.io/scraper.helm.image-tag: scraper.image.tag
+    argocd-image-updater.argoproj.io/api-gateway.update-strategy: newest-build
+    argocd-image-updater.argoproj.io/api-gateway.helm.image-name: api-gateway.image.name
+    argocd-image-updater.argoproj.io/api-gateway.helm.image-tag: api-gateway.image.tag
+    argocd-image-updater.argoproj.io/my-plant.update-strategy: newest-build
+    argocd-image-updater.argoproj.io/my-plant.helm.image-name: application.my-plant.image.name
+    argocd-image-updater.argoproj.io/my-plant.helm.image-tag: application.my-plant.image.tag
+    argocd-image-updater.argoproj.io/encyclo-service.update-strategy: newest-build
+    argocd-image-updater.argoproj.io/encyclo-service.helm.image-name: application.encyclo-service.image.name
+    argocd-image-updater.argoproj.io/encyclo-service.helm.image-tag: application.encyclo-service.image.tag
+    argocd-image-updater.argoproj.io/auth-service.update-strategy: newest-build
+    argocd-image-updater.argoproj.io/auth-service.helm.image-name: application.auth-service.image.name
+    argocd-image-updater.argoproj.io/auth-service.helm.image-tag: application.auth-service.image.tag
+    argocd-image-updater.argoproj.io/discovery-eureka.update-strategy: newest-build
+    argocd-image-updater.argoproj.io/discovery-eureka.helm.image-name: application.discovery-eureka.image.name
+    argocd-image-updater.argoproj.io/discovery-eureka.helm.image-tag: application.discovery-eureka.image.tag
+    argocd-image-updater.argoproj.io/nginx.update-strategy: newest-build
+    argocd-image-updater.argoproj.io/nginx.helm.image-name: nginx.image.name
+    argocd-image-updater.argoproj.io/nginx.helm.image-tag: nginx.image.tag
+spec:
+  destination:
+    name: ''
+    namespace: comppi-dev
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: helm-charts/prod/comppi
+    repoURL: 'git@github.com:com-pi/deployment.git'
+    targetRevision: main
+    helm:
+      valueFiles:
+        - values-dev.yaml
+  project: default
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: false
+    syncOptions:
+      - CreateNamespace=true

@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: board-service-deployment
+spec:
+  replicas: {{ .Values.board-service.replicaCount }}
+  selector:
+    matchLabels:
+      app: board-service
+  template:
+    metadata:
+      labels:
+        app: board-service
+    spec:
+      initContainers:
+        - name: init-wait-for-discovery
+          image: busybox
+          command: [ 'sh', '-c', 'until nc -z -v -w30 discovery-eureka 8761; do echo "Waiting for Discovery..."; sleep 5; done' ]
+
+      containers:
+        - name: board-service
+          image: {{ .Values.board-service.image.name }}:{{ .Values.board-service.image.tag }}
+          imagePullPolicy: {{ if eq $.Values.env.activeProfile "dev" }}Always{{ else }}IfNotPresent{{ end }}
+          ports:
+            - containerPort: {{ default 8080 .Values.board-service.port }}
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: {{ $.Values.env.activeProfile }}
+            - name: TZ
+              value: {{ $.Values.env.timezone }}
