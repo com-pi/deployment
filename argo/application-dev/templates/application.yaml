@@ -13,30 +13,39 @@ metadata:
       scraper=utopiandrmer/comppi-scraper,
       mysql=utopiandrmer/comppi-mysql,
       nginx=utopiandrmer/comppi-nginx
+    argocd-image-updater.argoproj.io/discovery-eureka.allow-tags: regexp:^dev
     argocd-image-updater.argoproj.io/discovery-eureka.update-strategy: newest-build
     argocd-image-updater.argoproj.io/discovery-eureka.helm.image-name: discovery-eureka.image.name
     argocd-image-updater.argoproj.io/discovery-eureka.helm.image-tag: discovery-eureka.image.tag
+    argocd-image-updater.argoproj.io/api-gateway.allow-tags: regexp:^dev
     argocd-image-updater.argoproj.io/api-gateway.update-strategy: newest-build
     argocd-image-updater.argoproj.io/api-gateway.helm.image-name: api-gateway.image.name
     argocd-image-updater.argoproj.io/api-gateway.helm.image-tag: api-gateway.image.tag
+    argocd-image-updater.argoproj.io/auth-service.allow-tags: regexp:^dev
     argocd-image-updater.argoproj.io/auth-service.update-strategy: newest-build
     argocd-image-updater.argoproj.io/auth-service.helm.image-name: auth-service.image.name
     argocd-image-updater.argoproj.io/auth-service.helm.image-tag: auth-service.image.tag
+    argocd-image-updater.argoproj.io/board-service.allow-tags: regexp:^dev
     argocd-image-updater.argoproj.io/board-service.update-strategy: newest-build
     argocd-image-updater.argoproj.io/board-service.helm.image-name: board-service.image.name
     argocd-image-updater.argoproj.io/board-service.helm.image-tag: board-service.image.tag
+    argocd-image-updater.argoproj.io/my-plant.allow-tags: regexp:^dev
     argocd-image-updater.argoproj.io/my-plant.update-strategy: newest-build
     argocd-image-updater.argoproj.io/my-plant.helm.image-name: my-plant.image.name
     argocd-image-updater.argoproj.io/my-plant.helm.image-tag: my-plant.image.tag
+    argocd-image-updater.argoproj.io/encyclo-service.allow-tags: regexp:^dev
     argocd-image-updater.argoproj.io/encyclo-service.update-strategy: newest-build
     argocd-image-updater.argoproj.io/encyclo-service.helm.image-name: encyclo-service.image.name
     argocd-image-updater.argoproj.io/encyclo-service.helm.image-tag: encyclo-service.image.tag
+    argocd-image-updater.argoproj.io/scraper.allow-tags: regexp:^dev
     argocd-image-updater.argoproj.io/scraper.update-strategy: newest-build
     argocd-image-updater.argoproj.io/scraper.helm.image-name: scraper.image.name
     argocd-image-updater.argoproj.io/scraper.helm.image-tag: scraper.image.tag
+    argocd-image-updater.argoproj.io/mysql.allow-tags: regexp:^dev
     argocd-image-updater.argoproj.io/mysql.update-strategy: newest-build
     argocd-image-updater.argoproj.io/mysql.helm.image-name: mysql.image.name
     argocd-image-updater.argoproj.io/mysql.helm.image-tag: mysql.image.tag
+    argocd-image-updater.argoproj.io/nginx.allow-tags: regexp:^dev
     argocd-image-updater.argoproj.io/nginx.update-strategy: newest-build
     argocd-image-updater.argoproj.io/nginx.helm.image-name: nginx.image.name
     argocd-image-updater.argoproj.io/nginx.helm.image-tag: nginx.image.tag
