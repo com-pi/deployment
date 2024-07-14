@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: encyclo-service-deployment
 spec:
-  replicas: {{ index .Values "encyclo-service" "replicaCount" }}
+  replicas: {{ .Values.encyclopedia.replicaCount }}
   selector:
     matchLabels:
       app: encyclo-service
