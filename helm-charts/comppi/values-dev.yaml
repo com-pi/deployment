@@ -27,7 +27,7 @@ board-service:
     tag: latest
   replicaCount: 1
 
-encyclo-service:
+encyclopedia:
   image:
     name: utopiandrmer/comppi-encyclo-service
     tag: latest

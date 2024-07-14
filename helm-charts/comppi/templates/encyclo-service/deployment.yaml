@@ -19,10 +19,10 @@ spec:
 
       containers:
         - name: encyclo-service
-          image: {{ index .Values "encyclo-service" "image" "name" }}:{{ index .Values "encyclo-service" "image" "tag" }}
+          image: {{ index .Values.encyclopedia.image.name }}:{{ index .Values.encyclopedia.image.tag }}
           imagePullPolicy: {{ if eq $.Values.env.activeProfile "dev" }}Always{{ else }}IfNotPresent{{ end }}
           ports:
-            - containerPort: {{ default 8080 (index .Values "encyclo-service" "port") }}
+            - containerPort: {{ default 8080 (index .Values.encyclopedia.port) }}
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: {{ $.Values.env.activeProfile }}
