@@ -22,7 +22,7 @@ spec:
           image: {{ index .Values.encyclopedia.image.name }}:{{ index .Values.encyclopedia.image.tag }}
           imagePullPolicy: {{ if eq $.Values.env.activeProfile "dev" }}Always{{ else }}IfNotPresent{{ end }}
           ports:
-            - containerPort: {{ default 8080 (index .Values.encyclopedia.port) }}
+            - containerPort: {{ default 8080 .Values.encyclopedia.port }}
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: {{ $.Values.env.activeProfile }}
