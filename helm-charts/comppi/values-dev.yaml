@@ -29,7 +29,7 @@ board-service:
 
 encyclopedia:
   image:
-    name: utopiandrmer/comppi-encyclo-service
+    name: utopiandrmer/comppi-encyclopedia
     tag: latest
   replicaCount: 1
 
