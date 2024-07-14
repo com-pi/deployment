@@ -1,6 +1,6 @@
 USE auth;
 
-CREATE TABLE member (
+CREATE TABLE MEMBER (
                         id bigint auto_increment not null,
                         kakao_id varchar(255) unique,
                         naver_id varchar(255) unique,
@@ -34,5 +34,15 @@ CREATE TABLE EVENT_RECORD_ENTITY (
                         created_at timestamp(6),
                         updated_at timestamp(6),
                         primary key (id));
+
+CREATE TABLE FOLLOW (
+                        id bigint auto_increment not null,
+                        follower_id bigint not null,
+                        following_id bigint not null,
+                        primary key (id),
+                        foreign key (follower_id) references MEMBER (id),
+                        foreign key (following_id) references MEMBER (id),
+                        UNIQUE (follower_id, following_id)
+);
 
 INSERT INTO member (nickname, role, email, phone_number) VALUES ('관리자', 'ADMIN', 'comppi.comppi@gmail.com', '01012345678');
