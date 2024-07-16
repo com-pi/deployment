@@ -18,7 +18,7 @@ spec:
           command: [ 'sh', '-c', 'until nc -z -v -w30 discovery-eureka 8761; do echo "Waiting for Discovery..."; sleep 5; done' ]
 
       containers:
-        - name: board-service
+        - name: my-plant
           image: {{ index .Values "my-plant" "image" "name" }}:{{ index .Values "my-plant" "image" "tag" }}
           imagePullPolicy: {{ if eq $.Values.env.activeProfile "dev" }}Always{{ else }}IfNotPresent{{ end }}
           ports:
