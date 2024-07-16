@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-plant
+spec:
+  selector:
+    app: my-plant
+  ports:
+    - protocol: TCP
+      port: {{ default "8080" (index .Values "my-plant" "port") }}
+      targetPort: {{ default "8080" (index .Values "my-plant" "port") }}
+
+  type: {{ default "ClusterIP" (index .Values "my-plant" "serviceType") }}
+
