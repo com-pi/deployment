@@ -46,14 +46,14 @@ CREATE TABLE ENCYCLOPEDIA_PLANT (
 );
 
 CREATE TABLE PLANT_ADD_INQUIRY (
-                                   id	bigint	NOT NULL AUTO_INCREMENT,
-                                   common_name	varchar(255)	NOT NULL,
-                                   scientific_name	varchar(255)	NOT NULL,
-                                   requester_id    bigint	NOT NULL,
+                                   id bigint NOT NULL AUTO_INCREMENT,
+                                   common_name varchar(255) NOT NULL,
+                                   scientific_name varchar(255) NOT NULL,
+                                   requester_id bigint NOT NULL,
                                    result varchar(255),
                                    status varchar(255) check ( status in ('SUBMITTED', 'IN_PROGRESS', 'PROCESSED')),
                                    created_at timestamp(6) not null DEFAULT CURRENT_TIMESTAMP(6),
-                                   updated_at timestamp(6),
+                                   updated_at timestamp(6) not null DEFAULT CURRENT_TIMESTAMP(6),
                                    deletion_yn varchar(255) not null default 'N',
                                    deleted_at timestamp(6),
                                    primary key (id)
