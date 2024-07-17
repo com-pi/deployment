@@ -45,7 +45,7 @@ CREATE TABLE ENCYCLOPEDIA_PLANT (
                                     UNIQUE (PLANT_SPECIES_ID, MY_ENCYCLOPEDIA_ID)
 );
 
-CREATE TABLE PLANT_ADD_REQUEST (
+CREATE TABLE PLANT_ADD_INQUIRY (
                                    id	bigint	NOT NULL AUTO_INCREMENT,
                                    common_name	bigint	NOT NULL,
                                    scientific_name	bigint	NOT NULL,
