@@ -8,7 +8,7 @@ CREATE TABLE MEMBER (
                         phone_number varchar(255) unique,
                         password varchar(255),
                         role varchar(255) check (role in ('ANONYMOUS','MEMBER','ADMIN')),
-                        nickname varchar(255) not null unique,
+                        nickname varchar(36) not null unique,
                         introduction text,
                         location geometry,
                         sido varchar(255),
