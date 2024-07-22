@@ -20,7 +20,8 @@ CREATE TABLE PLANT_SPECIES (
                                     image_urls TEXT,
                                     created_at timestamp(6) not null DEFAULT CURRENT_TIMESTAMP(6),
                                     updated_at timestamp(6),
-                                    PRIMARY KEY (id)
+                                    PRIMARY KEY (id),
+                                    UNIQUE (taxonomy_species, taxonomy_genus, taxonomy_family)
 );
 
 CREATE TABLE MY_ENCYCLOPEDIA (
