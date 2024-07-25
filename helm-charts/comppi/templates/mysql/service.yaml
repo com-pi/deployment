@@ -1,5 +1,5 @@
---- # 내부 접근
 {{- range $key, $value := .Values.mysql }}
+--- # 내부 접근
 apiVersion: v1
 kind: Service
 metadata:
@@ -13,8 +13,9 @@ spec:
       protocol: TCP
       port: 3306
       targetPort: 3306
-
---- # 외부 접근
+---
+# 외부 접근
+{{- if $value.nodePort }}
 apiVersion: v1
 kind: Service
 metadata:
@@ -28,4 +29,5 @@ spec:
       port: 3306
       targetPort: 3306
       nodePort: {{ $value.nodePort }}
+{{- end }}
 {{- end }}
