@@ -9,6 +9,6 @@ spec:
   accessModes:
     - ReadWriteMany
   nfs:
-    path: {{ .volumeMount.nfs.path }}
+    path: {{ $value.volumeMount.nfs.path }}
     server: {{ $value.volumeMount.nfs.server }}
 {{- end }}
