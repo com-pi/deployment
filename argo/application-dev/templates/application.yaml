@@ -9,7 +9,7 @@ metadata:
       auth-service=utopiandrmer/comppi-auth-service,
       board-service=utopiandrmer/comppi-board-service,
       my-plant=utopiandrmer/comppi-my-plant,
-      encyclo-service=utopiandrmer/comppi-encyclo-service,
+      encyclopedia=utopiandrmer/comppi-encyclo-service,
       scraper=utopiandrmer/comppi-scraper,
       mysql=utopiandrmer/comppi-mysql-dev,
       nginx=utopiandrmer/comppi-nginx
@@ -33,10 +33,10 @@ metadata:
     argocd-image-updater.argoproj.io/my-plant.update-strategy: newest-build
     argocd-image-updater.argoproj.io/my-plant.helm.image-name: my-plant.image.name
     argocd-image-updater.argoproj.io/my-plant.helm.image-tag: my-plant.image.tag
-    argocd-image-updater.argoproj.io/encyclo-service.allow-tags: regexp:^dev
-    argocd-image-updater.argoproj.io/encyclo-service.update-strategy: newest-build
-    argocd-image-updater.argoproj.io/encyclo-service.helm.image-name: encyclo-service.image.name
-    argocd-image-updater.argoproj.io/encyclo-service.helm.image-tag: encyclo-service.image.tag
+    argocd-image-updater.argoproj.io/encyclopedia.allow-tags: regexp:^dev
+    argocd-image-updater.argoproj.io/encyclopedia.update-strategy: newest-build
+    argocd-image-updater.argoproj.io/encyclopedia.helm.image-name: encyclopedia.image.name
+    argocd-image-updater.argoproj.io/encyclopedia.helm.image-tag: encyclopedia.image.tag
     argocd-image-updater.argoproj.io/scraper.allow-tags: regexp:^dev
     argocd-image-updater.argoproj.io/scraper.update-strategy: newest-build
     argocd-image-updater.argoproj.io/scraper.helm.image-name: scraper.image.name
