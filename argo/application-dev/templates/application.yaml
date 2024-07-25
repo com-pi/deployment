@@ -11,7 +11,7 @@ metadata:
       my-plant=utopiandrmer/comppi-my-plant,
       encyclo-service=utopiandrmer/comppi-encyclo-service,
       scraper=utopiandrmer/comppi-scraper,
-      mysql=utopiandrmer/comppi-mysql,
+      mysql=utopiandrmer/comppi-mysql-dev,
       nginx=utopiandrmer/comppi-nginx
     argocd-image-updater.argoproj.io/discovery-eureka.allow-tags: regexp:^dev
     argocd-image-updater.argoproj.io/discovery-eureka.update-strategy: newest-build
@@ -43,8 +43,8 @@ metadata:
     argocd-image-updater.argoproj.io/scraper.helm.image-tag: scraper.image.tag
     argocd-image-updater.argoproj.io/mysql.allow-tags: regexp:^dev
     argocd-image-updater.argoproj.io/mysql.update-strategy: newest-build
-    argocd-image-updater.argoproj.io/mysql.helm.image-name: mysql.image.name
-    argocd-image-updater.argoproj.io/mysql.helm.image-tag: mysql.image.tag
+    argocd-image-updater.argoproj.io/mysql.helm.image-name: mysql.mysql-dev.image.name
+    argocd-image-updater.argoproj.io/mysql.helm.image-tag: mysql.mysql-dev.image.tag
     argocd-image-updater.argoproj.io/nginx.allow-tags: regexp:^dev
     argocd-image-updater.argoproj.io/nginx.update-strategy: newest-build
     argocd-image-updater.argoproj.io/nginx.helm.image-name: nginx.image.name

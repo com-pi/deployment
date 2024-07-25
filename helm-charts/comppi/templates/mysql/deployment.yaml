@@ -1,24 +1,24 @@
-{{- range .Values.mysql.instances }}
+{{- range $key, $value := .Values.mysql }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .name }}-deployment
+  name: {{ $key }}-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: {{ .name }}
+      app: {{ $key }}
   template:
     metadata:
       labels:
-        app: {{ .name }}
+        app: {{ $key }}
     spec:
       containers:
-        - name: {{ .name }}
-          image: {{ .image.name }}:{{ .image.tag }}
+        - name: {{ $key }}
+          image: {{ $value.image.name }}:{{ $value.image.tag }}
           imagePullPolicy: {{ if eq $.Values.env.activeProfile "dev" }}Always{{ else }}IfNotPresent{{ end }}
           ports:
-            {{- range .ports }}
+            {{- range $value.ports }}
             - containerPort: {{ . }}
             {{- end }}
           env:
@@ -28,10 +28,10 @@ spec:
                   name: comppi-secret
                   key: MYSQL_ROOT_PASSWORD
           volumeMounts:
-            - name: {{ .name }}-vol
+            - name: {{ $key }}-vol
               mountPath: "/var/lib/mysql"
       volumes:
-        - name: {{ .name }}-vol
+        - name: {{ $key }}-vol
           persistentVolumeClaim:
-            claimName: {{ .name }}-pvc
+            claimName: {{ $key }}-pvc
 {{- end }}

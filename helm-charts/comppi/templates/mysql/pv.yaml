@@ -1,14 +1,14 @@
-{{- range .Values.mysql.instances }}
+{{- range $key, $value := .Values.mysql }}
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: {{ .name }}-pv
+  name: {{ $key }}-pv
 spec:
   capacity:
-    storage: {{ .volumeMount.capacity }}
+    storage: {{ $value.volumeMount.capacity }}
   accessModes:
     - ReadWriteMany
   nfs:
     path: {{ .volumeMount.nfs.path }}
-    server: {{ .volumeMount.nfs.server }}
+    server: {{ $value.volumeMount.nfs.server }}
 {{- end }}

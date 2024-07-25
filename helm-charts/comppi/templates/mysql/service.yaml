@@ -1,12 +1,12 @@
 --- # 내부 접근
-{{- range .Values.mysql.instances }}
+{{- range $key, $value := .Values.mysql }}
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .name }}
+  name: {{ $key }}
 spec:
   selector:
-    app: {{ .name }}
+    app: {{ $key }}
   type: ClusterIP
   ports:
     - name: mysql
@@ -17,18 +17,18 @@ spec:
 
 
 --- # 외부 접근
-{{- range .Values.mysql.instances }}
+{{- range $key, $value := .Values.mysql.instances }}
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .name }}-nodeport
+  name: {{ $key }}-nodeport
 spec:
   selector:
-    app: {{ .name }}
+    app: {{ $key }}
   type: NodePort
   ports:
     - name: mysql
       port: 3306
       targetPort: 3306
-      nodePort: {{ .nodePorts.nodePort }}
+      nodePort: {{ $value.nodePorts.nodePort }}
 {{- end }}
