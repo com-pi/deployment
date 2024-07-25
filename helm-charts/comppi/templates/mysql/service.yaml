@@ -28,5 +28,5 @@ spec:
   ports:
     - port: 3306
       targetPort: 3306
-      nodePort: {{ $value.nodePort }}
+      nodePort: 32306
 {{- end }}
