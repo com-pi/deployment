@@ -13,9 +13,10 @@ spec:
       protocol: TCP
       port: 3306
       targetPort: 3306
+{{- end }}
 ---
 # 외부 접근
-{{- if $value.nodePort }}
+{{- range $key, $value := .Values.mysql }}
 apiVersion: v1
 kind: Service
 metadata:
@@ -28,5 +29,4 @@ spec:
     - port: 3306
       targetPort: 3306
       nodePort: {{ $value.nodePort }}
-{{- end }}
 {{- end }}
