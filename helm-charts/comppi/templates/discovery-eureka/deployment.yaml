@@ -13,9 +13,11 @@ spec:
         app: discovery-eureka
     spec:
       initContainers:
+        {{- range $key, $value := .Values.mysql}}
         - name: init-wait-for-mysql
           image: busybox
-          command: [ 'sh', '-c', 'until nc -z -v -w30 mysql 3306; do echo "Waiting for MySQL..."; sleep 5; done' ]
+          command: [ 'sh', '-c', 'until nc -z -v -w30 {{ $key }} 3306; do echo "Waiting for MySQL..."; sleep 5; done' ]
+        {{- end}}
         - name: init-wait-for-redis
           image: busybox
           command: [ 'sh', '-c', 'until nc -z -v -w30 redis 6379; do echo "Waiting for Redis..."; sleep 5; done' ]
