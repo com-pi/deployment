@@ -53,20 +53,21 @@ scraper:
   replicaCount: 1
 
 mysql:
-  image:
-    name: utopiandrmer/comppi-mysql
-    tag: latest
-  ports:
-    - 3306
-  nodePorts:
-    - port: 3306
-      nodePort: 32306
-  volumeMount:
-    mountPath: "/var/lib/mysql"
-    capacity: 10Gi
-    nfs:
-      path: /srv/nfs/kubedata/dev/mysql
-      server: 172.30.1.70
+  instances:
+    - name: mysql-dev
+      image:
+        name: utopiandrmer/comppi-mysql
+        tag: latest
+      ports:
+        - 3306
+      nodePorts:
+        - port: 3306
+          nodePort: 32306
+      volumeMount:
+        capacity: 10Gi
+        nfs:
+          path: /srv/nfs/kubedata/dev/mysql
+          server: 172.30.1.70
 
 minio:
   ports:

@@ -49,24 +49,69 @@ discovery-eureka:
 scraper:
   image:
     name: utopiandrmer/comppi-scraper
-    tag: latest
   replicaCount: 1
 
 mysql:
-  image:
-    name: utopiandrmer/comppi-mysql
-    tag: latest
-  ports:
-    - 3306
-  nodePorts:
-    - port: 3306
-      nodePort: 32306
-  volumeMount:
-    mountPath: "/var/lib/mysql"
-    capacity: 10Gi
-    nfs:
-      path: /srv/nfs/kubedata/prod/mysql
-      server: 172.30.1.70
+  instances:
+    - name: mysql-auth
+      image:
+        name: utopiandrmer/comppi-mysql-auth
+        tag: latest
+      ports:
+        - 3306
+      nodePorts:
+        - port: 3306
+          nodePort: 32307
+      volumeMount:
+        capacity: 10Gi
+        nfs:
+          path: /srv/nfs/kubedata/prod/mysql-auth
+          server: 172.30.1.70
+
+    - name: mysql-board
+      image:
+        name: utopiandrmer/comppi-mysql-board
+        tag: latest
+      ports:
+        - 3306
+      nodePorts:
+        - port: 3306
+          nodePort: 32308
+      volumeMount:
+        capacity: 10Gi
+        nfs:
+          path: /srv/nfs/kubedata/prod/mysql-board
+          server: 172.30.1.70
+
+    - name: mysql-plant
+      image:
+        name: utopiandrmer/comppi-mysql-plant
+        tag: latest
+      ports:
+        - 3306
+      nodePorts:
+        - port: 3306
+          nodePort: 32309
+      volumeMount:
+        capacity: 10Gi
+        nfs:
+          path: /srv/nfs/kubedata/prod/mysql-plant
+          server: 172.30.1.70
+
+    - name: mysql-encyclopedia
+      image:
+        name: utopiandrmer/comppi-mysql-encyclopedia
+        tag: latest
+      ports:
+        - 3306
+      nodePorts:
+        - port: 3306
+          nodePort: 32310
+      volumeMount:
+        capacity: 10Gi
+        nfs:
+          path: /srv/nfs/kubedata/prod/mysql-encyclopedia
+          server: 172.30.1.70
 
 minio:
   ports:

@@ -1,32 +1,34 @@
 --- # 내부 접근
+{{- range .Values.mysql.instances }}
 apiVersion: v1
 kind: Service
 metadata:
-  name: mysql
+  name: {{ .name }}
 spec:
   selector:
-    app: mysql
+    app: {{ .name }}
   type: ClusterIP
   ports:
     - name: mysql
       protocol: TCP
       port: 3306
       targetPort: 3306
+{{- end }}
 
 
 --- # 외부 접근
+{{- range .Values.mysql.instances }}
 apiVersion: v1
 kind: Service
 metadata:
-  name: mysql-nodeport
+  name: {{ .name }}-nodeport
 spec:
   selector:
-    app: mysql
+    app: {{ .name }}
   type: NodePort
   ports:
     - name: mysql
       port: 3306
       targetPort: 3306
-      nodePort: 30066
-
-
+      nodePort: {{ .nodePorts.nodePort }}
+{{- end }}

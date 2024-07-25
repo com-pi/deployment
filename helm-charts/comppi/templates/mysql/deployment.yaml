@@ -1,21 +1,4 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: mysql-deployment
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: mysql
-  template:
-    metadata:
-      labels:
-        app: mysql
-    spec:
-      containers:
-        - name: mysql
-          image: {{ .Values.mysql.image.name }}:{{ .Values.mysql.image.tag }}
-          imagePullPolicy: {{ if eq $.Values.env.activeProfile "dev" }}Always{{ else }}IfNotPresent{{ end }}
+
           ports:
             {{- range .Values.mysql.ports }}
             - containerPort: {{ . }}
@@ -35,3 +18,40 @@ spec:
             claimName: mysql-pvc
 
 
+{{- range .Values.mysql.instances }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .name }}-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .name }}
+    spec:
+      containers:
+        - name: {{ .name }}
+          image: {{ .image.name }}:{{ .image.tag }}
+          imagePullPolicy: {{ if eq $.Values.env.activeProfile "dev" }}Always{{ else }}IfNotPresent{{ end }}
+          ports:
+            {{- range .ports }}
+            - containerPort: {{ . }}
+            {{- end }}
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: comppi-secret
+                  key: MYSQL_ROOT_PASSWORD
+          volumeMounts:
+            - name: {{ .name }}-vol
+              mountPath: "/var/lib/mysql"
+      volumes:
+        - name: {{ .name }}-vol
+          persistentVolumeClaim:
+            claimName: {{ .name }}-pvc
+{{- end }}

@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     parameters {
-        choice choices: ['모듈 선택', 'nginx', 'mysql', 'scraper', 'mongodb'], description: '빌드할 모듈 선택', name: 'Module'
+        choice choices: ['모듈 선택', 'nginx', 'mysql-dev', 'mysql-auth', 'mysql-board', 'mysql-encyclopedia', 'mysql-plant', 'scraper', 'mongodb'], description: '빌드할 모듈 선택', name: 'Module'
         choice choices: ['dev', 'prod'], description: '배포 환경', name: 'ENVIRONMENT'
         string defaultValue: 'null', description: '배포 버전', name: 'VERSION', trim: true
     }

@@ -1,12 +1,14 @@
+{{- range .Values.mysql.instances }}
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: mysql-pv
+  name: {{ .name }}-pv
 spec:
   capacity:
-    storage: {{ .Values.mysql.volumeMount.capacity }}
+    storage: {{ .volumeMount.capacity }}
   accessModes:
     - ReadWriteMany
   nfs:
-    path: {{ .Values.mysql.volumeMount.nfs.path }}
-    server: 172.30.1.70
+    path: {{ .volumeMount.nfs.path }}
+    server: {{ .volumeMount.nfs.server }}
+{{- end }}

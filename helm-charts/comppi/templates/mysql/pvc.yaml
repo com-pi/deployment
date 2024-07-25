@@ -1,10 +1,12 @@
+{{- range .Values.mysql.instances }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mysql-pvc
+  name: {{ .name }}-pvc
 spec:
   accessModes:
     - ReadWriteMany
   resources:
     requests:
-      storage: {{ .Values.mysql.volumeMount.capacity }}
+      storage: {{ .volumeMount.capacity }}
+{{- end }}
