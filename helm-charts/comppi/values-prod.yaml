@@ -60,8 +60,7 @@ mysql:
       ports:
         - 3306
       nodePorts:
-        - port: 3306
-          nodePort: 32307
+        nodePort: 32307
       volumeMount:
         capacity: 10Gi
         nfs:
@@ -75,8 +74,7 @@ mysql:
       ports:
         - 3306
       nodePorts:
-        - port: 3306
-          nodePort: 32308
+        nodePort: 32308
       volumeMount:
         capacity: 10Gi
         nfs:
@@ -90,8 +88,7 @@ mysql:
       ports:
         - 3306
       nodePorts:
-        - port: 3306
-          nodePort: 32309
+        nodePort: 32309
       volumeMount:
         capacity: 10Gi
         nfs:
@@ -105,8 +102,7 @@ mysql:
       ports:
         - 3306
       nodePorts:
-        - port: 3306
-          nodePort: 32310
+        nodePort: 32310
       volumeMount:
         capacity: 10Gi
         nfs:

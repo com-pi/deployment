@@ -61,8 +61,7 @@ mysql:
       ports:
         - 3306
       nodePorts:
-        - port: 3306
-          nodePort: 32306
+        nodePort: 32306
       volumeMount:
         capacity: 10Gi
         nfs:
