@@ -26,7 +26,7 @@ spec:
     app: {{ $key }}
   type: NodePort
   ports:
-    - port: 3306
-      targetPort: 3306
-      nodePort: {{ $value.nodeport }}
+  - port: 3306
+    targetPort: 3306
+    nodePort: {{ $value.nodePort }}
 {{- end }}

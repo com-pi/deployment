@@ -57,7 +57,7 @@ mysql:
     image:
       name: utopiandrmer/comppi-mysql-dev
       tag: latest
-    nodeport: 32306
+    nodePort: 32306
     volumeMount:
       capacity: 10Gi
       nfs:
