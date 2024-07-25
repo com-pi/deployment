@@ -59,7 +59,7 @@ mysql:
       tag: prod-0.1.0
     ports:
       - 3306
-    nodePorts: 32307
+    nodePort: 32307
     volumeMount:
       capacity: 10Gi
       nfs:
@@ -72,7 +72,7 @@ mysql:
       tag: prod-0.1.0
     ports:
       - 3306
-    nodePorts: 32308
+    nodePort: 32308
     volumeMount:
       capacity: 10Gi
       nfs:
@@ -85,7 +85,7 @@ mysql:
       tag: prod-0.1.0
     ports:
       - 3306
-    nodePorts: 32309
+    nodePort: 32309
     volumeMount:
       capacity: 10Gi
       nfs:
