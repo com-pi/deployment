@@ -59,8 +59,7 @@ mysql:
       tag: latest
     ports:
       - 3306
-    nodePorts:
-      nodePort: 32306
+    nodePort: 32306
     volumeMount:
       capacity: 10Gi
       nfs:

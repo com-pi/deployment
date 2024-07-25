@@ -30,5 +30,5 @@ spec:
     - name: mysql
       port: 3306
       targetPort: 3306
-      nodePort: {{ $value.nodePorts.nodePort }}
+      nodePort: {{ $value.nodePort }}
 {{- end }}
