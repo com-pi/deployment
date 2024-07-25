@@ -56,7 +56,7 @@ mysql:
   instances:
     - name: mysql-dev
       image:
-        name: utopiandrmer/comppi-mysql
+        name: utopiandrmer/comppi-mysql-dev
         tag: latest
       ports:
         - 3306
