@@ -28,3 +28,21 @@ spec:
               value: {{ $.Values.env.activeProfile }}
             - name: TZ
               value: {{ $.Values.env.timezone }}
+
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: {{ default 8080 (index .Values "auth-service" "port") }}
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 3
+
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: {{ default 8080 (index .Values "auth-service" "port") }}
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
