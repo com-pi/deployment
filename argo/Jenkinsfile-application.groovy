@@ -17,12 +17,12 @@ pipeline {
             steps {
                 script {
                     if (params.DEPLOY_TYPE == "upgrade") {
-                        HELM_DEPLOY_COMMAND = "helm upgrade ${params.TARGET_ARGO} ${ARGO_PATH}/${params.TARGET_ARGO} " +
+                        HELM_DEPLOY_COMMAND = "helm upgrade ${params.APPLICATION} ${ARGO_PATH}/${params.APPLICATION} " +
                                 " -f ${ARGO_PATH}/${params.APPLICATION}/values.yaml " +
                                 " -n argo --install --wait --timeout=10m "
                             sh "eval ${HELM_DEPLOY_COMMAND}"
                     } else if (params.DEPLOY_TYPE == "uninstall") {
-                        sh "helm uninstall ${params.TARGET_ARGO} -n argo"
+                        sh "helm uninstall ${params.APPLICATION} -n argo"
                     } else {
                         echo "skip deploy"
                     }
