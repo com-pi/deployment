@@ -40,6 +40,7 @@ create table my_plant
     deletion_yn               varchar(255) null,
     plant_name                varchar(255) null,
     plant_spot                varchar(255) null,
+    plant_type_id             bigint       null,
     plant_type                varchar(255) null,
     pot_type                  varchar(255) null,
     foreign key (plant_character_id) references plant_character (plant_character_id)
