@@ -9,21 +9,23 @@ spec:
     - name: http
       protocol: HTTP
       port: 80
-    - name: https1
+    - name: https-api
       port: 443
       protocol: HTTPS
+      hostname: "api.comppi.site"
       tls:
         mode: Terminate
-        hostname: "api.comppi.site"
-        certificateRef:
-          name: api-tls
-          kind: Secret
-    - name: https2
+        certificateRefs:
+          - name: api-tls
+            kind: Secret
+            group: core
+    - name: https-bucket
       port: 443
       protocol: HTTPS
+      hostname: "bucket.comppi.site"
       tls:
         mode: Terminate
-        hostname: "bucket.comppi.site"
-        certificateRef:
-          name: bucket-tls
-          kind: Secret
+        certificateRefs:
+          - name: bucket-tls
+            kind: Secret
+            group: core
