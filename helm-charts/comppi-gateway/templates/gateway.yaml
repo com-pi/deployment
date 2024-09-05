@@ -4,7 +4,7 @@ metadata:
   name: comppi-gateway
   namespace: comppi-gateway
 spec:
-  gatewayClassName: comppi-nginx-gateway-class
+  gatewayClassName: nginx
   listeners:
     - name: http
       protocol: HTTP
