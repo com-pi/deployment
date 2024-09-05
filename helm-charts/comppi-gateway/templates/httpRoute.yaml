@@ -13,8 +13,8 @@ spec:
         - path:
             type: PathPrefix
             value: /
-      forwardTo:
-        - serviceName: api-gateway
+      backendRefs:
+        - name: api-gateway
           namespace: comppi-prod
           port: 8000
 
@@ -34,8 +34,8 @@ spec:
         - path:
             type: PathPrefix
             value: /
-      forwardTo:
-        - serviceName: api-gateway
+      backendRefs:
+        - name: api-gateway
           namespace: comppi-dev
           port: 8000
 
@@ -55,7 +55,7 @@ spec:
         - path:
             type: PathPrefix
             value: /
-      forwardTo:
-        - serviceName: minio
+      backendRefs:
+        - name: minio
           namespace: comppi-dev
           port: 9000
