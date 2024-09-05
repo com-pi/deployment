@@ -13,6 +13,7 @@ spec:
       port: 443
       protocol: HTTPS
       tls:
+        mode: Terminate
         hostname: "api.comppi.site"
         certificateRef:
           name: api-tls
@@ -21,6 +22,7 @@ spec:
       port: 443
       protocol: HTTPS
       tls:
+        mode: Terminate
         hostname: "bucket.comppi.site"
         certificateRef:
           name: bucket-tls
