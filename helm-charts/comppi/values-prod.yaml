@@ -106,12 +106,6 @@ mysql:
         server: 172.30.1.70
 
 minio:
-  ports:
-    - 9000
-    - 9001
-  nodePorts:
-    - port: 9001
-      nodePort: 30901
   volumeMount:
     mountPath: "/data"
     capacity: 20Gi
