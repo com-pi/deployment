@@ -47,6 +47,7 @@ metadata:
 spec:
   parentRefs:
     - name: comppi-gateway
+      namespace: comppi-gateway
   hostnames:
     - "bucket.comppi.site"
   rules:
