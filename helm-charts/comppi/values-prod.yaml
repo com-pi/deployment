@@ -27,7 +27,7 @@ board-service:
     tag: prod-0.1.0
   replicaCount: 1
 
-encyclo-service:
+encyclopedia:
   image:
     name: utopiandrmer/comppi-encyclo-service
     tag: prod-0.1.0
