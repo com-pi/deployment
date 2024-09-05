@@ -162,10 +162,12 @@ service:
       targetPort: 80
       protocol: TCP
       name: http
+      nodePort: 31080
     - port: 443
       targetPort: 443
       protocol: TCP
       name: https
+      nodePort: 31443
 
 metrics:
   # -- Enable exposing metrics in the Prometheus format.
