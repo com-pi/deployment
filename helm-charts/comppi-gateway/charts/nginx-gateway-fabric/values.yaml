@@ -151,7 +151,7 @@ service:
   # -- The type of service to create for the NGINX Gateway Fabric.
   type: NodePort
   # -- The externalTrafficPolicy of the service. The value Local preserves the client source IP.
-  externalTrafficPolicy: Local
+  externalTrafficPolicy: Cluster
   # -- The annotations of the NGINX Gateway Fabric service.
   annotations: {}
 
