@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: api-gateway-deployment
+  namespace: {{ .Values.namespace}}
 spec:
   replicas: {{ index .Values "api-gateway" "replicaCount" }}
   selector:

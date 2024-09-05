@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: encyclo-service
+  namespace: {{ .Values.namespace}}
 spec:
   selector:
     app: encyclo-service

@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: scraper
+  namespace: {{ .Values.namespace }}
 spec:
   selector:
     app: scraper

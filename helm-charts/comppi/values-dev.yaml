@@ -1,4 +1,5 @@
 releaseName: comppi
+namespace: comppi-dev
 
 env:
   activeProfile: dev

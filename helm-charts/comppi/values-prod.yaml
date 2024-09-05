@@ -1,4 +1,5 @@
 releaseName: comppi
+namespace: comppi-prod
 
 env:
   activeProfile: prod

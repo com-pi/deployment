@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: discovery-eureka-deployment
+  namespace: {{ .Values.namespace}}
 spec:
   replicas: {{ index .Values "discovery-eureka" "replicaCount" }}
   selector:
