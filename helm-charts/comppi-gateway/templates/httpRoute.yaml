@@ -58,5 +58,4 @@ spec:
             value: /
       backendRefs:
         - name: minio
-          namespace: comppi-dev
           port: 9000
