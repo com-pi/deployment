@@ -10,6 +10,7 @@ pipeline {
         DOCKERHUB_USERNAME = 'utopiandrmer'
         GITHUB_URL = 'git@github.com:com-pi/deployment.git'
         ARGO_PATH = './argo'
+        NAMESPACE
     }
 
     stages {
@@ -17,7 +18,7 @@ pipeline {
             steps {
                 script {
                     if (params.DEPLOY_TYPE == "namespace_create") {
-                        sh "kubectl apply -f ${ARGO_PATH}/namespace.yaml"
+                        sh "kubectl create namespace ${}"
                     } else if (params.DEPLOY_TYPE == "namespace_delete") {
                         sh "kubectl delete -f ${ARGO_PATH}/namespace.yaml"
                     } else {
