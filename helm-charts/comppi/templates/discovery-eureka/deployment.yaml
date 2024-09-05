@@ -15,7 +15,7 @@ spec:
     spec:
       initContainers:
         {{- range $key, $value := .Values.mysql}}
-        - name: init-wait-for-mysql
+        - name: init-wait-for-mysql-{{ $key }}
           image: busybox
           command: [ 'sh', '-c', 'until nc -z -v -w30 {{ $key }} 3306; do echo "Waiting for MySQL..."; sleep 5; done' ]
         {{- end}}
