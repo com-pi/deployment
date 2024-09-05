@@ -22,6 +22,19 @@ spec:
           - group: ""
             kind: Secret
             name: api-tls
+    - name: https-dev
+      port: 443
+      protocol: HTTPS
+      hostname: "dev.comppi.site"
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - group: ""
+            kind: Secret
+            name: dev-tls
     - name: https-bucket
       port: 443
       protocol: HTTPS
