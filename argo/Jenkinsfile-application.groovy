@@ -16,7 +16,7 @@ pipeline {
         stage('헬름 배포 관리') {
             steps {
                 script {
-                    if (params.DEPLOY_TYPE == "pgrade") {
+                    if (params.DEPLOY_TYPE == "upgrade") {
                         if(params.APPLICATION == "comppi-dev") {
                         HELM_DEPLOY_COMMAND = "helm upgrade ${params.TARGET_ARGO} ${ARGO_PATH}/${params.TARGET_ARGO} " +
                                 " -f ${ARGO_PATH}/${params.APPLICATION}/values.yaml " +
