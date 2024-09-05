@@ -11,8 +11,8 @@ spec:
   rules:
     - matches:
         - path:
-            type: Prefix
-            value: /
+          type: PathPrefix
+          value: /
       forwardTo:
         - serviceName: api-gateway
           namespace: comppi-prod
@@ -32,7 +32,7 @@ spec:
   rules:
     - matches:
         - path:
-            type: Prefix
+            type: PathPrefix
             value: /
       forwardTo:
         - serviceName: api-gateway
@@ -53,7 +53,7 @@ spec:
   rules:
     - matches:
         - path:
-            type: Prefix
+            type: PathPrefix
             value: /
       forwardTo:
         - serviceName: minio
