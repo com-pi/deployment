@@ -58,7 +58,7 @@ nginxGateway:
 
   securityContext:
     # -- Some environments may need this set to true in order for the control plane to successfully reload NGINX.
-    allowPrivilegeEscalation: false
+    allowPrivilegeEscalation: true
 
   productTelemetry:
     # -- Enable the collection of product telemetry.
