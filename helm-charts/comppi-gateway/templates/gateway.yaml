@@ -13,6 +13,9 @@ spec:
       port: 443
       protocol: HTTPS
       hostname: "api.comppi.site"
+      allowedRoutes:
+        namespaces:
+          from: All
       tls:
         mode: Terminate
         certificateRefs:
@@ -23,6 +26,9 @@ spec:
       port: 443
       protocol: HTTPS
       hostname: "bucket.comppi.site"
+      allowedRoutes:
+        namespaces:
+          from: All
       tls:
         mode: Terminate
         certificateRefs:
