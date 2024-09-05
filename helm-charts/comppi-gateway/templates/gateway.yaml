@@ -1,0 +1,27 @@
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: Gateway
+metadata:
+  name: comppi-gateway
+  namespace: comppi-gateway
+spec:
+  gatewayClassName: comppi-nginx-gateway-class
+  listeners:
+    - name: http
+      protocol: HTTP
+      port: 80
+    - name: https1
+      port: 443
+      protocol: HTTPS
+      tls:
+        hostname: "api.comppi.site"
+        certificateRef:
+          name: api-tls
+          kind: Secret
+    - name: https2
+      port: 443
+      protocol: HTTPS
+      tls:
+        hostname: "bucket.comppi.site"
+        certificateRef:
+          name: bucket-tls
+          kind: Secret
