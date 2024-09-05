@@ -27,6 +27,7 @@ metadata:
 spec:
   parentRefs:
     - name: comppi-gateway
+      namespace: comppi-gateway
   hostnames:
     - "api.comppi.site"
   rules:
