@@ -1,4 +1,4 @@
-apiVersion: gateway.networking.k8s.io/v1
+apiVersion: gateway.networking.k8s.io/v1beta1  # 버전을 v1beta1로 변경해 보세요
 kind: Gateway
 metadata:
   name: comppi-gateway
@@ -16,9 +16,9 @@ spec:
       tls:
         mode: Terminate
         certificateRefs:
-          - name: api-tls
+          - group: ""
             kind: Secret
-            group: core
+            name: api-tls
     - name: https-bucket
       port: 443
       protocol: HTTPS
@@ -26,6 +26,6 @@ spec:
       tls:
         mode: Terminate
         certificateRefs:
-          - name: bucket-tls
+          - group: ""
             kind: Secret
-            group: core
+            name: bucket-tls
