@@ -10,7 +10,6 @@ pipeline {
         DOCKERHUB_USERNAME = 'utopiandrmer'
         GITHUB_URL = 'git@github.com:com-pi/deployment.git'
         ARGO_PATH = './argo'
-        NAMESPACE
     }
 
     stages {
