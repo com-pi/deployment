@@ -17,7 +17,7 @@ pipeline {
             steps {
                 script {
                     if (params.DEPLOY_TYPE == "namespace_create") {
-                        sh "kubectl create namespace ${}"
+                        sh "kubectl delete -f ${ARGO_PATH}/namespace.yaml"
                     } else if (params.DEPLOY_TYPE == "namespace_delete") {
                         sh "kubectl delete -f ${ARGO_PATH}/namespace.yaml"
                     } else {
