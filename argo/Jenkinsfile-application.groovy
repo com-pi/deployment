@@ -10,6 +10,7 @@ pipeline {
         DOCKERHUB_USERNAME = 'utopiandrmer'
         GITHUB_URL = 'git@github.com:com-pi/deployment.git'
         ARGO_PATH = './argo'
+        NAMESPACE = 'argo-cd'
     }
 
     stages {
@@ -19,7 +20,7 @@ pipeline {
                     if (params.DEPLOY_TYPE == "upgrade") {
                         HELM_DEPLOY_COMMAND = "helm upgrade ${params.APPLICATION} ${ARGO_PATH}/${params.APPLICATION} " +
                                 " -f ${ARGO_PATH}/${params.APPLICATION}/values.yaml " +
-                                " -n argo --install --wait --timeout=10m "
+                                " -n ${NAMESPACE} --install --wait --timeout=10m "
                             sh "eval ${HELM_DEPLOY_COMMAND}"
                     } else if (params.DEPLOY_TYPE == "uninstall") {
                         sh "helm uninstall ${params.APPLICATION} -n argo"
