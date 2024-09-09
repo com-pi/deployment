@@ -10,6 +10,7 @@ pipeline {
         DOCKERHUB_USERNAME = 'utopiandrmer'
         GITHUB_URL = 'git@github.com:com-pi/deployment.git'
         ARGO_PATH = './argo'
+        NAMESPACE = 'argo-cd'
     }
 
     stages {
@@ -33,7 +34,7 @@ pipeline {
                     if (params.DEPLOY_TYPE == "helm_upgrade") {
                         HELM_DEPLOY_COMMAND = "helm upgrade ${params.TARGET_ARGO} ${ARGO_PATH}/${params.TARGET_ARGO} " +
                                 " -f ${ARGO_PATH}/${params.TARGET_ARGO}/custom-values.yaml " +
-                                " -n argo --install --wait --timeout=10m "
+                                " -n ${NAMESPACE} --install --wait --timeout=10m "
 
                         // image-updater일 경우 도커허브 credentials 주입
                         if (params.TARGET_ARGO == "argocd-image-updater") {
@@ -45,7 +46,7 @@ pipeline {
 
                         sh "eval ${HELM_DEPLOY_COMMAND}"
                     } else if (params.DEPLOY_TYPE == "helm_uninstall") {
-                        sh "helm uninstall ${params.TARGET_ARGO} -n argo"
+                        sh "helm uninstall ${params.TARGET_ARGO} -n ${NAMESPACE}"
 
                         // CRD 삭제
                         if (params.TARGET_ARGO == "argo-cd") {
