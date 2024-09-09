@@ -40,6 +40,8 @@ CREATE TABLE ENCYCLOPEDIA_PLANT (
                                     ID	bigint	NOT NULL AUTO_INCREMENT,
                                     PLANT_SPECIES_ID	bigint	NOT NULL,
                                     MY_ENCYCLOPEDIA_ID	bigint	NOT NULL,
+                                    created_at timestamp(6) not null DEFAULT CURRENT_TIMESTAMP(6),
+                                    updated_at timestamp(6) not null DEFAULT CURRENT_TIMESTAMP(6),
                                     PRIMARY KEY (ID),
                                     FOREIGN KEY (plant_species_id) REFERENCES PLANT_SPECIES(id),
                                     FOREIGN KEY (my_encyclopedia_id) REFERENCES MY_ENCYCLOPEDIA(id),
