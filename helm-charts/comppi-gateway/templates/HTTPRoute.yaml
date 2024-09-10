@@ -14,12 +14,6 @@ spec:
         - path:
             type: PathPrefix
             value: /
-      filters:
-        - type: RequestHeaderModifier
-          requestHeaderModifier:
-            add:
-             - name: "Host"
-               value: "$host"
       backendRefs:
         - name: api-gateway
           port: 8000
