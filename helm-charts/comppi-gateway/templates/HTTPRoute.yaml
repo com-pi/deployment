@@ -8,7 +8,7 @@ spec:
     - name: comppi-gateway
       namespace: comppi-gateway
   hostnames:
-    - "api.comppi.site"
+    - "comppi.site"
   rules:
     - matches:
         - path:
