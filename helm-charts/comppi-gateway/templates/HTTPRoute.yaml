@@ -14,6 +14,11 @@ spec:
         - path:
             type: PathPrefix
             value: /
+      filters:
+        - type: RequestHeaderModifier
+          requestHeaderModifier:
+            add:
+              Access-Control-Allow-Credentials: "true"
       backendRefs:
         - name: api-gateway
           port: 8000
