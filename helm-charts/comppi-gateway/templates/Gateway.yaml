@@ -15,7 +15,9 @@ spec:
       hostname: "api.comppi.site"
       allowedRoutes:
         namespaces:
-          from: All
+          selector:
+            matchLabels:
+              environment: dev
       tls:
         mode: Terminate
         certificateRefs:
@@ -28,7 +30,9 @@ spec:
       hostname: "bucket.com-p.site"
       allowedRoutes:
         namespaces:
-          from: All
+          selector:
+            matchLabels:
+              environment: dev
       tls:
         mode: Terminate
         certificateRefs:
