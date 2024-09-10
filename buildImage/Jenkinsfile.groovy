@@ -3,7 +3,7 @@ pipeline {
 
     tools {
         gradle 'gradle'
-        jdk 'java'
+        jdk 'java17'
     }
 
     parameters {
