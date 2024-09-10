@@ -14,23 +14,42 @@ spec:
         - path:
             type: PathPrefix
             value: /
-      filters:
-        - type: RequestHeaderModifier
-          requestHeaderModifier:
-            add:
-              - name: "Host"
-                value: $host;
-              - name: "X-Forwarded-Proto"
-                value: $scheme;
-              - name: "Access-Control-Allow-Methods"
-                value: GET, POST, OPTIONS;
-              - name: "Origin"
-                value: $http_origin;
-              - name : "Access-Control-Allow-Headers"
-                value: Origin, Content-Type, Accept, Authorization;
+{{/*      filters:*/}}
+{{/*        - type: RequestHeaderModifier*/}}
+{{/*          requestHeaderModifier:*/}}
+{{/*            add:*/}}
+{{/*              - name: "Host"*/}}
+{{/*                value: $host;*/}}
+{{/*              - name: "X-Forwarded-Proto"*/}}
+{{/*                value: $scheme;*/}}
+{{/*              - name: "Access-Control-Allow-Methods"*/}}
+{{/*                value: GET, POST, OPTIONS;*/}}
+{{/*              - name: "Origin"*/}}
+{{/*                value: $http_origin;*/}}
+{{/*              - name : "Access-Control-Allow-Headers"*/}}
+{{/*                value: Origin, Content-Type, Accept, Authorization;*/}}
       backendRefs:
-        - name: api-gateway
-          port: 8000
+        - BackendRef:
+            BackendObjectReference:
+              namespace: comppi-dev
+              kind: Service
+              name: api-gateway
+              port: 8000
+          filters:
+          - type: RequestHeaderModifier
+            requestHeaderModifier:
+              add:
+                - name: "Host"
+                  value: $host;
+                - name: "X-Forwarded-Proto"
+                  value: $scheme;
+                - name: "Access-Control-Allow-Methods"
+                  value: GET, POST, OPTIONS;
+                - name: "Origin"
+                  value: $http_origin;
+                - name : "Access-Control-Allow-Headers"
+                  value: Origin, Content-Type, Accept, Authorization;
+
 
 ---
 apiVersion: gateway.networking.k8s.io/v1
