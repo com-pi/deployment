@@ -18,8 +18,6 @@ spec:
         - type: RequestHeaderModifier
           requestHeaderModifier:
             add:
-              - name: "X-Forwarded-Proto"
-                value: $scheme;
               - name: "Access-Control-Allow-Origin"
                 value: https://comppi.site
               - name: "Access-Control-Allow-Methods"
