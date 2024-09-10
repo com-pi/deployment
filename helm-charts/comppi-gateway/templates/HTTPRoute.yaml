@@ -14,20 +14,6 @@ spec:
         - path:
             type: PathPrefix
             value: /
-      filters:
-        - type: RequestHeaderModifier
-          requestHeaderModifier:
-            add:
-              - name: "Host"
-                value: $host;
-              - name: "X-Forwarded-Proto"
-                value: $scheme;
-              - name: "Access-Control-Allow-Methods"
-                value: GET, POST, OPTIONS;
-              - name: "Origin"
-                value: $http_origin;
-              - name : "Access-Control-Allow-Headers"
-                value: Origin, Content-Type, Accept, Authorization;
       backendRefs:
         - namespace: comppi-dev
           kind: Service
