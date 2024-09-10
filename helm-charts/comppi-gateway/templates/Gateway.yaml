@@ -16,6 +16,7 @@ spec:
       hostname: "api.comppi.site"
       allowedRoutes:
         namespaces:
+          from: Selector
           selector:
             matchLabels:
               kubernetes.io/metadata.name: comppi-dev
@@ -32,6 +33,7 @@ spec:
       hostname: "bucket.com-p.site"
       allowedRoutes:
         namespaces:
+          from: Selector
           selector:
             matchLabels:
               kubernetes.io/metadata.name: comppi-dev
