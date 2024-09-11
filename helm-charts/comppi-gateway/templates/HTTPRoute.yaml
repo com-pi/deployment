@@ -19,9 +19,6 @@ spec:
           requestHeaderModifier:
             add:
               - name: X-Forwarded-Proto
-                value: ""
-              - name: X-Real-IP
-                value: ""
       backendRefs:
         - namespace: comppi-dev
           kind: Service
