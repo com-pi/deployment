@@ -16,7 +16,7 @@ spec:
             value: /
       filters:
         - type: ResponseHeaderModifier
-          ResponseHeaderModifier:
+          responseHeaderModifier:
             add:
               - name: "Access-Control-Allow-Credentials"
                 value: "true"
