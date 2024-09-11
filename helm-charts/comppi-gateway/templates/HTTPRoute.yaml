@@ -19,7 +19,7 @@ spec:
           requestHeaderModifier:
             add:
               - name: X-Forwarded-Proto
-                value: "$scheme"
+                value: https
       backendRefs:
         - namespace: comppi-dev
           kind: Service
