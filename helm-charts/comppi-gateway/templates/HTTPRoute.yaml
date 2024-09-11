@@ -22,8 +22,6 @@ spec:
                 value: $remote_addr
               - name: X-Forwarded-For
                 value: $proxy_add_x_forwarded_for
-              - name: X-Forwarded-Proto
-                value: $scheme
       backendRefs:
         - namespace: comppi-dev
           kind: Service
