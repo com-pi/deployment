@@ -20,8 +20,6 @@ spec:
             add:
               - name: X-Real-IP
                 value: $remote_addr
-              - name: X-Forwarded-For
-                value: $proxy_add_x_forwarded_for
       backendRefs:
         - namespace: comppi-dev
           kind: Service
