@@ -15,17 +15,20 @@ spec:
             type: PathPrefix
             value: /
       filters:
-        - type: ResponseHeaderModifier
-          responseHeaderModifier:
+        - type: RequestHeaderModifier
+          requestHeaderModifier:
             add:
-              - name: "Access-Control-Allow-Credentials"
-                value: "true"
+              - name: X-Real-IP
+                value: $remote_addr
+              - name: X-Forwarded-For
+                value: $proxy_add_x_forwarded_for
+              - name: X-Forwarded-Proto
+                value: $scheme
       backendRefs:
         - namespace: comppi-dev
           kind: Service
           name: api-gateway
           port: 8000
-
 
 ---
 apiVersion: gateway.networking.k8s.io/v1
