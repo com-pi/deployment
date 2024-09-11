@@ -17,9 +17,9 @@ spec:
       filters:
         - type: RequestHeaderModifier
           requestHeaderModifier:
-            add:
+            set:
               - name: X-Forwarded-Proto
-                value: "sibal"
+                value: ${x_forwarded_proto_header_var}
       backendRefs:
         - namespace: comppi-dev
           kind: Service
