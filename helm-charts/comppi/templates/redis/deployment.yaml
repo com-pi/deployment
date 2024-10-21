@@ -16,6 +16,11 @@ spec:
       containers:
         - name: redis
           image: redis:latest
+          args:
+            - "--maxmemory"
+            - "1gb"
+            - "--maxmemory-policy"
+            - "allkeys-lru"
           imagePullPolicy: {{ if eq .Values.env.activeProfile "dev" }}Always{{ else }}IfNotPresent{{ end }}
           ports:
             - containerPort: 6379
