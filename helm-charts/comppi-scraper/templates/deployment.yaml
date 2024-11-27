@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: scraper-deployment
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.application }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.application }}
+    spec:
+      containers:
+        - name: scraper
+          image: {{ .Values.containers.image.name }}:{{ .Values.containers.image.tag }}
+          imagePullPolicy: {{ if eq $.Values.env "dev" }}Always{{ else }}IfNotPresent{{ end }}
+          ports:
+            - containerPort: 8080
