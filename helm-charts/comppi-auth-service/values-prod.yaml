@@ -1,0 +1,21 @@
+releaseName: auth-service-prod
+namespace: comppi-prod
+
+env:
+  activeProfile: prod
+  timezone: Asia/Seoul
+
+image:
+  name: utopiandrmer/comppi-auth-service
+  tag: latest
+
+replicaCount: 1
+port: 8080
+
+resources:
+  requests:
+    memory: "128Mi"
+    cpu: "100m"
+  limits:
+    memory: "256Mi"
+    cpu: "250m"

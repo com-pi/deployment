@@ -1,4 +1,3 @@
-
 apiVersion: v2
 name: comppi
 description: A Helm chart for comppi
@@ -8,5 +7,5 @@ appVersion: "1.0"
 
 dependencies:
   - name: kafka
-    version: "29.3.4"  # 적절한 버전으로 변경하세요
+    version: "29.3.4"
     repository: "https://charts.bitnami.com/bitnami"

@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: comppi-{{ .Values.environment }}
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: >-
+      {{ .Values.application }}=utopiandrmer/comppi-{{ .Values.application }}
+    argocd-image-updater.argoproj.io/{{ .Values.application }}.allow-tags: regexp:^{{ .Values.environment }}
+    argocd-image-updater.argoproj.io/{{ .Values.application }}.update-strategy: newest-build
+    argocd-image-updater.argoproj.io/{{ .Values.application }}.helm.image-name: "{{ .Values.application }}.image.name"
+    argocd-image-updater.argoproj.io/{{ .Values.application }}.helm.image-tag: "{{ .Values.application }}.image.tag"
+spec:
+  destination:
+    name: ''
+    namespace: comppi-{{ .Values.environment }}
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: helm-charts/comppi-{{ .Values.application }}
+    repoURL: 'git@github.com:com-pi/deployment.git'
+    targetRevision: main
+    helm:
+      valueFiles:
+        - values-{{ .Values.environment }}.yaml
+  project: default
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: false
+    syncOptions:
+      - CreateNamespace=true

@@ -1,0 +1,21 @@
+releaseName: api-gateway-dev
+namespace: comppi-dev
+
+env:
+  activeProfile: dev
+  timezone: Asia/Seoul
+
+image:
+  name: utopiandrmer/comppi-api-gateway
+  tag: latest
+
+replicaCount: 1
+port: 8080
+
+resources:
+  requests:
+    memory: "128Mi"
+    cpu: "100m"
+  limits:
+    memory: "256Mi"
+    cpu: "250m"
