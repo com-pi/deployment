@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     parameters {
-        choice(choices: ['option', 'gateway', 'api-gateway', 'auth-service', 'board-service', 'encyclo-service', 'my-plant', 'minio', 'redis', 'discovery-eureka'], name: 'APPLICATION', description: '어플리케이션 선택')
+        choice(choices: ['option', 'gateway', 'api-gateway', 'auth-service', 'board-service', 'encyclo-service', 'my-plant', 'discovery-eureka', 'minio', 'redis', 'scraper'], name: 'APPLICATION', description: '어플리케이션 선택')
         choice(choices: ['option', 'dev', 'prod'], name: 'ENVIRONMENT', description: '배포 환경')
         choice(choices: ['option', 'upgrade', 'uninstall'], name: 'DEPLOY_TYPE', description: '배포/삭제')
     }
