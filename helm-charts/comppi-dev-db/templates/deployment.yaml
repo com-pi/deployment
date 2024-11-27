@@ -1,0 +1,36 @@
+{{- if eq .Values.env "dev" }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.releaseName }}
+  namespace: {{ $.Values.namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.application }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.application }}
+    spec:
+      containers:
+        - name: auth-service-mysql
+          image: {{ .Values.image.name }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ if eq $.Values.env "dev" }}Always{{ else }}IfNotPresent{{ end }}
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: comppi-secret
+                  key: MYSQL_ROOT_PASSWORD
+          volumeMounts:
+            - name: {{ .Values.application }}-vol
+              mountPath: "/var/lib/mysql"
+      volumes:
+        - name: {{ .Values.application }}-vol
+          persistentVolumeClaim:
+            claimName: {{ .Values.application }}-pvc-dev
+{{- end }}

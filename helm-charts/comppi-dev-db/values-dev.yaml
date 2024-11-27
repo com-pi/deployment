@@ -1,0 +1,22 @@
+env: dev
+releaseName: mysql-dev
+namespace: comppi-dev
+application: mysql
+
+image:
+  name: utopiandrmer/comppi-mysql-dev
+  tag: latest
+
+volumeMount:
+  capacity: 10Gi
+  nfs:
+    path: /srv/nfs/kubedata/dev/mysql
+    server: 172.30.1.70
+
+resources:
+ requests:
+   memory: "512Mi"
+   cpu: "250m"
+ limits:
+   memory: "1Gi"
+   cpu: "500m"

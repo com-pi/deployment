@@ -1,0 +1,15 @@
+{{- if eq .Values.env "dev" }}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ .Values.application }}-pv
+  namespace: {{ $.Values.namespace }}
+spec:
+  capacity:
+    storage: {{ .Values.volumeMount.capacity }}
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    path: {{ .Values.volumeMount.nfs.path }}
+    server: {{ .Values.volumeMount.nfs.server }}
+{{- end }}
