@@ -2,11 +2,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.database.name }}
+  name: {{ .Values.application }}
   namespace: {{ $.Values.namespace }}
 spec:
   selector:
-    app: {{ .Values.database.name }}
+    app: {{ .Values.application }}
   type: ClusterIP
   ports:
     - name: mysql
