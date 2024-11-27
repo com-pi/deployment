@@ -1,0 +1,21 @@
+releaseName: redis-prod
+namespace: comppi-prod
+application: redis-prod
+
+image:
+  name: redis
+  tag: latest
+
+args:
+  - "--maxmemory"
+  - "1gb"
+  - "--maxmemory-policy"
+  - "allkeys-lru"
+
+resources:
+  requests:
+    memory: "1Gi"
+    cpu: "250m"
+  limits:
+    memory: "1.25Gi"    # maxmemory + 여유 공간
+    cpu: "500m"

@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-deployment
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.application }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.application }}
+    spec:
+      containers:
+        - name: redis
+          image: {{ .Values.image.name }}:{{ .Values.image.tag }}
+          args:
+          {{- range .Values.args }}
+            - "{{ . }}"
+          {{- end }}
+
+          imagePullPolicy: {{ if eq .Values.env "dev" }}Always{{ else }}IfNotPresent{{ end }}
+          ports:
+            - containerPort: 6379
+          env:
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: comppi-secret
+                  key: REDIS_PASSWORD
+
+          resources:
+            requests:
+              memory: {{ .Values.resources.requests.memory }}
+              cpu: {{ .Values.resources.requests.cpu }}
+            limits:
+              memory: {{ .Values.resources.limits.memory }}
+              cpu: {{ .Values.resources.limits.cpu }}
