@@ -4,14 +4,14 @@ metadata:
   name: api-gateway-deployment
   namespace: {{ .Values.namespace}}
 spec:
-  replicas: {{ index .Values "api-gateway" "replicaCount" }}
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: api-gateway
+      app: {{ .Values.application }}
   template:
     metadata:
       labels:
-        app: api-gateway
+        app: {{ .Values.application }}
     spec:
       initContainers:
         - name: init-wait-for-discovery
@@ -20,20 +20,28 @@ spec:
 
       containers:
         - name: api-gateway
-          image: {{ index .Values "api-gateway" "image" "name" }}:{{ index .Values "api-gateway" "image" "tag" }}
+          image: {{ .Values.containers.image.name }}:{{ .Values.containers.image.tag }}
           imagePullPolicy: {{ if eq $.Values.env.activeProfile "dev" }}Always{{ else }}IfNotPresent{{ end }}
           ports:
-            - containerPort: {{ default 8080 (index .Values "api-gateway" "port") }}
+            - containerPort: {{ .Values.containers.port }}
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: {{ $.Values.env.activeProfile }}
             - name: TZ
               value: {{ $.Values.env.timezone }}
 
+          resources:
+            requests:
+              memory: {{ .Values.resources.requests.memory }}
+              cpu: {{ .Values.resources.requests.cpu }}
+            limits:
+              memory: {{ .Values.resources.limits.memory }}
+              cpu: {{ .Values.resources.limits.cpu }}
+
           readinessProbe:
             httpGet:
               path: /actuator/health
-              port: {{ default 8080 (index .Values "api-gateway" "port") }}
+              port: {{ .Values.containers.port }}
             initialDelaySeconds: 10
             periodSeconds: 5
             timeoutSeconds: 3
@@ -42,7 +50,7 @@ spec:
           livenessProbe:
             httpGet:
               path: /actuator/health
-              port: {{ default 8080 (index .Values "api-gateway" "port") }}
+              port: {{ .Values.containers.port }}
             initialDelaySeconds: 30
             periodSeconds: 10
             timeoutSeconds: 5

@@ -5,11 +5,10 @@ metadata:
   namespace: {{ .Values.namespace}}
 spec:
   selector:
-    app: api-gateway
+    app: {{ .Values.application }}
   ports:
     - protocol: TCP
-      port: {{ .Values.port }}
-      targetPort: {{ .Values.port }}
+      port: {{ .Values.containers.port }}
+      targetPort: {{ .Values.containers.port }}
 
   type: ClusterIP
-
