@@ -23,7 +23,7 @@ spec:
         - name: init-wait-for-scraper
           image: busybox
           command: [ 'sh', '-c', 'until nc -z -v -w30 scraper 8080; do echo "Waiting for Scraper..."; sleep 5; done' ]
-        {{- if eq .Values.env "dev" }}
+        {{- if eq .Values.env.activeProfile "dev" }}
         - name: init-wait-for-db
           image: busybox
           command: [ 'sh', '-c', 'until nc -z -v -w30 mysql-dev 3306; do echo "Waiting for MySQL..."; sleep 5; done' ]
