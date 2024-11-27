@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: comppi-{{ .Values.environment }}
+  name: {{ .Values.application }}-{{ .Values.environment }}
   annotations:
     argocd-image-updater.argoproj.io/image-list: >-
       {{ .Values.application }}=utopiandrmer/comppi-{{ .Values.application }}
