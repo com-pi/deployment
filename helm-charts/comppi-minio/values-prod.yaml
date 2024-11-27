@@ -1,0 +1,23 @@
+env: prod
+releaseName: minio-prod
+namespace: comppi-prod
+application: minio
+
+image:
+  name: redis
+  tag: latest
+
+volumeMount:
+  mountPath: "/data"
+  capacity: 10Gi
+  nfs:
+    path: /srv/nfs/kubedata/prod/minio
+    server: 172.30.1.70
+
+resources:
+  requests:
+    memory: "512Gi"
+    cpu: "250m"
+  limits:
+    memory: "1Gi"
+    cpu: "500m"

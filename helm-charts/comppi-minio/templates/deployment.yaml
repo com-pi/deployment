@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minio-deployment
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.application }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.application }}
+    spec:
+      securityContext:
+        runAsUser: 1000
+        fsGroup: 1000
+      containers:
+        - name: minio
+          image: {{ .Values.image.name }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ if eq $.Values.env "dev" }}Always{{ else }}IfNotPresent{{ end }}
+          env:
+            - name: MINIO_ROOT_USER
+              value: "admin"
+            - name: MINIO_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: comppi-secret
+                  key: MINIO_ROOT_PASSWORD
+          command: [ "minio", "server", "/data", "--console-address", ":9001" ]
+          volumeMounts:
+            - name: minio-vol
+              mountPath: {{ .Values.volumeMount.mountPath }}
+
+          resources:
+            requests:
+              memory: {{ .Values.resources.requests.memory }}
+              cpu: {{ .Values.resources.requests.cpu }}
+            limits:
+              memory: {{ .Values.resources.limits.memory }}
+              cpu: {{ .Values.resources.limits.cpu }}
+
+      volumes:
+        - name: {{ .Values.application }}-vol
+          persistentVolumeClaim:
+            claimName: {{ .Values.application }}-pvc
+

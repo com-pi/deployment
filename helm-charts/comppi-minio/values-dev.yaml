@@ -1,0 +1,23 @@
+env: dev
+releaseName: minio-dev
+namespace: comppi-dev
+application: minio
+
+image:
+  name: quay.io/minio/minio
+  tag: latest
+
+volumeMount:
+ mountPath: "/data"
+ capacity: 10Gi
+ nfs:
+   path: /srv/nfs/kubedata/dev/minio
+   server: 172.30.1.70
+
+resources:
+ requests:
+   memory: "512Gi"
+   cpu: "250m"
+ limits:
+   memory: "1Gi"
+   cpu: "500m"
