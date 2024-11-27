@@ -18,23 +18,27 @@ pipeline {
         stage('헬름 배포 관리') {
             steps {
                 script {
+                    // 유효하지 않은 선택값 확인
+                    if (params.APPLICATION == "option" || params.ENVIRONMENT == "option" || params.DEPLOY_TYPE == "option") {
+                        error("유효하지 않은 옵션이 선택되었습니다. 모든 파라미터를 올바르게 설정해주세요.")
+                    }
+
                     if (params.DEPLOY_TYPE == "upgrade") {
                         if (params.APPLICATION == "gateway") {
-                            HELM_DEPLOY_COMMAND = "helm upgrade ${params.APPLICATION} ${ARGO_PATH}/${params.APPLICATION} " +
-                                    " -f ${ARGO_PATH}/${params.APPLICATION}/values.yaml " +
-                                    " -n ${NAMESPACE} --install --wait --timeout=10m "
-                            sh "eval ${HELM_DEPLOY_COMMAND}"
+                            HELM_DEPLOY_COMMAND = "helm upgrade ${params.APPLICATION} ${ARGO_PATH}/comppi-gateway" +
+                                    " -n ${NAMESPACE} --install --wait --timeout=10m"
                         } else {
-                            HELM_DEPLOY_COMMAND = "helm upgrade ${params.APPLICATION}-${params.ENVIRONMENT} ${ARGO_PATH}/${params.APPLICATION} " +
-                                    " -f ${ARGO_PATH}/${params.APPLICATION}/values-${params.ENVIRONMENT}.yaml " +
-                                    " -n ${NAMESPACE} --install --wait --timeout=10m "
-                            sh "eval ${HELM_DEPLOY_COMMAND}"
+                            HELM_DEPLOY_COMMAND = "helm upgrade ${params.APPLICATION}-${params.ENVIRONMENT} ${ARGO_PATH}/comppi-service" +
+                                    " -n ${NAMESPACE} --install --wait --timeout=10m" +
+                                    " --set application=${params.APPLICATION} --set environment=${params.ENVIRONMENT}"
                         }
+                        sh "${HELM_DEPLOY_COMMAND}"
                     } else if (params.DEPLOY_TYPE == "uninstall") {
-                        if (params.APPLICATION == "gateway"){
-                            sh "helm uninstall ${params.APPLICATION} -n argo"
+                        if (params.APPLICATION == "gateway") {
+                            sh "helm uninstall ${params.APPLICATION} -n ${NAMESPACE}"
+                        } else {
+                            sh "helm uninstall ${params.APPLICATION}-${params.ENVIRONMENT} -n ${NAMESPACE}"
                         }
-                            sh "helm uninstall ${params.APPLICATION}-${params.ENVIRONMENT} -n argo"
                     } else {
                         echo "skip deploy"
                     }
