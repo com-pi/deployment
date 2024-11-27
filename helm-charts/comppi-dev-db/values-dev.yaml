@@ -5,7 +5,7 @@ application: mysql
 
 image:
   name: utopiandrmer/comppi-mysql-dev
-  tag: latest
+  tag: dev-20240909-120929
 
 volumeMount:
   capacity: 10Gi
