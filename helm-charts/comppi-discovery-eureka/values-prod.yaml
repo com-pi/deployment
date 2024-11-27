@@ -15,8 +15,8 @@ containers:
 
 resources:
   requests:
-    memory: "128Mi"
+    memory: "512Mi"
     cpu: "100m"
   limits:
-    memory: "256Mi"
+    memory: "1Gi" # 서버 구동시 632020K 의 이상의 메모리를 요구함.
     cpu: "250m"
