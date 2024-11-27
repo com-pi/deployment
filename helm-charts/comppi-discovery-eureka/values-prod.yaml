@@ -1,0 +1,22 @@
+namespace: comppi-dev
+releaseName: discovery-eureka-prod
+application: discovery-eureka
+
+env:
+  activeProfile: dev
+  timezone: Asia/Seoul
+
+containers:
+  image:
+    name: utopiandrmer/comppi-discovery-eureka
+    tag: latest
+  replicaCount: 1
+  port: 8761
+
+resources:
+  requests:
+    memory: "128Mi"
+    cpu: "100m"
+  limits:
+    memory: "256Mi"
+    cpu: "250m"
